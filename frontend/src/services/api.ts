@@ -27,6 +27,7 @@ async function fetchAPI<T>(
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       ...options,
       headers,
+      credentials: 'include',
     });
 
     const data = await response.json();

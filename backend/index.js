@@ -23,9 +23,15 @@ import { ApiError } from "./utils/apiError.js";
 const app = express();
 
 // Middlewares
-app.use(cors({ origin: process.env.CORS_ORIGIN || true, credentials: true }));
+app.use(cors({ origin: process.env.CORS_ORIGIN || "http://localhost:5050", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
+
+// TEMP: Request logging for debugging
+app.use((req, _res, next) => {
+	console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+	next();
+});
 
 // Health
 app.get("/health", (_req, res) => res.status(200).send("OK"));
@@ -68,6 +74,10 @@ mongoose
 	.then(() => {
 		app.listen(PORT, () => {
 			console.log(`Server running on port ${PORT}`);
+			console.log("Mounted routes:");
+			console.log("  POST /api/auth/login");
+			console.log("  POST /api/auth/logout");
+			console.log("  GET  /api/auth/validate");
 		});
 	})
 	.catch((err) => {

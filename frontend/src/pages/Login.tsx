@@ -18,9 +18,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Shield, Lock, User, AlertCircle } from "lucide-react";
+import { Lock, User, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import apiClient from "@/utils/apiClient";
+import { AUTH_LOGIN } from "@/utils/constants";
 
 interface LoginProps {
   onLogin: () => void;
@@ -43,13 +45,32 @@ const Login = ({ onLogin }: LoginProps) => {
 
     setIsLoading(true);
 
-    // Mock authentication with delay
-    setTimeout(() => {
-      toast.success("Login successful! Welcome to the system.");
-      onLogin();
-      navigate("/");
+    try {
+      console.log('Attempting login to:', AUTH_LOGIN);
+      console.log('Base URL:', import.meta.env.VITE_API_URL);
+      const response = await apiClient.post(AUTH_LOGIN, {
+        username,
+        password
+      });
+      
+      if (response.data.success && response.data.data) {
+        // Store user data
+        if (response.data.data.user) {
+          localStorage.setItem('user', JSON.stringify(response.data.data.user));
+        }
+        
+        toast.success(response.data.message || "Login successful! Welcome to the system.");
+        onLogin();
+        navigate("/");
+      } else {
+        toast.error(response.data.message || "Login failed");
+      }
+    } catch (error: any) {
+      console.error('Login error:', error);
+      toast.error(error.message || "Login failed. Please try again.");
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
