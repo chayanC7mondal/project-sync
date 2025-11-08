@@ -3,11 +3,11 @@ import { ApiResponse } from "../utils/apiResponse.js";
 import HearingSession from "../models/hearingSessionModel.js";
 import Case from "../models/caseModel.js";
 import Attendance from "../models/attendanceModel.js";
-import { generateHearingQRCode, verifyQRCode } from "../utils/qrCodeUtils.js";
+import { generateHearingQRCode, verifyCode } from "../utils/qrCodeUtils.js";
 import { sendHearingReminder } from "../utils/notificationUtils.js";
 
 /**
- * Create a hearing session with QR code
+ * Create a hearing session with QR code and manual entry code
  * POST /api/hearings
  */
 export const createHearingSession = async (req, res, next) => {
@@ -15,20 +15,19 @@ export const createHearingSession = async (req, res, next) => {
     const { caseId, hearingDate, hearingTime, courtName } = req.body;
 
     if (!caseId || !hearingDate || !hearingTime || !courtName) {
-      return next(new ApiError(400, "caseId, hearingDate, hearingTime, and courtName are required"));
+      return next(
+        new ApiError(
+          400,
+          "caseId, hearingDate, hearingTime, and courtName are required"
+        )
+      );
     }
 
-    // Check if case exists
-    const caseDoc = await Case.findById(caseId)
-      .populate("investigatingOfficer")
-      .populate("witnesses");
-    
-    if (!caseDoc) {
-      return next(new ApiError(404, "Case not found"));
-    }
-
-    // Generate QR code
-    const { qrCode, qrCodeData } = generateHearingQRCode(caseDoc.caseId, hearingDate);
+    // Generate QR code and manual entry code
+    const { qrCode, qrCodeData, manualCode } = generateHearingQRCode(
+      caseId,
+      hearingDate
+    );
 
     // Create hearing session
     const hearingSession = await HearingSession.create({
@@ -37,8 +36,9 @@ export const createHearingSession = async (req, res, next) => {
       hearingTime,
       qrCode,
       qrCodeData,
+      manualCode,
       courtName,
-      createdBy: req.userId
+      createdBy: req.userId,
     });
 
     // Create attendance records for officer and witnesses
@@ -55,7 +55,7 @@ export const createHearingSession = async (req, res, next) => {
         hearingDate: new Date(hearingDate),
         hearingTime,
         courtName,
-        status: "not-marked"
+        status: "not-marked",
       });
     }
 
@@ -71,7 +71,7 @@ export const createHearingSession = async (req, res, next) => {
           hearingDate: new Date(hearingDate),
           hearingTime,
           courtName,
-          status: "not-marked"
+          status: "not-marked",
         });
       }
     }
@@ -80,7 +80,12 @@ export const createHearingSession = async (req, res, next) => {
       await Attendance.insertMany(attendanceRecords);
     }
 
-    return res.status(201).json(new ApiResponse(201, hearingSession));
+    return res.status(201).json(
+      new ApiResponse(201, hearingSession, {
+        qrCode,
+        manualCode,
+      })
+    );
   } catch (error) {
     console.error(error);
     next(new ApiError(500, "Failed to create hearing session"));
@@ -140,7 +145,7 @@ export const getUpcomingHearings = async (req, res, next) => {
 
     const hearingSessions = await HearingSession.find({
       hearingDate: { $gte: today },
-      status: { $in: ["scheduled", "ongoing"] }
+      status: { $in: ["scheduled", "ongoing"] },
     })
       .sort({ hearingDate: 1 })
       .populate("caseId")
@@ -162,12 +167,15 @@ export const scanQRCode = async (req, res, next) => {
     const { qrCode, userId, userType } = req.body;
 
     if (!qrCode || !userId || !userType) {
-      return next(new ApiError(400, "qrCode, userId, and userType are required"));
+      return next(
+        new ApiError(400, "qrCode, userId, and userType are required")
+      );
     }
 
     // Find hearing session by QR code
-    const hearingSession = await HearingSession.findOne({ qrCode })
-      .populate("caseId");
+    const hearingSession = await HearingSession.findOne({ qrCode }).populate(
+      "caseId"
+    );
 
     if (!hearingSession) {
       return next(new ApiError(404, "Invalid QR code"));
@@ -180,14 +188,16 @@ export const scanQRCode = async (req, res, next) => {
     today.setHours(0, 0, 0, 0);
 
     if (hearingDate.getTime() !== today.getTime()) {
-      return next(new ApiError(400, "This QR code is not valid for today's hearing"));
+      return next(
+        new ApiError(400, "This QR code is not valid for today's hearing")
+      );
     }
 
     // Find attendance record
     const attendance = await Attendance.findOne({
       hearingSessionId: hearingSession._id,
       userId,
-      userType
+      userType,
     });
 
     if (!attendance) {
@@ -196,10 +206,12 @@ export const scanQRCode = async (req, res, next) => {
 
     // Check if already marked
     if (attendance.status === "present") {
-      return res.status(200).json(new ApiResponse(200, { 
-        message: "Attendance already marked",
-        attendance 
-      }));
+      return res.status(200).json(
+        new ApiResponse(200, {
+          message: "Attendance already marked",
+          attendance,
+        })
+      );
     }
 
     // Mark attendance
@@ -209,10 +221,12 @@ export const scanQRCode = async (req, res, next) => {
     attendance.qrScannedAt = new Date();
     await attendance.save();
 
-    return res.status(200).json(new ApiResponse(200, {
-      message: "Attendance marked successfully",
-      attendance
-    }));
+    return res.status(200).json(
+      new ApiResponse(200, {
+        message: "Attendance marked successfully",
+        attendance,
+      })
+    );
   } catch (error) {
     console.error(error);
     next(new ApiError(500, "Failed to scan QR code"));
@@ -228,14 +242,19 @@ export const markAttendanceManually = async (req, res, next) => {
     const { hearingSessionId, userId, userType, status, remarks } = req.body;
 
     if (!hearingSessionId || !userId || !userType || !status) {
-      return next(new ApiError(400, "hearingSessionId, userId, userType, and status are required"));
+      return next(
+        new ApiError(
+          400,
+          "hearingSessionId, userId, userType, and status are required"
+        )
+      );
     }
 
     // Find attendance record
     const attendance = await Attendance.findOne({
       hearingSessionId,
       userId,
-      userType
+      userType,
     });
 
     if (!attendance) {
@@ -251,13 +270,163 @@ export const markAttendanceManually = async (req, res, next) => {
     }
     await attendance.save();
 
-    return res.status(200).json(new ApiResponse(200, {
-      message: "Attendance marked successfully",
-      attendance
-    }));
+    return res.status(200).json(
+      new ApiResponse(200, {
+        message: "Attendance marked successfully",
+        attendance,
+      })
+    );
   } catch (error) {
     console.error(error);
     next(new ApiError(500, "Failed to mark attendance"));
+  }
+};
+
+/**
+ * Witness self-attendance marking using QR code or manual code
+ * POST /api/hearings/mark-self-attendance
+ */
+export const markSelfAttendance = async (req, res, next) => {
+  try {
+    const {
+      code,
+      manualCode,
+      qrData,
+      caseId,
+      witnessId,
+      witnessName,
+      latitude,
+      longitude,
+      location,
+    } = req.body;
+
+    // Extract location if nested
+    const lat = latitude || (location && location.latitude);
+    const lng = longitude || (location && location.longitude);
+
+    // Determine the actual code to use
+    let actualCode = code || manualCode;
+    let actualCaseId = caseId;
+
+    // If QR data is provided, parse it
+    if (qrData) {
+      try {
+        const parsedQR = JSON.parse(qrData);
+        actualCode = parsedQR.code || parsedQR.manualCode;
+        actualCaseId = parsedQR.caseId;
+      } catch (error) {
+        return next(new ApiError(400, "Invalid QR code data format"));
+      }
+    }
+
+    if (!actualCode || !actualCaseId) {
+      return next(new ApiError(400, "Code and caseId are required"));
+    }
+
+    if (!witnessId || !witnessName) {
+      return next(new ApiError(400, "Witness ID and name are required"));
+    }
+
+    // Find the hearing session by QR code or manual code
+    let hearingSession;
+
+    // Check if it's a QR code or manual code
+    if (actualCode.startsWith("HS-")) {
+      // It's a QR code
+      hearingSession = await HearingSession.findOne({
+        qrCode: actualCode,
+      }).populate("caseId");
+    } else {
+      // It's a manual code - find by manual code
+      hearingSession = await HearingSession.findOne({
+        manualCode: actualCode,
+      }).populate("caseId");
+    }
+
+    if (!hearingSession) {
+      return next(
+        new ApiError(404, "Invalid code or hearing session not found")
+      );
+    }
+
+    // Verify the case matches
+    if (hearingSession.caseId.caseId !== actualCaseId) {
+      return next(new ApiError(400, "Code does not match the specified case"));
+    }
+
+    // Check if hearing is today or ongoing
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const hearingDate = new Date(hearingSession.hearingDate);
+    if (hearingDate < today || hearingDate >= tomorrow) {
+      return next(
+        new ApiError(400, "Attendance can only be marked on the hearing date")
+      );
+    }
+
+    // Find or create the witness's attendance record
+    let attendance = await Attendance.findOne({
+      hearingSessionId: hearingSession._id,
+      userId: witnessId,
+      userType: "witness",
+    });
+
+    if (!attendance) {
+      // Create new attendance record for self-marking witness
+      attendance = new Attendance({
+        hearingSessionId: hearingSession._id,
+        caseId: hearingSession.caseId._id,
+        userId: witnessId,
+        userName: witnessName,
+        userType: "witness",
+        status: "pending",
+        notified: false,
+        createdAt: new Date(),
+      });
+    }
+
+    // Check if already marked
+    if (attendance.status === "present") {
+      return next(new ApiError(400, "Attendance already marked as present"));
+    }
+
+    // Mark attendance as present
+    attendance.status = "present";
+    attendance.arrivalTime = new Date();
+    attendance.markedViaQR = actualCode.startsWith("HS-");
+    attendance.qrScannedAt = new Date();
+    attendance.latitude = lat;
+    attendance.longitude = lng;
+    attendance.markedBy = witnessId;
+    attendance.remarks = actualCode.startsWith("HS-")
+      ? "Self-marked via QR Code"
+      : "Self-marked via Manual Code";
+
+    await attendance.save();
+
+    // Populate the response
+    await attendance.populate("hearingSessionId");
+    await attendance.populate("caseId");
+
+    return res.status(200).json(
+      new ApiResponse(200, {
+        message: "Attendance marked successfully",
+        attendance,
+        hearingSession: {
+          id: hearingSession._id,
+          caseNumber: hearingSession.caseId.caseId,
+          hearingDate: hearingSession.hearingDate,
+          hearingTime: hearingSession.hearingTime,
+          courtName: hearingSession.courtName,
+        },
+      })
+    );
+  } catch (error) {
+    console.error(error);
+    next(new ApiError(500, "Failed to mark self-attendance"));
   }
 };
 
@@ -306,9 +475,11 @@ export const sendReminders = async (req, res, next) => {
     hearingSession.reminderSent = true;
     await hearingSession.save();
 
-    return res.status(200).json(new ApiResponse(200, { 
-      message: "Reminders sent successfully" 
-    }));
+    return res.status(200).json(
+      new ApiResponse(200, {
+        message: "Reminders sent successfully",
+      })
+    );
   } catch (error) {
     console.error(error);
     next(new ApiError(500, "Failed to send reminders"));
