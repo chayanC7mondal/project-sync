@@ -91,7 +91,10 @@ const AuthenticatedApp = () => {
               <Route path="/liaison/absences" element={<AbsenceManagement />} />
               <Route path="/liaison/generate-qr" element={<GenerateQRCode />} />
               <Route path="/notifications" element={<Notifications />} />
-              <Route path="/notification-center" element={<NotificationCenter />} />
+              <Route
+                path="/notification-center"
+                element={<NotificationCenter />}
+              />
               <Route path="/settings" element={<Settings />} />
             </>
           )}
@@ -102,7 +105,10 @@ const AuthenticatedApp = () => {
               <Route path="/" element={<AdminDashboard />} />
               <Route path="/cases" element={<CaseManagement />} />
               <Route path="/notifications" element={<Notifications />} />
-              <Route path="/notification-center" element={<NotificationCenter />} />
+              <Route
+                path="/notification-center"
+                element={<NotificationCenter />}
+              />
               <Route path="/reports" element={<Reports />} />
               <Route path="/admin/reports" element={<AdminReports />} />
               <Route path="/settings" element={<Settings />} />
@@ -117,7 +123,10 @@ const AuthenticatedApp = () => {
               <Route path="/attendance" element={<WitnessAttendance />} />
               <Route path="/attendance/verify" element={<VerifyAttendance />} />
               <Route path="/notifications" element={<WitnessNotifications />} />
-              <Route path="/notification-center" element={<NotificationCenter />} />
+              <Route
+                path="/notification-center"
+                element={<NotificationCenter />}
+              />
               <Route path="/settings" element={<Settings />} />
             </>
           )}
@@ -131,7 +140,10 @@ const AuthenticatedApp = () => {
               <Route path="/hearings" element={<IOHearings />} />
               <Route path="/attendance/verify" element={<VerifyAttendance />} />
               <Route path="/notifications" element={<IONotifications />} />
-              <Route path="/notification-center" element={<NotificationCenter />} />
+              <Route
+                path="/notification-center"
+                element={<NotificationCenter />}
+              />
               <Route path="/settings" element={<Settings />} />
             </>
           )}
