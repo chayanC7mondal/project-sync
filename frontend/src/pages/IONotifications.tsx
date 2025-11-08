@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import apiClient from "@/utils/apiClient";
+import { NOTIFICATIONS_LIST } from "@/utils/constants";
+import { toast } from "sonner";
 import {
   Table,
   TableBody,
@@ -49,6 +52,7 @@ const IONotifications = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
   const [priorityFilter, setPriorityFilter] = useState("all");
+  const [loading, setLoading] = useState(false);
 
   // Dummy notifications for IO
   const [notifications, setNotifications] = useState<Notification[]>([
@@ -197,6 +201,38 @@ const IONotifications = () => {
       action_required: false,
     },
   ]);
+
+  // Fetch notifications from API
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
+  const fetchNotifications = async () => {
+    try {
+      setLoading(true);
+      const response = await apiClient.get(NOTIFICATIONS_LIST);
+      if (response.data.success && response.data.data) {
+        const allNotifications = response.data.data;
+        setNotifications(allNotifications.map((n: any, idx: number) => ({
+          id: n._id || `N${String(idx + 1).padStart(3, '0')}`,
+          type: n.relatedEntityType || n.type || "General",
+          title: n.title,
+          message: n.message,
+          case_number: n.relatedEntityId || undefined,
+          date: new Date(n.createdAt).toISOString().split('T')[0],
+          time: new Date(n.createdAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+          priority: n.priority || "Low",
+          read: n.isRead || false,
+          action_required: n.priority === "high" || n.priority === "urgent",
+        })));
+      }
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+      toast.error("Using dummy data - API connection failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getTypeIcon = (type: string) => {
     const icons: Record<string, JSX.Element> = {

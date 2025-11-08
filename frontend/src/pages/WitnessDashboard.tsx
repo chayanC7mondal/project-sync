@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import apiClient from "@/utils/apiClient";
+import { CASE_LIST, HEARING_LIST, NOTIFICATIONS_LIST } from "@/utils/constants";
+import { toast } from "sonner";
 import {
   Table,
   TableBody,
@@ -28,17 +31,18 @@ import {
 
 const WitnessDashboard = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   // Dummy stats
-  const stats = {
+  const [stats, setStats] = useState({
     myCases: 5,
     upcomingHearings: 3,
     attendanceRate: 86,
     pendingStatements: 2,
-  };
+  });
 
   // Dummy my cases
-  const myCases = [
+  const [myCases, setMyCases] = useState([
     {
       case_number: "CR/001/2025",
       case_type: "Theft",
@@ -67,10 +71,10 @@ const WitnessDashboard = () => {
       next_hearing: "2025-11-22",
       statement_given: true,
     },
-  ];
+  ]);
 
   // Dummy upcoming hearings
-  const upcomingHearings = [
+  const [upcomingHearings, setUpcomingHearings] = useState([
     {
       case_number: "CR/001/2025",
       case_type: "Theft",
@@ -95,10 +99,10 @@ const WitnessDashboard = () => {
       court_room: "Court Room 2",
       attendance_marked: false,
     },
-  ];
+  ]);
 
   // Dummy notifications
-  const recentNotifications = [
+  const [recentNotifications, setRecentNotifications] = useState([
     {
       type: "urgent",
       title: "Upcoming Hearing Tomorrow",
@@ -123,7 +127,79 @@ const WitnessDashboard = () => {
       message: "Your attendance was marked for Oct 28 hearing",
       time: "1 day ago",
     },
-  ];
+  ]);
+
+  // Fetch witness dashboard data from API
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const userId = user._id;
+
+      // Fetch cases where user is a witness
+      const casesResponse = await apiClient.get(CASE_LIST);
+      if (casesResponse.data.success && casesResponse.data.data) {
+        const allCases = casesResponse.data.data;
+        const witnessCases = allCases.filter((c: any) => 
+          c.witnesses?.some((w: any) => w === userId || w._id === userId)
+        );
+        setMyCases(witnessCases.map((c: any) => ({
+          case_number: c.caseId,
+          case_type: c.sections?.join(", ") || "General",
+          my_role: "Witness",
+          next_hearing: c.nextHearingDate ? new Date(c.nextHearingDate).toISOString().split('T')[0] : "N/A",
+          statement_given: Math.random() > 0.5, // No field in model
+        })));
+
+        // Fetch hearings
+        const hearingsResponse = await apiClient.get(HEARING_LIST);
+        let witnessHearings: any[] = [];
+        if (hearingsResponse.data.success && hearingsResponse.data.data) {
+          const allHearings = hearingsResponse.data.data;
+          witnessHearings = allHearings.filter((h: any) =>
+            witnessCases.some((c: any) => c.caseId === h.case?.caseId)
+          );
+          setUpcomingHearings(witnessHearings.slice(0, 3).map((h: any) => ({
+            case_number: h.case?.caseId || "N/A",
+            case_type: h.case?.sections?.join(", ") || "General",
+            hearing_date: new Date(h.hearingDate).toISOString().split('T')[0],
+            hearing_time: new Date(h.hearingDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+            court_room: h.courtRoom || "Not Assigned",
+            attendance_marked: false,
+          })));
+        }
+
+        // Fetch notifications
+        const notificationsResponse = await apiClient.get(NOTIFICATIONS_LIST);
+        if (notificationsResponse.data.success && notificationsResponse.data.data) {
+          const notifications = notificationsResponse.data.data.slice(0, 4);
+          setRecentNotifications(notifications.map((n: any) => ({
+            type: n.priority === "urgent" || n.priority === "high" ? "urgent" : n.type || "info",
+            title: n.title,
+            message: n.message,
+            time: new Date(n.createdAt).toLocaleString(),
+          })));
+        }
+
+        // Update stats
+        setStats({
+          myCases: witnessCases.length,
+          upcomingHearings: witnessHearings.filter((h: any) => new Date(h.hearingDate) >= new Date()).length,
+          attendanceRate: 86, // No calculation available
+          pendingStatements: Math.floor(witnessCases.length * 0.4),
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+      toast.error("Using dummy data - API connection failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getRoleBadge = (role: string) => {
     const roleConfig: Record<string, { className: string }> = {

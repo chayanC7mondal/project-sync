@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import apiClient from "@/utils/apiClient";
+import { HEARING_LIST } from "@/utils/constants";
+import { toast } from "sonner";
 import {
   Table,
   TableBody,
@@ -38,9 +41,10 @@ const IOHearings = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [loading, setLoading] = useState(false);
 
   // Dummy hearings for cases where IO is investigating
-  const [hearings] = useState<Hearing[]>([
+  const [hearings, setHearings] = useState<Hearing[]>([
     {
       hearing_id: "H001",
       case_number: "CR/001/2025",
@@ -162,6 +166,46 @@ const IOHearings = () => {
       purpose: "Document Verification",
     },
   ]);
+
+  // Fetch hearings from API
+  useEffect(() => {
+    fetchHearings();
+  }, []);
+
+  const fetchHearings = async () => {
+    try {
+      setLoading(true);
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const userId = user._id;
+
+      const response = await apiClient.get(HEARING_LIST);
+      if (response.data.success && response.data.data) {
+        const allHearings = response.data.data;
+        // Filter hearings for IO's cases
+        const ioHearings = allHearings.filter((h: any) => 
+          h.case?.investigatingOfficer === userId || 
+          h.case?.investigatingOfficer?._id === userId
+        );
+        setHearings(ioHearings.map((h: any, idx: number) => ({
+          hearing_id: h.sessionId || `H${String(idx + 1).padStart(3, '0')}`,
+          case_number: h.case?.caseId || "N/A",
+          case_type: h.case?.sections?.join(", ") || "General",
+          hearing_date: new Date(h.hearingDate).toISOString().split('T')[0],
+          hearing_time: new Date(h.hearingDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+          court_room: h.courtRoom || "Not Assigned",
+          judge_name: h.judge || "To Be Assigned",
+          status: h.status || "Scheduled",
+          witnesses_required: h.expectedWitnesses?.length || 0,
+          purpose: h.purpose || "General Hearing",
+        })));
+      }
+    } catch (error) {
+      console.error("Error fetching hearings:", error);
+      toast.error("Using dummy data - API connection failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getStatusBadge = (status: string) => {
     const statusConfig: Record<

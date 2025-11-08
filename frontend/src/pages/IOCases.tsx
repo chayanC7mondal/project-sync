@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -20,6 +20,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FileText, Search, Users, Calendar, Eye, Filter } from "lucide-react";
+import apiClient from "@/utils/apiClient";
+import { CASE_LIST } from "@/utils/constants";
+import { toast } from "sonner";
 
 interface Case {
   case_number: string;
@@ -35,9 +38,10 @@ const IOCases = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [loading, setLoading] = useState(true);
 
-  // Dummy cases where IO is investigating
-  const [cases] = useState<Case[]>([
+  // State with dummy data as default
+  const [cases, setCases] = useState<Case[]>([
     {
       case_number: "CR/001/2025",
       case_type: "Theft",
@@ -111,6 +115,42 @@ const IOCases = () => {
       location: "Court Room 2",
     },
   ]);
+
+  // Fetch cases from API
+  useEffect(() => {
+    fetchCases();
+  }, []);
+
+  const fetchCases = async () => {
+    try {
+      setLoading(true);
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const userId = user._id;
+
+      const response = await apiClient.get(CASE_LIST);
+      if (response.data.success && response.data.data) {
+        const allCases = response.data.data;
+        const ioCases = allCases.filter((c: any) => 
+          c.investigatingOfficer === userId || c.investigatingOfficer?._id === userId
+        );
+
+        setCases(ioCases.map((c: any) => ({
+          case_number: c.caseId || "N/A",
+          case_type: c.sections?.join(", ") || "General",
+          status: c.status || "pending",
+          date_filed: c.firDate || c.createdAt,
+          next_hearing: c.nextHearingDate,
+          witnesses_count: c.witnesses?.length || 0,
+          location: c.courtName || "Court Room 1",
+        })));
+      }
+    } catch (error) {
+      console.error("Error fetching cases:", error);
+      toast.error("Using dummy data - API connection failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getStatusBadge = (status: string) => {
     const statusConfig: Record<

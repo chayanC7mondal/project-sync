@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import apiClient from "@/utils/apiClient";
+import { ATTENDANCE_REPORT } from "@/utils/constants";
+import { toast } from "sonner";
 import {
   Table,
   TableBody,
@@ -50,9 +53,10 @@ const WitnessAttendance = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [showQRScanner, setShowQRScanner] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Dummy attendance records
-  const [attendanceRecords] = useState<AttendanceRecord[]>([
+  const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecord[]>([
     {
       id: "ATT001",
       case_number: "CR/001/2025",
@@ -142,6 +146,41 @@ const WitnessAttendance = () => {
       io_name: "IO Suresh Dash",
     },
   ]);
+
+  // Fetch attendance records from API
+  useEffect(() => {
+    fetchAttendanceRecords();
+  }, []);
+
+  const fetchAttendanceRecords = async () => {
+    try {
+      setLoading(true);
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const userId = user._id;
+
+      const response = await apiClient.get(`${ATTENDANCE_REPORT}?witnessId=${userId}`);
+      if (response.data.success && response.data.data) {
+        const records = response.data.data;
+        setAttendanceRecords(records.map((r: any, idx: number) => ({
+          id: r._id || `ATT${String(idx + 1).padStart(3, '0')}`,
+          case_number: r.case?.caseId || "N/A",
+          case_type: r.case?.sections?.join(", ") || "General",
+          hearing_date: new Date(r.hearingSession?.hearingDate).toISOString().split('T')[0],
+          hearing_time: new Date(r.hearingSession?.hearingDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+          court_room: r.hearingSession?.courtRoom || "Not Assigned",
+          attendance_status: r.status || "Pending",
+          marked_at: r.markedAt ? new Date(r.markedAt).toLocaleString() : undefined,
+          marked_method: r.method || undefined,
+          io_name: r.case?.investigatingOfficer?.name || "Not Assigned",
+        })));
+      }
+    } catch (error) {
+      console.error("Error fetching attendance records:", error);
+      toast.error("Using dummy data - API connection failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getStatusBadge = (status: string) => {
     const statusConfig: Record<

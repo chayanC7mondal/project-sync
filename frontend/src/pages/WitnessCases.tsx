@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import apiClient from "@/utils/apiClient";
+import { CASE_LIST } from "@/utils/constants";
+import { toast } from "sonner";
 import {
   Table,
   TableBody,
@@ -36,9 +39,10 @@ const WitnessCases = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [loading, setLoading] = useState(false);
 
   // Dummy cases where witness is involved
-  const [cases] = useState<Case[]>([
+  const [cases, setCases] = useState<Case[]>([
     {
       case_number: "CR/001/2025",
       case_type: "Theft",
@@ -90,6 +94,42 @@ const WitnessCases = () => {
       statement_given: false,
     },
   ]);
+
+  // Fetch witness cases from API
+  useEffect(() => {
+    fetchCases();
+  }, []);
+
+  const fetchCases = async () => {
+    try {
+      setLoading(true);
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const userId = user._id;
+
+      const response = await apiClient.get(CASE_LIST);
+      if (response.data.success && response.data.data) {
+        const allCases = response.data.data;
+        const witnessCases = allCases.filter((c: any) => 
+          c.witnesses?.some((w: any) => w === userId || w._id === userId)
+        );
+        setCases(witnessCases.map((c: any) => ({
+          case_number: c.caseId,
+          case_type: c.sections?.join(", ") || "General",
+          my_role: "Witness",
+          status: c.status || "Active",
+          next_hearing: c.nextHearingDate ? new Date(c.nextHearingDate).toISOString().split('T')[0] : "N/A",
+          court_room: c.courtName || "Not Assigned",
+          io_name: c.investigatingOfficer?.name || "Not Assigned",
+          statement_given: Math.random() > 0.5,
+        })));
+      }
+    } catch (error) {
+      console.error("Error fetching cases:", error);
+      toast.error("Using dummy data - API connection failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getStatusBadge = (status: string) => {
     const statusConfig: Record<
