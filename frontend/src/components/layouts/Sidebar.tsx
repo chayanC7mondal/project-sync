@@ -33,7 +33,6 @@ const getMenuItemsByRole = (role: string) => {
       return [
         { icon: LayoutDashboard, label: "Dashboard", path: "/", badge: null },
         { icon: FileText, label: "Case Management", path: "/cases", badge: null },
-        { icon: ClipboardCheck, label: "Attendance", path: "/attendance", badge: null },
         { icon: BarChart3, label: "Reports", path: "/reports", badge: null },
         { icon: Bell, label: "Notifications", path: "/notifications", badge: null },
         { icon: Settings, label: "Settings", path: "/settings", badge: null },

@@ -14,9 +14,11 @@ import {
   TrendingUp,
   FileText,
   QrCode,
+  Bot,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
+import Chatbot from "@/components/Chatbot";
 
 interface DashboardStats {
   hearings_today: number;
@@ -37,6 +39,7 @@ const LiaisonDashboard = () => {
     cases_assigned: 28,
   });
   const [loading, setLoading] = useState(false);
+  const [showChatbot, setShowChatbot] = useState(false);
 
   // Fetch liaison dashboard data from API
   useEffect(() => {
@@ -116,6 +119,15 @@ const LiaisonDashboard = () => {
           <Button variant="outline" size="sm">
             <FileText className="h-4 w-4 mr-2" />
             Reports
+          </Button>
+          <Button 
+            variant="default" 
+            size="sm"
+            onClick={() => setShowChatbot(true)}
+            className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90"
+          >
+            <Bot className="h-4 w-4 mr-2" />
+            AI Assistant
           </Button>
         </div>
       </div>
@@ -255,6 +267,15 @@ const LiaisonDashboard = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Chatbot Modal */}
+      {showChatbot && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="w-full max-w-2xl">
+            <Chatbot onClose={() => setShowChatbot(false)} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

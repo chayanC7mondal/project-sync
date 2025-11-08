@@ -23,12 +23,10 @@ import { User, Lock, Mail, Phone, Badge as BadgeIcon, Building, MapPin, ArrowLef
 import { toast } from "sonner";
 import apiClient from "@/utils/apiClient";
 import { AUTH_SIGNUP } from "@/utils/constants";
+import { useAuth } from "@/contexts/AuthContext";
 
-interface SignupProps {
-  onSignup: (role: string) => void;
-}
-
-const Signup = ({ onSignup }: SignupProps) => {
+const Signup = () => {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     employeeId: "",
@@ -102,18 +100,16 @@ const Signup = ({ onSignup }: SignupProps) => {
       });
 
       if (response.data.success && response.data.data) {
-        // Store user data from backend response
-        const userData = {
-          ...response.data.data.user,
-        };
-        localStorage.setItem("user", JSON.stringify(userData));
+        // Store token
+        if (response.data.data.token) {
+          localStorage.setItem('token', response.data.data.token);
+        }
 
-        // Use the role from the backend response
-        const userRole = response.data.data.user.role || formData.role;
-        console.log('User role after signup:', userRole);
+        // Use AuthContext login
+        const userData = response.data.data.user;
+        login(userData);
 
         toast.success(response.data.message || "Registration successful! Welcome to the system.");
-        onSignup(userRole);
         navigate("/");
       } else {
         toast.error(response.data.message || "Registration failed");

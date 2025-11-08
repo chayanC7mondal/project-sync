@@ -11,7 +11,7 @@ const apiClient = axios.create({
 // Add request interceptor to include auth token
 apiClient.interceptors.request.use(
   (config) => {
-    // Get token from localStorage or wherever it's stored
+    // Get token from localStorage
     const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -23,13 +23,16 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Add response interceptor for better error handling
+// Add response interceptor to handle auth errors
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Redirect to login or handle auth error
+      // Token expired or invalid - redirect to login
       console.error("Authentication error:", error.response.data);
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }
