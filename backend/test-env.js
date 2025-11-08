@@ -1,7 +1,7 @@
 // Test with the new .env file
 import dotenv from "dotenv";
 
-dotenv.config({ path: '.env.test' });
+dotenv.config({ path: ".env.test" });
 
 console.log("Testing with .env.test:");
 console.log("PORT:", process.env.PORT);

@@ -61,8 +61,8 @@ const App = () => {
     if (user) {
       try {
         const userData = JSON.parse(user);
-        console.log('App.tsx - User data from localStorage:', userData);
-        console.log('App.tsx - User role:', userData.role);
+        console.log("App.tsx - User data from localStorage:", userData);
+        console.log("App.tsx - User role:", userData.role);
         setIsAuthenticated(true);
         setUserRole(userData.role);
       } catch (error) {
@@ -76,13 +76,13 @@ const App = () => {
   };
 
   const handleLogin = (role: string) => {
-    console.log('App.tsx - handleLogin called with role:', role);
+    console.log("App.tsx - handleLogin called with role:", role);
     setIsAuthenticated(true);
     setUserRole(role);
   };
 
   const handleSignup = (role: string) => {
-    console.log('App.tsx - handleSignup called with role:', role);
+    console.log("App.tsx - handleSignup called with role:", role);
     setIsAuthenticated(true);
     setUserRole(role);
   };
@@ -113,14 +113,38 @@ const App = () => {
                     {userRole === "liaison" && (
                       <>
                         <Route path="/" element={<LiaisonDashboard />} />
-                        <Route path="/liaison/dashboard" element={<LiaisonDashboard />} />
-                        <Route path="/liaison/hearings/today" element={<TodayHearings />} />
-                        <Route path="/liaison/hearings/upcoming" element={<UpcomingHearings />} />
-                        <Route path="/liaison/attendance/:hearingId" element={<AttendanceMarking />} />
-                        <Route path="/liaison/absences" element={<AbsenceManagement />} />
-                        <Route path="/liaison/generate-qr" element={<GenerateQRCode />} />
-                        <Route path="/notifications" element={<Notifications />} />
-                        <Route path="/notification-center" element={<NotificationCenter />} />
+                        <Route
+                          path="/liaison/dashboard"
+                          element={<LiaisonDashboard />}
+                        />
+                        <Route
+                          path="/liaison/hearings/today"
+                          element={<TodayHearings />}
+                        />
+                        <Route
+                          path="/liaison/hearings/upcoming"
+                          element={<UpcomingHearings />}
+                        />
+                        <Route
+                          path="/liaison/attendance/:hearingId"
+                          element={<AttendanceMarking />}
+                        />
+                        <Route
+                          path="/liaison/absences"
+                          element={<AbsenceManagement />}
+                        />
+                        <Route
+                          path="/liaison/generate-qr"
+                          element={<GenerateQRCode />}
+                        />
+                        <Route
+                          path="/notifications"
+                          element={<Notifications />}
+                        />
+                        <Route
+                          path="/notification-center"
+                          element={<NotificationCenter />}
+                        />
                         <Route path="/settings" element={<Settings />} />
                       </>
                     )}
@@ -131,8 +155,14 @@ const App = () => {
                         <Route path="/" element={<AdminDashboard />} />
                         <Route path="/cases" element={<CaseManagement />} />
                         <Route path="/attendance" element={<Attendance />} />
-                        <Route path="/notifications" element={<Notifications />} />
-                        <Route path="/notification-center" element={<NotificationCenter />} />
+                        <Route
+                          path="/notifications"
+                          element={<Notifications />}
+                        />
+                        <Route
+                          path="/notification-center"
+                          element={<NotificationCenter />}
+                        />
                         <Route path="/reports" element={<Reports />} />
                         <Route path="/settings" element={<Settings />} />
                       </>
@@ -143,10 +173,22 @@ const App = () => {
                       <>
                         <Route path="/" element={<WitnessDashboard />} />
                         <Route path="/cases" element={<WitnessCases />} />
-                        <Route path="/attendance" element={<WitnessAttendance />} />
-                        <Route path="/attendance/verify" element={<VerifyAttendance />} />
-                        <Route path="/notifications" element={<WitnessNotifications />} />
-                        <Route path="/notification-center" element={<NotificationCenter />} />
+                        <Route
+                          path="/attendance"
+                          element={<WitnessAttendance />}
+                        />
+                        <Route
+                          path="/attendance/verify"
+                          element={<VerifyAttendance />}
+                        />
+                        <Route
+                          path="/notifications"
+                          element={<WitnessNotifications />}
+                        />
+                        <Route
+                          path="/notification-center"
+                          element={<NotificationCenter />}
+                        />
                         <Route path="/settings" element={<Settings />} />
                       </>
                     )}
@@ -158,17 +200,26 @@ const App = () => {
                         <Route path="/cases" element={<IOCases />} />
                         <Route path="/witnesses" element={<IOWitnesses />} />
                         <Route path="/hearings" element={<IOHearings />} />
-                        <Route path="/attendance/verify" element={<VerifyAttendance />} />
-                        <Route path="/notifications" element={<IONotifications />} />
-                        <Route path="/notification-center" element={<NotificationCenter />} />
+                        <Route
+                          path="/attendance/verify"
+                          element={<VerifyAttendance />}
+                        />
+                        <Route
+                          path="/notifications"
+                          element={<IONotifications />}
+                        />
+                        <Route
+                          path="/notification-center"
+                          element={<NotificationCenter />}
+                        />
                         <Route path="/settings" element={<Settings />} />
                       </>
                     )}
 
                     {/* Default fallback */}
-                    {!["liaison", "admin", "witness", "io"].includes(userRole || "") && (
-                      <Route path="/" element={<Dashboard />} />
-                    )}
+                    {!["liaison", "admin", "witness", "io"].includes(
+                      userRole || ""
+                    ) && <Route path="/" element={<Dashboard />} />}
                   </Route>
                 ) : (
                   <Route path="*" element={<Navigate to="/login" replace />} />
