@@ -1,0 +1,30 @@
+import mongoose from "mongoose";
+
+const settingsSchema = new mongoose.Schema({
+  key: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  value: {
+    type: mongoose.Schema.Types.Mixed,
+    required: true
+  },
+  category: {
+    type: String,
+    enum: ["general", "notification", "theme", "security", "attendance"],
+    required: true
+  },
+  description: {
+    type: String
+  },
+  updatedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Auth"
+  }
+}, { 
+  timestamps: true 
+});
+
+const Settings = mongoose.model("Settings", settingsSchema);
+export default Settings;
