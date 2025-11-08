@@ -17,3 +17,23 @@ export const verifyToken = (req, res, next) => {
     next();
   });
 };
+
+export const checkRole = (allowedRoles) => {
+  return (req, res, next) => {
+    if (!req.userRole) {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied. No role found.",
+      });
+    }
+
+    if (!allowedRoles.includes(req.userRole)) {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied. Insufficient permissions.",
+      });
+    }
+
+    next();
+  };
+};
