@@ -23,11 +23,15 @@ const menuItems = [
 
 const Sidebar = () => {
   return (
-    <aside className="w-72 bg-gradient-to-b from-primary via-primary/95 to-primary/90 text-sidebar-foreground flex flex-col shadow-xl border-r border-primary/20">
+    <aside className="w-72 h-screen bg-gradient-to-b from-primary via-primary/95 to-primary/90 text-sidebar-foreground flex flex-col shadow-xl border-r border-primary/20 fixed left-0 top-0 z-40 no-scrollbar">
       {/* Header */}
-      <div className="p-6 flex items-center gap-4 border-b border-white/10">
-        <div className="w-12 h-12 bg-white/90 backdrop-blur rounded-xl flex items-center justify-center shadow-lg">
-          <Shield className="w-7 h-7 text-primary" />
+      <div className="p-6 flex items-center gap-4 border-b border-white/10 flex-shrink-0">
+        <div className="w-12 h-12 bg-white/90 backdrop-blur rounded-xl flex items-center justify-center shadow-lg p-1">
+          <img 
+            src="/op.png" 
+            alt="Odisha Police Logo" 
+            className="w-full h-full object-contain"
+          />
         </div>
         <div className="flex-1">
           <h1 className="font-bold text-base text-white">Odisha Police</h1>
@@ -36,7 +40,7 @@ const Sidebar = () => {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-2 overflow-y-auto custom-scrollbar">
+      <nav className="flex-1 p-4 space-y-2 overflow-hidden min-h-0 no-scrollbar">
         {menuItems.map((item, index) => (
           <NavLink
             key={item.path}
@@ -91,7 +95,7 @@ const Sidebar = () => {
       </nav>
 
       {/* Footer */}
-      <div className="p-6 border-t border-white/10 space-y-3">
+      <div className="p-6 border-t border-white/10 space-y-3 flex-shrink-0">
         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
           <p className="text-xs text-white/90 font-medium mb-1">Quick Help</p>
           <p className="text-xs text-white/70">

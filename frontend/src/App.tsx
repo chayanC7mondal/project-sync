@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import SplashScreen from "./components/SplashScreen";
 import Login from "./pages/Login";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
@@ -19,6 +20,11 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -26,7 +32,10 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter>
+          {showSplash ? (
+            <SplashScreen onComplete={handleSplashComplete} />
+          ) : (
+            <BrowserRouter>
             <Routes>
               <Route path="/login" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
             
@@ -46,6 +55,7 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
+          )}
       </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

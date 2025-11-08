@@ -277,4 +277,34 @@
   .card-shine:hover::before {
     left: 100%;
   }
+
+  /* Hide scrollbars completely */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbars in sidebar specifically */
+  aside {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  aside::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Global scrollbar hiding for webkit browsers */
+  *::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
 }
