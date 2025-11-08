@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,397 +19,386 @@ import {
   MapPin,
   FileText,
   QrCode,
+  Eye,
+  ArrowRight,
+  Bell,
+  TrendingUp,
+  XCircle,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { Skeleton } from "@/components/ui/skeleton";
-import apiClient from "@/utils/apiClient";
-import { CASE_LIST } from "@/utils/constants";
-import { toast } from "sonner";
-
-interface WitnessStats {
-  myCases: number;
-  upcomingHearings: number;
-  myAttendance: number;
-  pendingActions: number;
-}
-
-interface Hearing {
-  _id: string;
-  caseNumber: string;
-  caseTitle: string;
-  hearingDate: string;
-  hearingTime: string;
-  location: string;
-  status: string;
-}
 
 const WitnessDashboard = () => {
   const navigate = useNavigate();
-  const [stats, setStats] = useState<WitnessStats>({
-    myCases: 0,
-    upcomingHearings: 0,
-    myAttendance: 0,
-    pendingActions: 0,
-  });
-  const [upcomingHearings, setUpcomingHearings] = useState<Hearing[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchDashboardData();
-  }, []);
-
-  const fetchDashboardData = async () => {
-    try {
-      setLoading(true);
-      
-      // Fetch witness cases
-      const casesRes = await apiClient.get(CASE_LIST);
-      
-      if (casesRes.data.success) {
-        const cases = casesRes.data.data || [];
-        
-        // Generate dummy upcoming hearings from cases
-        const hearings: Hearing[] = cases.slice(0, 5).map((c: any, index: number) => ({
-          _id: c._id,
-          caseNumber: c.caseNumber,
-          caseTitle: c.title,
-          hearingDate: c.nextHearingDate || new Date(Date.now() + (index + 1) * 86400000).toISOString(),
-          hearingTime: "10:00 AM",
-          location: c.location || "Court Room 1",
-          status: "scheduled",
-        }));
-        
-        setUpcomingHearings(hearings);
-        
-        setStats({
-          myCases: cases.length,
-          upcomingHearings: hearings.length,
-          myAttendance: Math.floor(cases.length * 0.9), // Dummy attendance
-          pendingActions: 0,
-        });
-      }
-    } catch (error) {
-      console.error("Dashboard error:", error);
-      toast.error("Error loading dashboard");
-    } finally {
-      setLoading(false);
-    }
+  // Dummy stats
+  const stats = {
+    myCases: 5,
+    upcomingHearings: 3,
+    attendanceRate: 86,
+    pendingStatements: 2,
   };
 
-  const statCards = [
+  // Dummy my cases
+  const myCases = [
     {
-      title: "My Cases",
-      value: stats.myCases,
-      icon: FileText,
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
-      description: "Cases I'm involved in",
+      case_number: "CR/001/2025",
+      case_type: "Theft",
+      my_role: "Eye Witness",
+      next_hearing: "2025-11-12",
+      statement_given: true,
     },
     {
-      title: "Upcoming Hearings",
-      value: stats.upcomingHearings,
-      icon: Calendar,
-      color: "text-amber-600",
-      bgColor: "bg-amber-50",
-      description: "Scheduled hearings",
+      case_number: "CR/005/2025",
+      case_type: "Accident",
+      my_role: "Eye Witness",
+      next_hearing: "2025-11-14",
+      statement_given: true,
     },
     {
-      title: "My Attendance",
-      value: stats.myAttendance,
-      icon: CheckCircle2,
-      color: "text-green-600",
-      bgColor: "bg-green-50",
-      description: "Times marked present",
+      case_number: "CR/009/2025",
+      case_type: "Property Dispute",
+      my_role: "Character Witness",
+      next_hearing: "2025-11-16",
+      statement_given: false,
     },
     {
-      title: "Pending Actions",
-      value: stats.pendingActions,
-      icon: AlertCircle,
-      color: "text-red-600",
-      bgColor: "bg-red-50",
-      description: "Requires attention",
+      case_number: "CR/014/2025",
+      case_type: "Fraud",
+      my_role: "Material Witness",
+      next_hearing: "2025-11-22",
+      statement_given: true,
     },
   ];
 
-  const getStatusBadge = (status: string) => {
-    const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
-      scheduled: "default",
-      in_progress: "secondary",
-      completed: "outline",
-      cancelled: "destructive",
+  // Dummy upcoming hearings
+  const upcomingHearings = [
+    {
+      case_number: "CR/001/2025",
+      case_type: "Theft",
+      hearing_date: "2025-11-12",
+      hearing_time: "10:00 AM",
+      court_room: "Court Room 1",
+      attendance_marked: false,
+    },
+    {
+      case_number: "CR/005/2025",
+      case_type: "Accident",
+      hearing_date: "2025-11-14",
+      hearing_time: "02:00 PM",
+      court_room: "Court Room 3",
+      attendance_marked: false,
+    },
+    {
+      case_number: "CR/009/2025",
+      case_type: "Property Dispute",
+      hearing_date: "2025-11-16",
+      hearing_time: "11:00 AM",
+      court_room: "Court Room 2",
+      attendance_marked: false,
+    },
+  ];
+
+  // Dummy notifications
+  const recentNotifications = [
+    {
+      type: "urgent",
+      title: "Upcoming Hearing Tomorrow",
+      message: "Hearing for case CR/001/2025 at 10:00 AM. Mark attendance.",
+      time: "2 hours ago",
+    },
+    {
+      type: "warning",
+      title: "Statement Pending",
+      message: "Your statement is pending for case CR/009/2025",
+      time: "5 hours ago",
+    },
+    {
+      type: "info",
+      title: "Hearing Reminder",
+      message: "You have a hearing on Nov 14, 2025 at 02:00 PM",
+      time: "1 day ago",
+    },
+    {
+      type: "info",
+      title: "Attendance Marked",
+      message: "Your attendance was marked for Oct 28 hearing",
+      time: "1 day ago",
+    },
+  ];
+
+  const getRoleBadge = (role: string) => {
+    const roleConfig: Record<string, { className: string }> = {
+      "Eye Witness": { className: "bg-blue-100 text-blue-800" },
+      "Character Witness": { className: "bg-purple-100 text-purple-800" },
+      "Material Witness": { className: "bg-green-100 text-green-800" },
+      "Expert Witness": { className: "bg-orange-100 text-orange-800" },
     };
+
+    const config = roleConfig[role] || { className: "bg-gray-100 text-gray-800" };
     return (
-      <Badge variant={variants[status] || "default"}>
-        {status.replace("_", " ").toUpperCase()}
+      <Badge variant="outline" className={config.className}>
+        {role}
       </Badge>
     );
   };
 
   return (
-    <div className="space-y-6">
+    <div className="p-8 space-y-6 bg-gradient-to-br from-slate-50 to-green-50 min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">
-            Witness Dashboard
-          </h1>
-          <p className="text-muted-foreground mt-1">
-            View your hearings and manage attendance
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900">Witness Dashboard</h1>
+          <p className="text-gray-600 mt-2">Welcome back! Here's your hearing overview</p>
         </div>
-        <Button size="sm" onClick={fetchDashboardData}>
-          Refresh
+        <Button onClick={() => navigate("/cases")}>
+          <FileText className="w-4 h-4 mr-2" />
+          View All Cases
         </Button>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {loading
-          ? Array.from({ length: 4 }).map((_, i) => (
-              <Card key={i}>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <Skeleton className="h-4 w-24" />
-                  <Skeleton className="h-8 w-8 rounded-md" />
-                </CardHeader>
-                <CardContent>
-                  <Skeleton className="h-8 w-16 mb-2" />
-                  <Skeleton className="h-3 w-32" />
-                </CardContent>
-              </Card>
-            ))
-          : statCards.map((stat, index) => (
-              <Card key={index} className="hover:shadow-md transition-shadow">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    {stat.title}
-                  </CardTitle>
-                  <div className={`${stat.bgColor} p-2 rounded-md`}>
-                    <stat.icon className={`h-4 w-4 ${stat.color}`} />
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{stat.value}</div>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {stat.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600">My Cases</p>
+                <p className="text-2xl font-bold text-gray-900">{stats.myCases}</p>
+              </div>
+              <FileText className="w-8 h-8 text-blue-500" />
+            </div>
+            <div className="mt-4 flex items-center text-sm text-blue-600">
+              <TrendingUp className="w-4 h-4 mr-1" />
+              <span>Active</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600">Upcoming Hearings</p>
+                <p className="text-2xl font-bold text-gray-900">{stats.upcomingHearings}</p>
+              </div>
+              <Calendar className="w-8 h-8 text-orange-500" />
+            </div>
+            <div className="mt-4 flex items-center text-sm text-orange-600">
+              <Clock className="w-4 h-4 mr-1" />
+              <span>Scheduled</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600">Attendance Rate</p>
+                <p className="text-2xl font-bold text-gray-900">{stats.attendanceRate}%</p>
+              </div>
+              <CheckCircle2 className="w-8 h-8 text-green-500" />
+            </div>
+            <div className="mt-4 flex items-center text-sm text-green-600">
+              <CheckCircle2 className="w-4 h-4 mr-1" />
+              <span>Excellent</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600">Pending Statements</p>
+                <p className="text-2xl font-bold text-gray-900">{stats.pendingStatements}</p>
+              </div>
+              <AlertCircle className="w-8 h-8 text-red-500" />
+            </div>
+            <div className="mt-4 flex items-center text-sm text-red-600">
+              <AlertCircle className="w-4 h-4 mr-1" />
+              <span>Action Needed</span>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* Important Notice */}
-      <Card className="bg-blue-50 border-blue-200">
-        <CardContent className="pt-6">
+      {/* QR Code Attendance Notice */}
+      <Card className="border-2 border-blue-500 bg-blue-50">
+        <CardContent className="p-6">
           <div className="flex items-start gap-4">
-            <div className="bg-blue-500 p-2 rounded-lg">
-              <AlertCircle className="h-6 w-6 text-white" />
+            <div className="p-3 bg-blue-500 rounded-lg">
+              <QrCode className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-blue-900 mb-1">
-                Attendance Instructions
-              </h3>
-              <p className="text-sm text-blue-800 mb-3">
-                Scan the QR code provided by the liaison officer to mark your attendance.
-                If unable to attend, submit absence reason at least 24 hours before hearing.
+              <h3 className="font-semibold text-blue-900 mb-2">Mark Your Attendance</h3>
+              <p className="text-sm text-blue-800 mb-4">
+                You have {upcomingHearings.length} upcoming hearing(s). Scan the QR code at the court to mark your attendance. If unable to attend, submit absence reason at least 24 hours before the hearing.
               </p>
-              <Button size="sm" variant="default">
-                <QrCode className="h-4 w-4 mr-2" />
-                Scan QR Code
-              </Button>
+              <div className="flex gap-3">
+                <Button onClick={() => navigate("/attendance")}>
+                  <QrCode className="w-4 h-4 mr-2" />
+                  Scan QR Code
+                </Button>
+                <Button variant="outline">
+                  <XCircle className="w-4 h-4 mr-2" />
+                  Report Absence
+                </Button>
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Quick Actions */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Quick Actions</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <Button
-              className="h-auto py-4 flex-col gap-2"
-              variant="outline"
-              onClick={() => navigate("/attendance")}
-            >
-              <QrCode className="h-5 w-5" />
-              <span className="text-sm">Mark Attendance</span>
-            </Button>
-            <Button
-              className="h-auto py-4 flex-col gap-2"
-              variant="outline"
-              onClick={() => navigate("/cases")}
-            >
-              <FileText className="h-5 w-5" />
-              <span className="text-sm">My Cases</span>
-            </Button>
-            <Button
-              className="h-auto py-4 flex-col gap-2"
-              variant="outline"
-              onClick={() => toast.info("Absence form feature coming soon")}
-            >
-              <AlertCircle className="h-5 w-5" />
-              <span className="text-sm">Submit Absence</span>
-            </Button>
-            <Button
-              className="h-auto py-4 flex-col gap-2"
-              variant="outline"
-              onClick={() => navigate("/notifications")}
-            >
-              <AlertCircle className="h-5 w-5" />
-              <span className="text-sm">Notifications</span>
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Upcoming Hearings */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle>Upcoming Hearings</CardTitle>
-            <Button variant="outline" size="sm" onClick={() => navigate("/cases")}>
-              View All
-            </Button>
-          </div>
-        </CardHeader>
-        <CardContent>
-          {loading ? (
-            <div className="space-y-3">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Skeleton key={i} className="h-16 w-full" />
-              ))}
-            </div>
-          ) : upcomingHearings.length === 0 ? (
-            <div className="text-center py-12">
-              <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground">No upcoming hearings</p>
-            </div>
-          ) : (
-            <div className="rounded-md border">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Case Number</TableHead>
-                    <TableHead>Case Title</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Time</TableHead>
-                    <TableHead>Location</TableHead>
-                    <TableHead>Status</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {upcomingHearings.map((hearing) => (
-                    <TableRow key={hearing._id}>
-                      <TableCell className="font-medium">
-                        {hearing.caseNumber}
-                      </TableCell>
-                      <TableCell className="max-w-xs truncate">
-                        {hearing.caseTitle}
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <Calendar className="h-4 w-4 text-muted-foreground" />
-                          {new Date(hearing.hearingDate).toLocaleDateString()}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <Clock className="h-4 w-4 text-muted-foreground" />
-                          {hearing.hearingTime}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <MapPin className="h-4 w-4 text-muted-foreground" />
-                          {hearing.location}
-                        </div>
-                      </TableCell>
-                      <TableCell>{getStatusBadge(hearing.status)}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Additional Info */}
-      <div className="grid gap-4 md:grid-cols-2">
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* My Cases */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <CheckCircle2 className="h-5 w-5 text-primary" />
-              My Attendance Record
-            </CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle>My Cases</CardTitle>
+            <Button variant="ghost" size="sm" onClick={() => navigate("/cases")}>
+              View All <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">
-                  Total Hearings
-                </span>
-                <span className="font-semibold">{stats.myCases}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">
-                  Times Present
-                </span>
-                <span className="font-semibold">{stats.myAttendance}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">
-                  Attendance Rate
-                </span>
-                <Badge variant="default">
-                  {stats.myCases > 0 
-                    ? Math.round((stats.myAttendance / stats.myCases) * 100) 
-                    : 0}%
-                </Badge>
-              </div>
-              <Button variant="outline" size="sm" className="w-full" onClick={() => navigate("/attendance")}>
-                View Full Record
-              </Button>
-            </div>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Case Number</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>My Role</TableHead>
+                  <TableHead>Statement</TableHead>
+                  <TableHead>Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {myCases.map((caseItem, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">{caseItem.case_number}</TableCell>
+                    <TableCell>{caseItem.case_type}</TableCell>
+                    <TableCell>{getRoleBadge(caseItem.my_role)}</TableCell>
+                    <TableCell>
+                      {caseItem.statement_given ? (
+                        <Badge variant="outline" className="bg-green-100 text-green-800">
+                          Given
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className="bg-red-100 text-red-800">
+                          Pending
+                        </Badge>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <Button variant="ghost" size="sm">
+                        <Eye className="w-4 h-4" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </CardContent>
         </Card>
 
+        {/* Upcoming Hearings */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <AlertCircle className="h-5 w-5 text-primary" />
-              Important Reminders
-            </CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle>Upcoming Hearings</CardTitle>
+            <Button variant="ghost" size="sm" onClick={() => navigate("/attendance")}>
+              View All <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3 text-sm">
-              <div className="p-3 bg-amber-50 rounded-lg">
-                <p className="font-medium text-amber-900 mb-1">
-                  Upcoming Hearing
-                </p>
-                <p className="text-amber-800">
-                  {upcomingHearings.length > 0 
-                    ? `Next hearing on ${new Date(upcomingHearings[0].hearingDate).toLocaleDateString()}`
-                    : "No upcoming hearings"}
-                </p>
-              </div>
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <p className="font-medium text-blue-900 mb-1">
-                  Mark Attendance
-                </p>
-                <p className="text-blue-800">
-                  Scan QR code or enter code manually
-                </p>
-              </div>
-              <Button variant="outline" size="sm" className="w-full" onClick={() => navigate("/notifications")}>
-                View All Notifications
-              </Button>
+            <div className="space-y-4">
+              {upcomingHearings.map((hearing, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-orange-100 rounded-lg">
+                      <Calendar className="w-5 h-5 text-orange-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900">{hearing.case_number}</p>
+                      <p className="text-sm text-gray-600">{hearing.case_type}</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {new Date(hearing.hearing_date).toLocaleDateString()} at{" "}
+                        {hearing.hearing_time}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <Badge variant="outline" className="mb-2">
+                      <MapPin className="w-3 h-3 mr-1" />
+                      {hearing.court_room}
+                    </Badge>
+                    <div>
+                      {hearing.attendance_marked ? (
+                        <Badge variant="outline" className="bg-green-100 text-green-800">
+                          <CheckCircle2 className="w-3 h-3 mr-1" />
+                          Marked
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className="bg-orange-100 text-orange-800">
+                          <Clock className="w-3 h-3 mr-1" />
+                          Pending
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
       </div>
+
+      {/* Recent Notifications */}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle>Recent Notifications</CardTitle>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/notifications")}>
+            View All <ArrowRight className="w-4 h-4 ml-2" />
+          </Button>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {recentNotifications.map((notification, index) => (
+              <div
+                key={index}
+                className={`flex items-start gap-4 p-4 border rounded-lg hover:bg-gray-50 transition-colors ${
+                  notification.type === "urgent" ? "border-l-4 border-l-red-500" : ""
+                }`}
+              >
+                <div
+                  className={`p-2 rounded-lg ${
+                    notification.type === "urgent"
+                      ? "bg-red-100"
+                      : notification.type === "warning"
+                      ? "bg-orange-100"
+                      : "bg-blue-100"
+                  }`}
+                >
+                  <Bell
+                    className={`w-5 h-5 ${
+                      notification.type === "urgent"
+                        ? "text-red-600"
+                        : notification.type === "warning"
+                        ? "text-orange-600"
+                        : "text-blue-600"
+                    }`}
+                  />
+                </div>
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-900">{notification.title}</p>
+                  <p className="text-sm text-gray-600 mt-1">{notification.message}</p>
+                  <p className="text-xs text-gray-500 mt-2">{notification.time}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

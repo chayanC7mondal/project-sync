@@ -35,6 +35,11 @@ import IOWitnesses from "./pages/IOWitnesses";
 import IOHearings from "./pages/IOHearings";
 import IONotifications from "./pages/IONotifications";
 
+// Witness-specific Pages
+import WitnessCases from "./pages/WitnessCases";
+import WitnessAttendance from "./pages/WitnessAttendance";
+import WitnessNotifications from "./pages/WitnessNotifications";
+
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -127,9 +132,9 @@ const App = () => {
                     {userRole === "witness" && (
                       <>
                         <Route path="/" element={<WitnessDashboard />} />
-                        <Route path="/cases" element={<CaseManagement />} />
-                        <Route path="/attendance" element={<Attendance />} />
-                        <Route path="/notifications" element={<Notifications />} />
+                        <Route path="/cases" element={<WitnessCases />} />
+                        <Route path="/attendance" element={<WitnessAttendance />} />
+                        <Route path="/notifications" element={<WitnessNotifications />} />
                         <Route path="/settings" element={<Settings />} />
                       </>
                     )}
