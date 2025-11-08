@@ -5,30 +5,55 @@ console.log("=========================================");
 
 // Simulate the unique code generation function
 const generateUniqueCode = (caseNumber, hearingId) => {
-  const casePrefix = caseNumber.replace(/[/-]/g, '').substring(0, 5).toUpperCase();
-  const uniqueId = hearingId.toString().padStart(3, '0');
+  const casePrefix = caseNumber
+    .replace(/[/-]/g, "")
+    .substring(0, 5)
+    .toUpperCase();
+  const uniqueId = hearingId.toString().padStart(3, "0");
   const randomHex = Math.random().toString(16).substring(2, 6).toUpperCase();
   return `${casePrefix}-${uniqueId}${randomHex}`;
 };
 
 // Test cases from TodayHearings
 const testHearings = [
-  { id: 1, case_number: "CR/001/2025", case_title: "Theft case - Main Street robbery" },
-  { id: 2, case_number: "CR/002/2025", case_title: "Assault case - Market area incident" },
-  { id: 3, case_number: "CR/003/2025", case_title: "Fraud case - Financial scam investigation" },
-  { id: 4, case_number: "CR/004/2025", case_title: "Burglary case - Residential break-in" },
-  { id: 5, case_number: "CR/005/2025", case_title: "Drug possession case - Highway seizure" }
+  {
+    id: 1,
+    case_number: "CR/001/2025",
+    case_title: "Theft case - Main Street robbery",
+  },
+  {
+    id: 2,
+    case_number: "CR/002/2025",
+    case_title: "Assault case - Market area incident",
+  },
+  {
+    id: 3,
+    case_number: "CR/003/2025",
+    case_title: "Fraud case - Financial scam investigation",
+  },
+  {
+    id: 4,
+    case_number: "CR/004/2025",
+    case_title: "Burglary case - Residential break-in",
+  },
+  {
+    id: 5,
+    case_number: "CR/005/2025",
+    case_title: "Drug possession case - Highway seizure",
+  },
 ];
 
 console.log("\n📋 Generated Manual Codes for Today's Hearings:");
 console.log("=================================================");
 
-testHearings.forEach(hearing => {
+testHearings.forEach((hearing) => {
   const manualCode = generateUniqueCode(hearing.case_number, hearing.id);
   console.log(`\n🏛️  Case: ${hearing.case_number}`);
   console.log(`📝  Title: ${hearing.case_title}`);
   console.log(`🔑  Manual Code: ${manualCode}`);
-  console.log(`📱  QR Data: {"type":"hearing_attendance","caseId":"${hearing.case_number}","manualCode":"${manualCode}"}`);
+  console.log(
+    `📱  QR Data: {"type":"hearing_attendance","caseId":"${hearing.case_number}","manualCode":"${manualCode}"}`
+  );
 });
 
 console.log("\n\n🔄 Witness Attendance Workflow:");
@@ -44,12 +69,18 @@ console.log("\n\n🧪 API Endpoint Test:");
 console.log("======================");
 const testCode = generateUniqueCode("CR/001/2025", 1);
 console.log("POST /api/hearings/mark-self-attendance");
-console.log(JSON.stringify({
-  code: testCode,
-  caseId: "CR/001/2025",
-  latitude: 20.2961,
-  longitude: 85.8245
-}, null, 2));
+console.log(
+  JSON.stringify(
+    {
+      code: testCode,
+      caseId: "CR/001/2025",
+      latitude: 20.2961,
+      longitude: 85.8245,
+    },
+    null,
+    2
+  )
+);
 
 console.log("\n✨ Features Implemented:");
 console.log("========================");

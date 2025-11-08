@@ -19,7 +19,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { QrCode, Users, Clock, MapPin, Search, CheckCircle } from "lucide-react";
+import {
+  QrCode,
+  Users,
+  Clock,
+  MapPin,
+  Search,
+  CheckCircle,
+} from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -112,17 +119,21 @@ const dummyHearings: HearingSession[] = [
 const TodayHearings = () => {
   const navigate = useNavigate();
   const [hearings, setHearings] = useState<HearingSession[]>([]);
-  const [filteredHearings, setFilteredHearings] = useState<HearingSession[]>([]);
+  const [filteredHearings, setFilteredHearings] = useState<HearingSession[]>(
+    []
+  );
   const [loading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedHearing, setSelectedHearing] = useState<HearingSession | null>(null);
+  const [selectedHearing, setSelectedHearing] = useState<HearingSession | null>(
+    null
+  );
   const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
 
   // Initialize hearings with unique manual codes
   useEffect(() => {
-    const hearingsWithCodes = dummyHearings.map(hearing => ({
+    const hearingsWithCodes = dummyHearings.map((hearing) => ({
       ...hearing,
-      manualCode: generateUniqueCode(hearing.case_number, hearing.id)
+      manualCode: generateUniqueCode(hearing.case_number, hearing.id),
     }));
     setHearings(hearingsWithCodes);
     setFilteredHearings(hearingsWithCodes);
@@ -132,7 +143,9 @@ const TodayHearings = () => {
     if (searchTerm) {
       const filtered = hearings.filter(
         (hearing) =>
-          hearing.case_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          hearing.case_number
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
           hearing.case_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           hearing.location.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -144,8 +157,11 @@ const TodayHearings = () => {
 
   const generateUniqueCode = (caseNumber: string, hearingId: number) => {
     // Generate a unique code based on case number and hearing ID
-    const casePrefix = caseNumber.replace(/[/-]/g, '').substring(0, 5).toUpperCase();
-    const uniqueId = hearingId.toString().padStart(3, '0');
+    const casePrefix = caseNumber
+      .replace(/[/-]/g, "")
+      .substring(0, 5)
+      .toUpperCase();
+    const uniqueId = hearingId.toString().padStart(3, "0");
     const randomHex = Math.random().toString(16).substring(2, 6).toUpperCase();
     return `${casePrefix}-${uniqueId}${randomHex}`;
   };
@@ -153,43 +169,45 @@ const TodayHearings = () => {
   const generateQRData = (hearing: HearingSession) => {
     // Generate QR code data that includes all necessary information for attendance
     const qrData = {
-      type: 'hearing_attendance',
+      type: "hearing_attendance",
       hearingId: hearing.id,
       caseId: hearing.case_number,
       hearingDate: hearing.hearing_date,
       hearingTime: hearing.hearing_time,
       location: hearing.location,
       manualCode: hearing.manualCode,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
     return JSON.stringify(qrData);
   };
 
   const handleViewQRCode = (hearing: HearingSession) => {
     setSelectedHearing(hearing);
-    
+
     // Generate unique QR code data for this specific hearing
     const qrData = generateQRData(hearing);
-    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(qrData)}`;
-    
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(
+      qrData
+    )}`;
+
     // Set the QR code URL for display
     setQrCodeUrl(qrUrl);
-    
+
     toast.success(`QR Code generated for ${hearing.case_number}`);
   };
 
   // Function to simulate attendance update from database
   const updateAttendance = (hearingId: number) => {
-    setHearings(prevHearings => 
-      prevHearings.map(hearing => 
-        hearing.id === hearingId 
+    setHearings((prevHearings) =>
+      prevHearings.map((hearing) =>
+        hearing.id === hearingId
           ? { ...hearing, total_present: (hearing.total_present || 0) + 1 }
           : hearing
       )
     );
-    setFilteredHearings(prevFiltered => 
-      prevFiltered.map(hearing => 
-        hearing.id === hearingId 
+    setFilteredHearings((prevFiltered) =>
+      prevFiltered.map((hearing) =>
+        hearing.id === hearingId
           ? { ...hearing, total_present: (hearing.total_present || 0) + 1 }
           : hearing
       )
@@ -206,7 +224,10 @@ const TodayHearings = () => {
   };
 
   const getStatusBadge = (status: string) => {
-    const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
+    const variants: Record<
+      string,
+      "default" | "secondary" | "destructive" | "outline"
+    > = {
       scheduled: "default",
       in_progress: "secondary",
       completed: "outline",
@@ -224,7 +245,9 @@ const TodayHearings = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Today's Hearings</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Today's Hearings
+          </h1>
           <p className="text-muted-foreground mt-1">
             {new Date().toLocaleDateString("en-US", {
               weekday: "long",
@@ -277,7 +300,9 @@ const TodayHearings = () => {
           ) : filteredHearings.length === 0 ? (
             <div className="text-center py-12">
               <Clock className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground">No hearings scheduled for today</p>
+              <p className="text-muted-foreground">
+                No hearings scheduled for today
+              </p>
             </div>
           ) : (
             <div className="rounded-md border">
@@ -319,7 +344,8 @@ const TodayHearings = () => {
                         <div className="flex items-center gap-2">
                           <Users className="h-4 w-4 text-muted-foreground" />
                           <span className="text-sm">
-                            {hearing.total_present || 0}/{hearing.total_expected || 0}
+                            {hearing.total_present || 0}/
+                            {hearing.total_expected || 0}
                           </span>
                         </div>
                       </TableCell>
@@ -367,10 +393,12 @@ const TodayHearings = () => {
                                     {selectedHearing?.manualCode || "N/A"}
                                   </p>
                                   <p className="text-xs text-blue-600 text-center mt-2">
-                                    Witnesses can enter this code in their attendance form
+                                    Witnesses can enter this code in their
+                                    attendance form
                                   </p>
                                   <p className="text-xs text-blue-500 text-center mt-1">
-                                    Case: {selectedHearing?.case_number} • {selectedHearing?.hearing_time}
+                                    Case: {selectedHearing?.case_number} •{" "}
+                                    {selectedHearing?.hearing_time}
                                   </p>
                                 </div>
                               </div>

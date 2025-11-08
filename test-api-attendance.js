@@ -1,18 +1,18 @@
 // Test the mark self-attendance API endpoint directly
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 
 const testMarkSelfAttendance = async () => {
   console.log("🧪 Testing Mark Self-Attendance API");
   console.log("===================================");
 
   const apiUrl = "http://localhost:3000/api/hearings/mark-self-attendance";
-  
+
   // Test data
   const testData = {
-    code: "CR001-0013E7A",  // Example manual code
+    code: "CR001-0013E7A", // Example manual code
     caseId: "CR/001/2025",
     latitude: 20.2961,
-    longitude: 85.8245
+    longitude: 85.8245,
   };
 
   console.log("\n📡 API Endpoint:", apiUrl);
@@ -20,17 +20,20 @@ const testMarkSelfAttendance = async () => {
 
   try {
     const response = await fetch(apiUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         // Note: In real app, this would include auth token
         // 'Authorization': 'Bearer YOUR_TOKEN_HERE'
       },
-      body: JSON.stringify(testData)
+      body: JSON.stringify(testData),
     });
 
     console.log("\n📊 Response Status:", response.status);
-    console.log("📄 Response Headers:", Object.fromEntries(response.headers.entries()));
+    console.log(
+      "📄 Response Headers:",
+      Object.fromEntries(response.headers.entries())
+    );
 
     const responseData = await response.json();
     console.log("📋 Response Data:", JSON.stringify(responseData, null, 2));
@@ -41,7 +44,6 @@ const testMarkSelfAttendance = async () => {
       console.log("\n❌ API call failed!");
       console.log("Error:", responseData.message || "Unknown error");
     }
-
   } catch (error) {
     console.log("\n💥 Network Error:", error.message);
     console.log("🔧 Possible Issues:");
@@ -62,25 +64,25 @@ const testMarkSelfAttendance = async () => {
 // Test different scenarios
 const runTests = async () => {
   console.log("🚀 Starting API Tests...\n");
-  
+
   // Test 1: Valid manual code
   console.log("Test 1: Valid Manual Code");
   await testMarkSelfAttendance();
-  
+
   console.log("\n" + "=".repeat(50));
-  
+
   // Test 2: Invalid code format
   console.log("\nTest 2: Invalid Code Format");
   const invalidTest = {
     code: "INVALID-CODE",
-    caseId: "CR/001/2025"
+    caseId: "CR/001/2025",
   };
-  
+
   console.log("📦 Invalid Test Data:", JSON.stringify(invalidTest, null, 2));
   console.log("Expected Result: 400 Bad Request or 404 Not Found");
-  
+
   console.log("\n" + "=".repeat(50));
-  
+
   console.log("\n✨ Frontend Integration Check:");
   console.log("1. Ensure apiClient includes auth headers");
   console.log("2. Check if user is logged in");

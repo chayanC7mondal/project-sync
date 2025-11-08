@@ -288,16 +288,16 @@ export const markAttendanceManually = async (req, res, next) => {
  */
 export const markSelfAttendance = async (req, res, next) => {
   try {
-    const { 
-      code, 
-      manualCode, 
-      qrData, 
-      caseId, 
-      witnessId, 
-      witnessName, 
-      latitude, 
+    const {
+      code,
+      manualCode,
+      qrData,
+      caseId,
+      witnessId,
+      witnessName,
+      latitude,
       longitude,
-      location 
+      location,
     } = req.body;
 
     // Extract location if nested
@@ -329,20 +329,24 @@ export const markSelfAttendance = async (req, res, next) => {
 
     // Find the hearing session by QR code or manual code
     let hearingSession;
-    
+
     // Check if it's a QR code or manual code
-    if (actualCode.startsWith('HS-')) {
+    if (actualCode.startsWith("HS-")) {
       // It's a QR code
-      hearingSession = await HearingSession.findOne({ qrCode: actualCode })
-        .populate('caseId');
+      hearingSession = await HearingSession.findOne({
+        qrCode: actualCode,
+      }).populate("caseId");
     } else {
       // It's a manual code - find by manual code
-      hearingSession = await HearingSession.findOne({ manualCode: actualCode })
-        .populate('caseId');
+      hearingSession = await HearingSession.findOne({
+        manualCode: actualCode,
+      }).populate("caseId");
     }
 
     if (!hearingSession) {
-      return next(new ApiError(404, "Invalid code or hearing session not found"));
+      return next(
+        new ApiError(404, "Invalid code or hearing session not found")
+      );
     }
 
     // Verify the case matches
@@ -358,14 +362,16 @@ export const markSelfAttendance = async (req, res, next) => {
 
     const hearingDate = new Date(hearingSession.hearingDate);
     if (hearingDate < today || hearingDate >= tomorrow) {
-      return next(new ApiError(400, "Attendance can only be marked on the hearing date"));
+      return next(
+        new ApiError(400, "Attendance can only be marked on the hearing date")
+      );
     }
 
     // Find or create the witness's attendance record
     let attendance = await Attendance.findOne({
       hearingSessionId: hearingSession._id,
       userId: witnessId,
-      userType: "witness"
+      userType: "witness",
     });
 
     if (!attendance) {
@@ -378,7 +384,7 @@ export const markSelfAttendance = async (req, res, next) => {
         userType: "witness",
         status: "pending",
         notified: false,
-        createdAt: new Date()
+        createdAt: new Date(),
       });
     }
 
@@ -390,18 +396,20 @@ export const markSelfAttendance = async (req, res, next) => {
     // Mark attendance as present
     attendance.status = "present";
     attendance.arrivalTime = new Date();
-    attendance.markedViaQR = actualCode.startsWith('HS-');
+    attendance.markedViaQR = actualCode.startsWith("HS-");
     attendance.qrScannedAt = new Date();
     attendance.latitude = lat;
     attendance.longitude = lng;
     attendance.markedBy = witnessId;
-    attendance.remarks = actualCode.startsWith('HS-') ? "Self-marked via QR Code" : "Self-marked via Manual Code";
+    attendance.remarks = actualCode.startsWith("HS-")
+      ? "Self-marked via QR Code"
+      : "Self-marked via Manual Code";
 
     await attendance.save();
 
     // Populate the response
-    await attendance.populate('hearingSessionId');
-    await attendance.populate('caseId');
+    await attendance.populate("hearingSessionId");
+    await attendance.populate("caseId");
 
     return res.status(200).json(
       new ApiResponse(200, {
@@ -412,8 +420,8 @@ export const markSelfAttendance = async (req, res, next) => {
           caseNumber: hearingSession.caseId.caseId,
           hearingDate: hearingSession.hearingDate,
           hearingTime: hearingSession.hearingTime,
-          courtName: hearingSession.courtName
-        }
+          courtName: hearingSession.courtName,
+        },
       })
     );
   } catch (error) {

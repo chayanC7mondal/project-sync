@@ -7,19 +7,22 @@ import crypto from "crypto";
  * @returns {Object} - Object containing qrCode, qrCodeData, and manualCode
  */
 export const generateHearingQRCode = (caseId, hearingDate) => {
-  const dateStr = new Date(hearingDate).toISOString().split('T')[0];
-  const randomStr = crypto.randomBytes(8).toString('hex');
+  const dateStr = new Date(hearingDate).toISOString().split("T")[0];
+  const randomStr = crypto.randomBytes(8).toString("hex");
 
   // Create a unique code for scanning
   const qrCode = `HS-${caseId}-${dateStr}-${randomStr}`.substring(0, 50);
 
   // Create a more sophisticated manual entry code
   // Extract case type prefix (e.g., CR/001/2025 -> CR001)
-  const casePrefix = caseId.replace(/[\/\-]/g, '').substring(0, 5).toUpperCase();
-  
+  const casePrefix = caseId
+    .replace(/[\/\-]/g, "")
+    .substring(0, 5)
+    .toUpperCase();
+
   // Generate a unique 4-character alphanumeric code
-  const uniqueCode = crypto.randomBytes(2).toString('hex').toUpperCase();
-  
+  const uniqueCode = crypto.randomBytes(2).toString("hex").toUpperCase();
+
   // Create manual code: CasePrefix-UniqueCode (e.g., CR001-A8B2)
   const manualCode = `${casePrefix}-${uniqueCode}`;
 
@@ -29,7 +32,7 @@ export const generateHearingQRCode = (caseId, hearingDate) => {
     hearingDate: dateStr,
     code: qrCode,
     manualCode,
-    timestamp: Date.now()
+    timestamp: Date.now(),
   });
 
   return { qrCode, qrCodeData, manualCode };
@@ -45,11 +48,16 @@ export const generateHearingQRCode = (caseId, hearingDate) => {
 export const verifyCode = (code, caseId, hearingDate) => {
   if (!code || !caseId || !hearingDate) return false;
 
-  const dateStr = new Date(hearingDate).toISOString().split('T')[0];
-  const casePrefix = caseId.replace(/[\/\-]/g, '').substring(0, 5).toUpperCase();
-  
+  const dateStr = new Date(hearingDate).toISOString().split("T")[0];
+  const casePrefix = caseId
+    .replace(/[\/\-]/g, "")
+    .substring(0, 5)
+    .toUpperCase();
+
   // Check if it's a QR code or manual code
-  return code.startsWith(`HS-${caseId}-${dateStr}`) || code.startsWith(casePrefix);
+  return (
+    code.startsWith(`HS-${caseId}-${dateStr}`) || code.startsWith(casePrefix)
+  );
 };
 
 /**
@@ -75,15 +83,15 @@ export const markAttendance = (code, caseId, hearingDate) => {
 export const checkHearingProximity = (hearingDate) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  
+
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
-  
+
   const hearing = new Date(hearingDate);
   hearing.setHours(0, 0, 0, 0);
-  
+
   return {
     isToday: hearing.getTime() === today.getTime(),
-    isTomorrow: hearing.getTime() === tomorrow.getTime()
+    isTomorrow: hearing.getTime() === tomorrow.getTime(),
   };
 };

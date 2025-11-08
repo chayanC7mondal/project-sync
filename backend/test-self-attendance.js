@@ -12,7 +12,7 @@ console.log("=================================");
 // Mock request and response objects for testing
 const createMockReq = (body, userId) => ({
   body,
-  userId
+  userId,
 });
 
 const createMockRes = () => {
@@ -44,9 +44,9 @@ const testCases = [
       code: "CR001-A8B2",
       caseId: "CR/001/2025",
       latitude: 20.2961,
-      longitude: 85.8245
+      longitude: 85.8245,
     },
-    userId: new mongoose.Types.ObjectId()
+    userId: new mongoose.Types.ObjectId(),
   },
   {
     name: "Valid QR Code",
@@ -54,36 +54,46 @@ const testCases = [
       code: "HS-CR/001/2025-2025-11-09-abc123def456",
       caseId: "CR/001/2025",
       latitude: 20.2961,
-      longitude: 85.8245
+      longitude: 85.8245,
     },
-    userId: new mongoose.Types.ObjectId()
+    userId: new mongoose.Types.ObjectId(),
   },
   {
     name: "Invalid Code",
     body: {
       code: "INVALID-CODE",
-      caseId: "CR/001/2025"
+      caseId: "CR/001/2025",
     },
-    userId: new mongoose.Types.ObjectId()
+    userId: new mongoose.Types.ObjectId(),
   },
   {
     name: "Missing Code",
     body: {
-      caseId: "CR/001/2025"
+      caseId: "CR/001/2025",
     },
-    userId: new mongoose.Types.ObjectId()
-  }
+    userId: new mongoose.Types.ObjectId(),
+  },
 ];
 
-console.log("Note: These are mock tests. For full testing, you need a running database connection.");
-console.log("The actual API endpoint is: POST /api/hearings/mark-self-attendance");
+console.log(
+  "Note: These are mock tests. For full testing, you need a running database connection."
+);
+console.log(
+  "The actual API endpoint is: POST /api/hearings/mark-self-attendance"
+);
 console.log("\nExpected request body format:");
-console.log(JSON.stringify({
-  code: "CR001-A8B2 or HS-CR/001/2025-...",
-  caseId: "CR/001/2025",
-  latitude: 20.2961,
-  longitude: 85.8245
-}, null, 2));
+console.log(
+  JSON.stringify(
+    {
+      code: "CR001-A8B2 or HS-CR/001/2025-...",
+      caseId: "CR/001/2025",
+      latitude: 20.2961,
+      longitude: 85.8245,
+    },
+    null,
+    2
+  )
+);
 
 console.log("\nTest cases prepared:");
 testCases.forEach((testCase, index) => {

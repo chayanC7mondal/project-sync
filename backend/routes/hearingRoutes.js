@@ -8,7 +8,7 @@ import {
   markAttendanceManually,
   markSelfAttendance,
   getHearingAttendance,
-  sendReminders
+  sendReminders,
 } from "../controllers/hearingController.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
 
@@ -36,9 +36,17 @@ hearingRoutes.post("/mark-attendance", verifyToken, markAttendanceManually);
 hearingRoutes.post("/mark-self-attendance", markSelfAttendance);
 
 // Get attendance for a hearing session
-hearingRoutes.get("/:hearingSessionId/attendance", verifyToken, getHearingAttendance);
+hearingRoutes.get(
+  "/:hearingSessionId/attendance",
+  verifyToken,
+  getHearingAttendance
+);
 
 // Send hearing reminders
-hearingRoutes.post("/:hearingSessionId/send-reminders", verifyToken, sendReminders);
+hearingRoutes.post(
+  "/:hearingSessionId/send-reminders",
+  verifyToken,
+  sendReminders
+);
 
 export default hearingRoutes;
