@@ -2,6 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Download, TrendingUp, Users, FileText } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts";
+import { useState } from "react";
+import { toast } from "sonner";
+import apiClient from "@/utils/apiClient";
+import { ADMIN_GENERATE_REPORT } from "@/utils/constants";
 
 const attendanceData = [
   { name: "SI R. Kumar", attendance: 95 },
@@ -28,6 +32,43 @@ const caseStatusData = [
 ];
 
 const Reports = () => {
+  const [pdfGenerating, setPdfGenerating] = useState(false);
+
+  const handleExportPDF = async () => {
+    try {
+      setPdfGenerating(true);
+      toast.info("Generating consolidated report for all officers...");
+
+      const response = await apiClient.post(
+        ADMIN_GENERATE_REPORT,
+        {
+          month: new Date().getMonth() + 1, // Current month
+          year: new Date().getFullYear(),
+          reportType: "consolidated", // Generate report for all officers
+        },
+        {
+          responseType: "blob",
+        }
+      );
+
+      // Create download link
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `consolidated_attendance_report_${new Date().getMonth() + 1}_${new Date().getFullYear()}.pdf`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+
+      toast.success("PDF report generated successfully!");
+    } catch (error: any) {
+      console.error("PDF generation error:", error);
+      toast.error(error.response?.data?.message || "Failed to generate PDF report");
+    } finally {
+      setPdfGenerating(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -36,9 +77,14 @@ const Reports = () => {
           <p className="text-muted-foreground mt-1">Comprehensive insights and data analysis</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="gap-2">
+          <Button 
+            variant="outline" 
+            className="gap-2"
+            onClick={handleExportPDF}
+            disabled={pdfGenerating}
+          >
             <Download className="w-4 h-4" />
-            Export PDF
+            {pdfGenerating ? "Generating..." : "Export PDF"}
           </Button>
           <Button className="gap-2 bg-primary hover:bg-primary/90">
             <Download className="w-4 h-4" />

@@ -1,0 +1,2876 @@
+[
+  {
+    "officer": {
+      "id": "IO001",
+      "name": "SI Rajesh Kumar",
+      "rank": "Sub-Inspector",
+      "station": "Bhubaneswar PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/007/2025",
+        "firNumber": "FIR007",
+        "type": "Fraud",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 17,
+      "present": 13,
+      "absent": 1,
+      "late": 3,
+      "attendance_rate": 76.47
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-08",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-15",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-16",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-21",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-23",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-28",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "absent",
+        "reason": "emergency",
+        "caseId": "CR/007/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "9:00"
+      }
+    ],
+    "summary": "The officer was assigned 17 hearings this month, of which they were present for 13. They were absent for 1 hearings and late for 3 hearings. Overall attendance rate: 76.47%"
+  },
+  {
+    "officer": {
+      "id": "IO002",
+      "name": "SI Priya Singh",
+      "rank": "Sub-Inspector",
+      "station": "Cuttack PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/008/2025",
+        "firNumber": "FIR008",
+        "type": "Murder",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 22,
+      "present": 21,
+      "absent": 1,
+      "late": 0,
+      "attendance_rate": 95.45
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-02",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-03",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-08",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-13",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-15",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-16",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-21",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-23",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-28",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-30",
+        "status": "absent",
+        "reason": "court_duty",
+        "caseId": "CR/008/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "10:00"
+      }
+    ],
+    "summary": "The officer was assigned 22 hearings this month, of which they were present for 21. They were absent for 1 hearings and late for 0 hearings. Overall attendance rate: 95.45%"
+  },
+  {
+    "officer": {
+      "id": "IO003",
+      "name": "ASI Suresh Nayak",
+      "rank": "Assistant Sub-Inspector",
+      "station": "Puri PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/002/2025",
+        "firNumber": "FIR002",
+        "type": "Fraud",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/001/2025",
+        "firNumber": "FIR001",
+        "type": "Theft",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/005/2025",
+        "firNumber": "FIR005",
+        "type": "Cybercrime",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/006/2025",
+        "firNumber": "FIR006",
+        "type": "Theft",
+        "status": "adjourned"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 16,
+      "present": 15,
+      "absent": 1,
+      "late": 0,
+      "attendance_rate": 93.75
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-02",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-13",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-15",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-16",
+        "status": "absent",
+        "reason": "medical",
+        "caseId": "CR/005/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-21",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-30",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "12:00"
+      }
+    ],
+    "summary": "The officer was assigned 16 hearings this month, of which they were present for 15. They were absent for 1 hearings and late for 0 hearings. Overall attendance rate: 93.75%"
+  },
+  {
+    "officer": {
+      "id": "IO004",
+      "name": "SI Anjali Das",
+      "rank": "Sub-Inspector",
+      "station": "Berhampur PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/002/2025",
+        "firNumber": "FIR002",
+        "type": "Fraud",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/008/2025",
+        "firNumber": "FIR008",
+        "type": "Murder",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/006/2025",
+        "firNumber": "FIR006",
+        "type": "Theft",
+        "status": "adjourned"
+      },
+      {
+        "caseId": "CR/007/2025",
+        "firNumber": "FIR007",
+        "type": "Fraud",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 15,
+      "present": 14,
+      "absent": 0,
+      "late": 1,
+      "attendance_rate": 93.33
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-02",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-08",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-13",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-23",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-28",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-30",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "10:00"
+      }
+    ],
+    "summary": "The officer was assigned 15 hearings this month, of which they were present for 14. They were absent for 0 hearings and late for 1 hearings. Overall attendance rate: 93.33%"
+  },
+  {
+    "officer": {
+      "id": "IO005",
+      "name": "ASI Kavita Rath",
+      "rank": "Assistant Sub-Inspector",
+      "station": "Rourkela PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/003/2025",
+        "firNumber": "FIR003",
+        "type": "Assault",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/007/2025",
+        "firNumber": "FIR007",
+        "type": "Fraud",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/005/2025",
+        "firNumber": "FIR005",
+        "type": "Cybercrime",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 15,
+      "present": 14,
+      "absent": 0,
+      "late": 1,
+      "attendance_rate": 93.33
+    },
+    "timeline": [
+      {
+        "date": "2025-01-02",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-03",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-08",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-13",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "14:00"
+      }
+    ],
+    "summary": "The officer was assigned 15 hearings this month, of which they were present for 14. They were absent for 0 hearings and late for 1 hearings. Overall attendance rate: 93.33%"
+  },
+  {
+    "officer": {
+      "id": "IO006",
+      "name": "SI Bikash Mohanty",
+      "rank": "Sub-Inspector",
+      "station": "Sambalpur PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/008/2025",
+        "firNumber": "FIR008",
+        "type": "Murder",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/003/2025",
+        "firNumber": "FIR003",
+        "type": "Assault",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/005/2025",
+        "firNumber": "FIR005",
+        "type": "Cybercrime",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/006/2025",
+        "firNumber": "FIR006",
+        "type": "Theft",
+        "status": "adjourned"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 13,
+      "present": 10,
+      "absent": 3,
+      "late": 0,
+      "attendance_rate": 76.92
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-02",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-03",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "absent",
+        "reason": "official_duty",
+        "caseId": "CR/003/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-13",
+        "status": "absent",
+        "reason": "emergency",
+        "caseId": "CR/008/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-15",
+        "status": "absent",
+        "reason": "official_duty",
+        "caseId": "CR/008/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-23",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-30",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "9:00"
+      }
+    ],
+    "summary": "The officer was assigned 13 hearings this month, of which they were present for 10. They were absent for 3 hearings and late for 0 hearings. Overall attendance rate: 76.92%"
+  },
+  {
+    "officer": {
+      "id": "IO007",
+      "name": "ASI Sujata Panda",
+      "rank": "Assistant Sub-Inspector",
+      "station": "Balasore PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/002/2025",
+        "firNumber": "FIR002",
+        "type": "Fraud",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 19,
+      "present": 13,
+      "absent": 4,
+      "late": 2,
+      "attendance_rate": 68.42
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "absent",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-02",
+        "status": "absent",
+        "reason": "court_duty",
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-03",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-08",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-16",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-21",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "absent",
+        "reason": "official_duty",
+        "caseId": "CR/002/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-23",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-28",
+        "status": "absent",
+        "reason": "court_duty",
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-30",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "15:00"
+      }
+    ],
+    "summary": "The officer was assigned 19 hearings this month, of which they were present for 13. They were absent for 4 hearings and late for 2 hearings. Overall attendance rate: 68.42%"
+  },
+  {
+    "officer": {
+      "id": "IO008",
+      "name": "SI Ramesh Behera",
+      "rank": "Sub-Inspector",
+      "station": "Kendrapara PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/005/2025",
+        "firNumber": "FIR005",
+        "type": "Cybercrime",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/006/2025",
+        "firNumber": "FIR006",
+        "type": "Theft",
+        "status": "adjourned"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 12,
+      "present": 11,
+      "absent": 1,
+      "late": 0,
+      "attendance_rate": 91.67
+    },
+    "timeline": [
+      {
+        "date": "2025-01-03",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-13",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-21",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "absent",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-30",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "13:00"
+      }
+    ],
+    "summary": "The officer was assigned 12 hearings this month, of which they were present for 11. They were absent for 1 hearings and late for 0 hearings. Overall attendance rate: 91.67%"
+  },
+  {
+    "officer": {
+      "id": "IO009",
+      "name": "ASI Mina Swain",
+      "rank": "Assistant Sub-Inspector",
+      "station": "Jagatsinghpur PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/003/2025",
+        "firNumber": "FIR003",
+        "type": "Assault",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 14,
+      "present": 11,
+      "absent": 1,
+      "late": 2,
+      "attendance_rate": 78.57
+    },
+    "timeline": [
+      {
+        "date": "2025-01-03",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-08",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-28",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "absent",
+        "reason": "official_duty",
+        "caseId": "CR/003/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-30",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "14:00"
+      }
+    ],
+    "summary": "The officer was assigned 14 hearings this month, of which they were present for 11. They were absent for 1 hearings and late for 2 hearings. Overall attendance rate: 78.57%"
+  },
+  {
+    "officer": {
+      "id": "IO010",
+      "name": "SI Prakash Sahoo",
+      "rank": "Sub-Inspector",
+      "station": "Khordha PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/006/2025",
+        "firNumber": "FIR006",
+        "type": "Theft",
+        "status": "adjourned"
+      },
+      {
+        "caseId": "CR/005/2025",
+        "firNumber": "FIR005",
+        "type": "Cybercrime",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/008/2025",
+        "firNumber": "FIR008",
+        "type": "Murder",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/004/2025",
+        "firNumber": "FIR004",
+        "type": "Robbery",
+        "status": "disposed"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 15,
+      "present": 13,
+      "absent": 0,
+      "late": 2,
+      "attendance_rate": 86.67
+    },
+    "timeline": [
+      {
+        "date": "2025-01-02",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-03",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-13",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-15",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-21",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-23",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-28",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-30",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "13:00"
+      }
+    ],
+    "summary": "The officer was assigned 15 hearings this month, of which they were present for 13. They were absent for 0 hearings and late for 2 hearings. Overall attendance rate: 86.67%"
+  },
+  {
+    "officer": {
+      "id": "IO011",
+      "name": "ASI Dipti Mallick",
+      "rank": "Assistant Sub-Inspector",
+      "station": "Nayagarh PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/007/2025",
+        "firNumber": "FIR007",
+        "type": "Fraud",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/006/2025",
+        "firNumber": "FIR006",
+        "type": "Theft",
+        "status": "adjourned"
+      },
+      {
+        "caseId": "CR/004/2025",
+        "firNumber": "FIR004",
+        "type": "Robbery",
+        "status": "disposed"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 15,
+      "present": 12,
+      "absent": 1,
+      "late": 2,
+      "attendance_rate": 80.0
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-02",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-03",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-08",
+        "status": "absent",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-15",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-16",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "15:00"
+      }
+    ],
+    "summary": "The officer was assigned 15 hearings this month, of which they were present for 12. They were absent for 1 hearings and late for 2 hearings. Overall attendance rate: 80.0%"
+  },
+  {
+    "officer": {
+      "id": "IO012",
+      "name": "SI Subash Jena",
+      "rank": "Sub-Inspector",
+      "station": "Ganjam PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/002/2025",
+        "firNumber": "FIR002",
+        "type": "Fraud",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 15,
+      "present": 13,
+      "absent": 2,
+      "late": 0,
+      "attendance_rate": 86.67
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-03",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "absent",
+        "reason": "court_duty",
+        "caseId": "CR/002/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-15",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-16",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-21",
+        "status": "absent",
+        "reason": "medical",
+        "caseId": "CR/002/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      }
+    ],
+    "summary": "The officer was assigned 15 hearings this month, of which they were present for 13. They were absent for 2 hearings and late for 0 hearings. Overall attendance rate: 86.67%"
+  },
+  {
+    "officer": {
+      "id": "IO013",
+      "name": "ASI Laxmi Padhi",
+      "rank": "Assistant Sub-Inspector",
+      "station": "Angul PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/002/2025",
+        "firNumber": "FIR002",
+        "type": "Fraud",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/006/2025",
+        "firNumber": "FIR006",
+        "type": "Theft",
+        "status": "adjourned"
+      },
+      {
+        "caseId": "CR/001/2025",
+        "firNumber": "FIR001",
+        "type": "Theft",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/003/2025",
+        "firNumber": "FIR003",
+        "type": "Assault",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 18,
+      "present": 16,
+      "absent": 2,
+      "late": 0,
+      "attendance_rate": 88.89
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "absent",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-02",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-08",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "absent",
+        "reason": "emergency",
+        "caseId": "CR/006/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-13",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-16",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-23",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-28",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-30",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "11:00"
+      }
+    ],
+    "summary": "The officer was assigned 18 hearings this month, of which they were present for 16. They were absent for 2 hearings and late for 0 hearings. Overall attendance rate: 88.89%"
+  },
+  {
+    "officer": {
+      "id": "IO014",
+      "name": "SI Debasis Parida",
+      "rank": "Sub-Inspector",
+      "station": "Dhenkanal PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/001/2025",
+        "firNumber": "FIR001",
+        "type": "Theft",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/006/2025",
+        "firNumber": "FIR006",
+        "type": "Theft",
+        "status": "adjourned"
+      },
+      {
+        "caseId": "CR/003/2025",
+        "firNumber": "FIR003",
+        "type": "Assault",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 17,
+      "present": 14,
+      "absent": 3,
+      "late": 0,
+      "attendance_rate": 82.35
+    },
+    "timeline": [
+      {
+        "date": "2025-01-02",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-08",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-15",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "absent",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-23",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "absent",
+        "reason": "court_duty",
+        "caseId": "CR/003/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "absent",
+        "reason": "official_duty",
+        "caseId": "CR/001/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-28",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-30",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "12:00"
+      }
+    ],
+    "summary": "The officer was assigned 17 hearings this month, of which they were present for 14. They were absent for 3 hearings and late for 0 hearings. Overall attendance rate: 82.35%"
+  },
+  {
+    "officer": {
+      "id": "IO015",
+      "name": "ASI Rinku Sahu",
+      "rank": "Assistant Sub-Inspector",
+      "station": "Sundargarh PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/008/2025",
+        "firNumber": "FIR008",
+        "type": "Murder",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/007/2025",
+        "firNumber": "FIR007",
+        "type": "Fraud",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/005/2025",
+        "firNumber": "FIR005",
+        "type": "Cybercrime",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/006/2025",
+        "firNumber": "FIR006",
+        "type": "Theft",
+        "status": "adjourned"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 13,
+      "present": 12,
+      "absent": 1,
+      "late": 0,
+      "attendance_rate": 92.31
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-15",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-16",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-21",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/005/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-28",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "absent",
+        "reason": "medical",
+        "caseId": "CR/005/2025",
+        "hearingTime": "9:00"
+      }
+    ],
+    "summary": "The officer was assigned 13 hearings this month, of which they were present for 12. They were absent for 1 hearings and late for 0 hearings. Overall attendance rate: 92.31%"
+  },
+  {
+    "officer": {
+      "id": "IO016",
+      "name": "SI Mamata Biswal",
+      "rank": "Sub-Inspector",
+      "station": "Bargarh PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/001/2025",
+        "firNumber": "FIR001",
+        "type": "Theft",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/006/2025",
+        "firNumber": "FIR006",
+        "type": "Theft",
+        "status": "adjourned"
+      },
+      {
+        "caseId": "CR/008/2025",
+        "firNumber": "FIR008",
+        "type": "Murder",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/007/2025",
+        "firNumber": "FIR007",
+        "type": "Fraud",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 17,
+      "present": 14,
+      "absent": 2,
+      "late": 1,
+      "attendance_rate": 82.35
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-03",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-08",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "absent",
+        "reason": "official_duty",
+        "caseId": "CR/007/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-15",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-16",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "absent",
+        "reason": "medical",
+        "caseId": "CR/007/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/006/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-23",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-28",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/001/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-30",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/007/2025",
+        "hearingTime": "10:00"
+      }
+    ],
+    "summary": "The officer was assigned 17 hearings this month, of which they were present for 14. They were absent for 2 hearings and late for 1 hearings. Overall attendance rate: 82.35%"
+  },
+  {
+    "officer": {
+      "id": "IO017",
+      "name": "ASI Jitendra Patra",
+      "rank": "Assistant Sub-Inspector",
+      "station": "Jharsuguda PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/008/2025",
+        "firNumber": "FIR008",
+        "type": "Murder",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 11,
+      "present": 8,
+      "absent": 2,
+      "late": 1,
+      "attendance_rate": 72.73
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-02",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-03",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "absent",
+        "reason": "family_emergency",
+        "caseId": "CR/008/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-13",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-21",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "absent",
+        "reason": "court_duty",
+        "caseId": "CR/008/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "14:00"
+      }
+    ],
+    "summary": "The officer was assigned 11 hearings this month, of which they were present for 8. They were absent for 2 hearings and late for 1 hearings. Overall attendance rate: 72.73%"
+  },
+  {
+    "officer": {
+      "id": "IO018",
+      "name": "SI Srikant Dash",
+      "rank": "Sub-Inspector",
+      "station": "Bolangir PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/002/2025",
+        "firNumber": "FIR002",
+        "type": "Fraud",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/008/2025",
+        "firNumber": "FIR008",
+        "type": "Murder",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 12,
+      "present": 10,
+      "absent": 2,
+      "late": 0,
+      "attendance_rate": 83.33
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-02",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-08",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-15",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-16",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-17",
+        "status": "absent",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "absent",
+        "reason": "official_duty",
+        "caseId": "CR/002/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-21",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-23",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "9:00"
+      }
+    ],
+    "summary": "The officer was assigned 12 hearings this month, of which they were present for 10. They were absent for 2 hearings and late for 0 hearings. Overall attendance rate: 83.33%"
+  },
+  {
+    "officer": {
+      "id": "IO019",
+      "name": "ASI Puspa Sethy",
+      "rank": "Assistant Sub-Inspector",
+      "station": "Nuapada PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/004/2025",
+        "firNumber": "FIR004",
+        "type": "Robbery",
+        "status": "disposed"
+      },
+      {
+        "caseId": "CR/008/2025",
+        "firNumber": "FIR008",
+        "type": "Murder",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/002/2025",
+        "firNumber": "FIR002",
+        "type": "Fraud",
+        "status": "ongoing"
+      },
+      {
+        "caseId": "CR/003/2025",
+        "firNumber": "FIR003",
+        "type": "Assault",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 17,
+      "present": 14,
+      "absent": 2,
+      "late": 1,
+      "attendance_rate": 82.35
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "late",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-07",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-08",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-09",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-10",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-13",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-14",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-16",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-23",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "absent",
+        "reason": "official_duty",
+        "caseId": "CR/003/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-28",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/008/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/003/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-30",
+        "status": "absent",
+        "reason": "emergency",
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/004/2025",
+        "hearingTime": "9:00"
+      }
+    ],
+    "summary": "The officer was assigned 17 hearings this month, of which they were present for 14. They were absent for 2 hearings and late for 1 hearings. Overall attendance rate: 82.35%"
+  },
+  {
+    "officer": {
+      "id": "IO020",
+      "name": "SI Prasanta Barik",
+      "rank": "Sub-Inspector",
+      "station": "Kalahandi PS"
+    },
+    "month": "January 2025",
+    "cases": [
+      {
+        "caseId": "CR/002/2025",
+        "firNumber": "FIR002",
+        "type": "Fraud",
+        "status": "ongoing"
+      }
+    ],
+    "attendance": {
+      "total_hearings": 13,
+      "present": 13,
+      "absent": 0,
+      "late": 0,
+      "attendance_rate": 100.0
+    },
+    "timeline": [
+      {
+        "date": "2025-01-01",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-02",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "12:00"
+      },
+      {
+        "date": "2025-01-03",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "11:00"
+      },
+      {
+        "date": "2025-01-06",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-16",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "15:00"
+      },
+      {
+        "date": "2025-01-20",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-21",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "13:00"
+      },
+      {
+        "date": "2025-01-22",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-24",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-27",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "10:00"
+      },
+      {
+        "date": "2025-01-28",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      },
+      {
+        "date": "2025-01-29",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "9:00"
+      },
+      {
+        "date": "2025-01-31",
+        "status": "present",
+        "reason": null,
+        "caseId": "CR/002/2025",
+        "hearingTime": "14:00"
+      }
+    ],
+    "summary": "The officer was assigned 13 hearings this month, of which they were present for 13. They were absent for 0 hearings and late for 0 hearings. Overall attendance rate: 100.0%"
+  }
+]

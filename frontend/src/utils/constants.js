@@ -21,6 +21,7 @@ export const ADMIN_USER_DETAIL = (id) => `${ADMIN_ROUTES}/users/${id}`; // GET
 export const ADMIN_USER_UPDATE = (id) => `${ADMIN_ROUTES}/users/${id}`; // PUT
 export const ADMIN_USER_DELETE = (id) => `${ADMIN_ROUTES}/users/${id}`; // DELETE
 export const ADMIN_REPORTS = `${ADMIN_ROUTES}/reports`; // GET with query params
+export const ADMIN_GENERATE_REPORT = `${ADMIN_ROUTES}/generate-report`; // POST to generate PDF
 export const ADMIN_AUDIT_LOGS = `${ADMIN_ROUTES}/audit-logs`; // GET with query params
 export const ADMIN_SYSTEM_STATS = `${ADMIN_ROUTES}/system-stats`; // GET
 export const ADMIN_SETTINGS_LIST = `${ADMIN_ROUTES}/settings`; // GET
