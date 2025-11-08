@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import apiClient from "@/utils/apiClient";
+import { LIAISON_DASHBOARD } from "@/utils/constants";
+import { toast } from "sonner";
 import {
   Calendar,
   Users,
@@ -26,14 +29,41 @@ interface DashboardStats {
 const LiaisonDashboard = () => {
   const navigate = useNavigate();
   // Dummy data - no API calls
-  const [stats] = useState<DashboardStats>({
+  const [stats, setStats] = useState<DashboardStats>({
     hearings_today: 5,
     hearings_upcoming: 12,
     attendance_rate_today: 87,
     pending_absences: 3,
     cases_assigned: 28,
   });
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Fetch liaison dashboard data from API
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+      const response = await apiClient.get(LIAISON_DASHBOARD);
+      if (response.data.success && response.data.data) {
+        const data = response.data.data;
+        setStats({
+          hearings_today: data.todayHearings || 0,
+          hearings_upcoming: data.upcomingHearings || 0,
+          attendance_rate_today: data.attendanceRate || 0,
+          pending_absences: data.pendingAbsences || 0,
+          cases_assigned: data.totalCases || 0,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching liaison dashboard data:", error);
+      toast.error("Using dummy data - API connection failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const statCards = [
     {

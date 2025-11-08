@@ -46,8 +46,13 @@ export const getStats = async (req, res, next) => {
 export const getRecentCases = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit, 10) || 10;
-  const items = await Case.find().sort({ createdAt: -1 }).limit(limit);
-  return res.status(200).json(new ApiResponse(200, items));
+    const items = await Case.find()
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .populate('investigatingOfficer', 'name email')
+      .populate('liaisonOfficer', 'name email')
+      .lean();
+    return res.status(200).json(new ApiResponse(200, items));
   } catch (error) {
     console.error(error);
     next(new ApiError(500, "Failed to fetch recent cases"));

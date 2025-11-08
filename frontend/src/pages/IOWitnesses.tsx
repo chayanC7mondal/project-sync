@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -20,6 +20,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Users, Search, Phone, Mail, Eye, Filter, FileText } from "lucide-react";
+import apiClient from "@/utils/apiClient";
+import { WITNESS_LIST } from "@/utils/constants";
+import { toast } from "sonner";
 
 interface Witness {
   id: string;
@@ -37,9 +40,10 @@ const IOWitnesses = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [loading, setLoading] = useState(true);
 
-  // Dummy witnesses for cases where IO is investigating
-  const [witnesses] = useState<Witness[]>([
+  // State with dummy witnesses as default
+  const [witnesses, setWitnesses] = useState<Witness[]>([
     {
       id: "WIT001",
       name: "Rajesh Kumar",
@@ -206,6 +210,37 @@ const IOWitnesses = () => {
       statement_recorded: false,
     },
   ]);
+
+  // Fetch witnesses from API
+  useEffect(() => {
+    fetchWitnesses();
+  }, []);
+
+  const fetchWitnesses = async () => {
+    try {
+      setLoading(true);
+      const response = await apiClient.get(WITNESS_LIST);
+      if (response.data.success && response.data.data) {
+        const allWitnesses = response.data.data;
+        setWitnesses(allWitnesses.map((w: any, idx: number) => ({
+          id: w.witnessId || `WIT${String(idx + 1).padStart(3, '0')}`,
+          name: w.name,
+          case_number: "N/A",
+          case_type: "General",
+          contact: w.phone,
+          email: w.email || "N/A",
+          status: w.isActive ? "Statement Recorded" : "Pending Contact",
+          last_contacted: new Date(w.createdAt).toISOString().split('T')[0],
+          statement_recorded: w.isActive,
+        })));
+      }
+    } catch (error) {
+      console.error("Error fetching witnesses:", error);
+      toast.error("Using dummy data - API connection failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getStatusBadge = (status: string) => {
     const statusConfig: Record<

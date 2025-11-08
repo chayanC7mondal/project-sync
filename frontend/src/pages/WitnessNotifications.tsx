@@ -8,14 +8,6 @@ import apiClient from "@/utils/apiClient";
 import { NOTIFICATIONS_LIST } from "@/utils/constants";
 import { toast } from "sonner";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
   Select,
   SelectContent,
   SelectItem,
@@ -26,12 +18,13 @@ import {
   Bell,
   Search,
   Filter,
-  FileText,
+  LayoutDashboard,
   AlertCircle,
   Calendar,
-  Users,
+  FileText,
   CheckCircle,
   Clock,
+  MapPin,
 } from "lucide-react";
 
 interface Notification {
@@ -47,20 +40,20 @@ interface Notification {
   action_required: boolean;
 }
 
-const IONotifications = () => {
+const WitnessNotifications = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
   const [priorityFilter, setPriorityFilter] = useState("all");
   const [loading, setLoading] = useState(false);
 
-  // Dummy notifications for IO
+  // Dummy notifications for witness
   const [notifications, setNotifications] = useState<Notification[]>([
     {
       id: "N001",
       type: "Hearing",
       title: "Upcoming Hearing Tomorrow",
-      message: "Hearing scheduled for case CR/001/2025 at 10:00 AM in Court Room 1",
+      message: "Hearing scheduled for case CR/001/2025 at 10:00 AM in Court Room 1. Your presence is required.",
       case_number: "CR/001/2025",
       date: "2025-11-08",
       time: "09:00 AM",
@@ -70,46 +63,46 @@ const IONotifications = () => {
     },
     {
       id: "N002",
-      type: "Witness",
-      title: "Witness Statement Pending",
-      message: "Priya Sharma's statement is pending for case CR/001/2025",
+      type: "Attendance",
+      title: "Mark Your Attendance",
+      message: "Don't forget to mark your attendance for the hearing on Nov 12, 2025",
       case_number: "CR/001/2025",
       date: "2025-11-07",
       time: "02:30 PM",
-      priority: "Medium",
-      read: false,
-      action_required: true,
-    },
-    {
-      id: "N003",
-      type: "Evidence",
-      title: "Evidence Submitted Successfully",
-      message: "Evidence for case CR/003/2025 has been submitted and verified",
-      case_number: "CR/003/2025",
-      date: "2025-11-07",
-      time: "11:15 AM",
-      priority: "Low",
-      read: true,
-      action_required: false,
-    },
-    {
-      id: "N004",
-      type: "Case",
-      title: "New Case Assigned",
-      message: "Case CR/024/2025 (Vandalism) has been assigned to you for investigation",
-      case_number: "CR/024/2025",
-      date: "2025-11-06",
-      time: "03:45 PM",
       priority: "High",
       read: false,
       action_required: true,
     },
     {
+      id: "N003",
+      type: "Statement",
+      title: "Statement Recording Scheduled",
+      message: "Your statement recording is scheduled for case CR/019/2025 on Nov 10, 2025 at 11:00 AM",
+      case_number: "CR/019/2025",
+      date: "2025-11-07",
+      time: "11:15 AM",
+      priority: "High",
+      read: false,
+      action_required: true,
+    },
+    {
+      id: "N004",
+      type: "Case",
+      title: "Added as Witness",
+      message: "You have been added as a witness in case CR/023/2025 (Property Dispute)",
+      case_number: "CR/023/2025",
+      date: "2025-11-06",
+      time: "03:45 PM",
+      priority: "Medium",
+      read: true,
+      action_required: false,
+    },
+    {
       id: "N005",
       type: "Hearing",
       title: "Hearing Rescheduled",
-      message: "Hearing for case CR/007/2025 has been rescheduled to 2025-11-18",
-      case_number: "CR/007/2025",
+      message: "Hearing for case CR/009/2025 has been rescheduled to 2025-11-16",
+      case_number: "CR/009/2025",
       date: "2025-11-06",
       time: "10:00 AM",
       priority: "Medium",
@@ -118,87 +111,63 @@ const IONotifications = () => {
     },
     {
       id: "N006",
-      type: "Report",
-      title: "Investigation Report Due",
-      message: "Investigation report for case CR/012/2025 is due by 2025-11-10",
-      case_number: "CR/012/2025",
-      date: "2025-11-05",
-      time: "09:00 AM",
-      priority: "High",
-      read: false,
-      action_required: true,
+      type: "Attendance",
+      title: "Attendance Marked Successfully",
+      message: "Your attendance for hearing on Oct 28, 2025 has been marked successfully",
+      case_number: "CR/001/2025",
+      date: "2025-10-28",
+      time: "09:50 AM",
+      priority: "Low",
+      read: true,
+      action_required: false,
     },
     {
       id: "N007",
-      type: "Witness",
-      title: "Witness Contact Reminder",
-      message: "Rohit Joshi needs to be contacted for case CR/007/2025",
-      case_number: "CR/007/2025",
-      date: "2025-11-05",
+      type: "Document",
+      title: "Document Submitted",
+      message: "Your witness statement for case CR/014/2025 has been submitted",
+      case_number: "CR/014/2025",
+      date: "2025-10-25",
       time: "04:20 PM",
+      priority: "Low",
+      read: true,
+      action_required: false,
+    },
+    {
+      id: "N008",
+      type: "Hearing",
+      title: "Hearing Completed",
+      message: "Hearing for case CR/005/2025 completed on Oct 20, 2025. Thank you for your presence.",
+      case_number: "CR/005/2025",
+      date: "2025-10-20",
+      time: "03:30 PM",
+      priority: "Low",
+      read: true,
+      action_required: false,
+    },
+    {
+      id: "N009",
+      type: "Reminder",
+      title: "Upcoming Hearing Reminder",
+      message: "Reminder: You have a hearing for case CR/005/2025 on Nov 14, 2025 at 02:00 PM",
+      case_number: "CR/005/2025",
+      date: "2025-11-07",
+      time: "08:00 AM",
       priority: "Medium",
       read: false,
       action_required: true,
     },
     {
-      id: "N008",
-      type: "Evidence",
-      title: "Evidence Collection Pending",
-      message: "Physical evidence collection pending for case CR/018/2025",
-      case_number: "CR/018/2025",
-      date: "2025-11-04",
-      time: "01:30 PM",
-      priority: "High",
-      read: true,
-      action_required: true,
-    },
-    {
-      id: "N009",
-      type: "Case",
-      title: "Case Status Updated",
-      message: "Case CR/003/2025 status changed to 'Under Investigation'",
-      case_number: "CR/003/2025",
-      date: "2025-11-04",
-      time: "11:00 AM",
-      priority: "Low",
-      read: true,
-      action_required: false,
-    },
-    {
       id: "N010",
-      type: "Hearing",
-      title: "Hearing Minutes Available",
-      message: "Minutes from hearing on 2025-11-02 for case CR/007/2025 are now available",
-      case_number: "CR/007/2025",
-      date: "2025-11-03",
+      type: "Statement",
+      title: "Statement Pending",
+      message: "Your statement is still pending for case CR/009/2025. Please contact IO Suresh Dash",
+      case_number: "CR/009/2025",
+      date: "2025-11-05",
       time: "02:15 PM",
-      priority: "Low",
-      read: true,
-      action_required: false,
-    },
-    {
-      id: "N011",
-      type: "Report",
-      title: "Report Approved",
-      message: "Your investigation report for case CR/001/2025 has been approved",
-      case_number: "CR/001/2025",
-      date: "2025-11-02",
-      time: "10:30 AM",
-      priority: "Low",
-      read: true,
-      action_required: false,
-    },
-    {
-      id: "N012",
-      type: "Witness",
-      title: "Witness Statement Recorded",
-      message: "Statement from Vikram Singh for case CR/003/2025 has been recorded",
-      case_number: "CR/003/2025",
-      date: "2025-11-01",
-      time: "03:00 PM",
-      priority: "Low",
-      read: true,
-      action_required: false,
+      priority: "High",
+      read: false,
+      action_required: true,
     },
   ]);
 
@@ -237,10 +206,11 @@ const IONotifications = () => {
   const getTypeIcon = (type: string) => {
     const icons: Record<string, JSX.Element> = {
       Hearing: <Calendar className="w-5 h-5 text-blue-500" />,
-      Witness: <Users className="w-5 h-5 text-green-500" />,
-      Evidence: <FileText className="w-5 h-5 text-purple-500" />,
+      Attendance: <CheckCircle className="w-5 h-5 text-green-500" />,
+      Statement: <FileText className="w-5 h-5 text-purple-500" />,
       Case: <FileText className="w-5 h-5 text-orange-500" />,
-      Report: <FileText className="w-5 h-5 text-red-500" />,
+      Document: <FileText className="w-5 h-5 text-teal-500" />,
+      Reminder: <Clock className="w-5 h-5 text-yellow-500" />,
     };
     return icons[type] || <Bell className="w-5 h-5 text-gray-500" />;
   };
@@ -288,14 +258,12 @@ const IONotifications = () => {
   const readNotifications = filteredNotifications.filter((n) => n.read);
 
   return (
-    <div className="p-8 space-y-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <div className="p-8 space-y-6 bg-gradient-to-br from-slate-50 to-green-50 min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">My Notifications</h1>
-          <p className="text-gray-600 mt-2">
-            Notifications related to your investigations and cases
-          </p>
+          <p className="text-gray-600 mt-2">Stay updated on your case hearings and requirements</p>
         </div>
         <div className="flex gap-3">
           <Button variant="outline" onClick={markAllAsRead}>
@@ -303,7 +271,7 @@ const IONotifications = () => {
             Mark All Read
           </Button>
           <Button onClick={() => navigate("/")}>
-            <FileText className="w-4 h-4 mr-2" />
+            <LayoutDashboard className="w-4 h-4 mr-2" />
             Back to Dashboard
           </Button>
         </div>
@@ -386,10 +354,11 @@ const IONotifications = () => {
               <SelectContent>
                 <SelectItem value="all">All Types</SelectItem>
                 <SelectItem value="Hearing">Hearing</SelectItem>
-                <SelectItem value="Witness">Witness</SelectItem>
-                <SelectItem value="Evidence">Evidence</SelectItem>
+                <SelectItem value="Attendance">Attendance</SelectItem>
+                <SelectItem value="Statement">Statement</SelectItem>
                 <SelectItem value="Case">Case</SelectItem>
-                <SelectItem value="Report">Report</SelectItem>
+                <SelectItem value="Document">Document</SelectItem>
+                <SelectItem value="Reminder">Reminder</SelectItem>
               </SelectContent>
             </Select>
             <Select value={priorityFilter} onValueChange={setPriorityFilter}>
@@ -521,4 +490,4 @@ const IONotifications = () => {
   );
 };
 
-export default IONotifications;
+export default WitnessNotifications;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +23,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import apiClient from "@/utils/apiClient";
+import { CASE_LIST, WITNESS_LIST, NOTIFICATIONS_LIST, HEARING_LIST } from "@/utils/constants";
+import { toast } from "sonner";
 
 interface DashboardStats {
   casesInvestigating: number;
@@ -62,17 +65,17 @@ interface Notification {
 
 const IODashboard = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   
-  // Dummy Stats
-  const [stats] = useState<DashboardStats>({
+  // State with dummy data as default
+  const [stats, setStats] = useState<DashboardStats>({
     casesInvestigating: 8,
     witnessesUnderMe: 15,
     upcomingHearings: 5,
     pendingReports: 3,
   });
 
-  // Dummy Cases I'm Investigating
-  const [myCases] = useState<Case[]>([
+  const [myCases, setMyCases] = useState<Case[]>([
     { case_number: "CR/001/2025", case_type: "Theft", status: "Under Investigation", witnesses_count: 3 },
     { case_number: "CR/003/2025", case_type: "Fraud", status: "Under Investigation", witnesses_count: 2 },
     { case_number: "CR/007/2025", case_type: "Assault", status: "Under Investigation", witnesses_count: 4 },
@@ -80,8 +83,7 @@ const IODashboard = () => {
     { case_number: "CR/015/2025", case_type: "Cybercrime", status: "Under Investigation", witnesses_count: 1 },
   ]);
 
-  // Dummy Witnesses Under Me
-  const [myWitnesses] = useState<Witness[]>([
+  const [myWitnesses, setMyWitnesses] = useState<Witness[]>([
     { name: "Rajesh Kumar", phone: "9876543210", case_number: "CR/001/2025", status: "Available" },
     { name: "Priya Singh", phone: "9876543211", case_number: "CR/001/2025", status: "Available" },
     { name: "Amit Patel", phone: "9876543212", case_number: "CR/003/2025", status: "Unavailable" },
@@ -89,8 +91,7 @@ const IODashboard = () => {
     { name: "Vikram Mehta", phone: "9876543214", case_number: "CR/007/2025", status: "Available" },
   ]);
 
-  // Dummy Upcoming Hearings
-  const [upcomingHearings] = useState<Hearing[]>([
+  const [upcomingHearings, setUpcomingHearings] = useState<Hearing[]>([
     { case_number: "CR/001/2025", hearing_date: "2025-11-12", hearing_time: "10:00 AM", location: "Court Room 1", witnesses: 3 },
     { case_number: "CR/003/2025", hearing_date: "2025-11-15", hearing_time: "11:30 AM", location: "Court Room 2", witnesses: 2 },
     { case_number: "CR/007/2025", hearing_date: "2025-11-18", hearing_time: "02:00 PM", location: "Court Room 1", witnesses: 4 },
@@ -98,13 +99,82 @@ const IODashboard = () => {
     { case_number: "CR/015/2025", hearing_date: "2025-11-25", hearing_time: "03:00 PM", location: "Court Room 2", witnesses: 1 },
   ]);
 
-  // Dummy Notifications
-  const [notifications] = useState<Notification[]>([
+  const [notifications, setNotifications] = useState<Notification[]>([
     { id: 1, message: "Witness Rajesh Kumar confirmed for CR/001/2025 hearing", time: "2 hours ago", type: "info" },
     { id: 2, message: "Report pending for CR/012/2025 - Due in 2 days", time: "5 hours ago", type: "warning" },
     { id: 3, message: "New evidence submitted for CR/007/2025", time: "1 day ago", type: "info" },
     { id: 4, message: "Hearing rescheduled for CR/003/2025", time: "2 days ago", type: "alert" },
   ]);
+
+  // Fetch dashboard data from API
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const userId = user._id;
+
+      // Fetch cases where current user is investigating officer
+      const casesRes = await apiClient.get(CASE_LIST);
+      if (casesRes.data.success && casesRes.data.data) {
+        const allCases = casesRes.data.data;
+        const ioCases = allCases.filter((c: any) => 
+          c.investigatingOfficer === userId || c.investigatingOfficer?._id === userId
+        );
+        
+        setMyCases(ioCases.slice(0, 5).map((c: any) => ({
+          case_number: c.caseId || "N/A",
+          case_type: c.sections?.join(", ") || "General",
+          status: c.status || "Under Investigation",
+          witnesses_count: c.witnesses?.length || 0,
+        })));
+
+        // Update stats
+        setStats(prev => ({
+          ...prev,
+          casesInvestigating: ioCases.length,
+        }));
+      }
+
+      // Fetch witnesses
+      const witnessesRes = await apiClient.get(WITNESS_LIST);
+      if (witnessesRes.data.success && witnessesRes.data.data) {
+        const allWitnesses = witnessesRes.data.data;
+        setMyWitnesses(allWitnesses.slice(0, 5).map((w: any) => ({
+          name: w.name,
+          phone: w.phone,
+          case_number: "N/A",
+          status: w.isActive ? "Available" : "Unavailable",
+        })));
+
+        setStats(prev => ({
+          ...prev,
+          witnessesUnderMe: allWitnesses.length,
+        }));
+      }
+
+      // Fetch notifications
+      const notifRes = await apiClient.get(NOTIFICATIONS_LIST);
+      if (notifRes.data.success && notifRes.data.data) {
+        const allNotifications = notifRes.data.data;
+        setNotifications(allNotifications.slice(0, 4).map((n: any, idx: number) => ({
+          id: idx + 1,
+          message: n.message || n.title,
+          time: new Date(n.createdAt).toLocaleString(),
+          type: n.type || "info",
+        })));
+      }
+
+    } catch (error) {
+      console.error("Dashboard fetch error:", error);
+      toast.error("Using dummy data - API connection failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const statCards = [
     {
