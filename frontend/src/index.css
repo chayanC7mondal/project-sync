@@ -124,7 +124,12 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-semibold tracking-tight;
     transition: color 0.3s ease;
   }
@@ -229,7 +234,8 @@
 
   /* Smooth pulse animation for loading states */
   @keyframes pulse-soft {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
     }
     50% {
@@ -264,17 +270,52 @@
   }
 
   .card-shine::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
     transition: left 0.5s;
   }
 
   .card-shine:hover::before {
     left: 100%;
+  }
+
+  /* Hide scrollbars completely */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbars in sidebar specifically */
+  aside {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  aside::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Global scrollbar hiding for webkit browsers */
+  *::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: transparent;
   }
 }
