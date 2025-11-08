@@ -46,6 +46,18 @@ const hearingSessionSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    weeklyReminderSent: {
+      type: Boolean,
+      default: false,
+    },
+    dayOfReminderSent: {
+      type: Boolean,
+      default: false,
+    },
+    postNotificationsSent: {
+      type: Boolean,
+      default: false,
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Auth",

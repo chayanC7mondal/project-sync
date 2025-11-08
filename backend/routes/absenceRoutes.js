@@ -4,7 +4,9 @@ import {
   getAbsenceReasonsByHearing,
   getAbsenceReasonsByCase,
   getMyAbsenceReasons,
-  updateAbsenceReasonStatus
+  updateAbsenceReasonStatus,
+  triggerPostHearingNotifications,
+  getNotificationStats
 } from "../controllers/absenceController.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
 
@@ -24,5 +26,11 @@ absenceRoutes.get("/my", verifyToken, getMyAbsenceReasons);
 
 // Update absence reason status
 absenceRoutes.patch("/:id/status", verifyToken, updateAbsenceReasonStatus);
+
+// Manually trigger post-hearing notifications (admin only)
+absenceRoutes.post("/trigger-notifications/:hearingSessionId", verifyToken, triggerPostHearingNotifications);
+
+// Get notification statistics for dashboard
+absenceRoutes.get("/stats", verifyToken, getNotificationStats);
 
 export default absenceRoutes;
