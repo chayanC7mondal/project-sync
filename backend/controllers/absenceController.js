@@ -14,11 +14,14 @@ import { sendAbsenceNotification } from "../utils/notificationUtils.js";
  */
 export const submitAbsenceReason = async (req, res, next) => {
   try {
-    const { hearingSessionId, reason, reasonCategory, supportingDocuments } = req.body;
+    const { hearingSessionId, reason, reasonCategory, supportingDocuments } =
+      req.body;
     const userId = req.userId;
 
     if (!hearingSessionId || !reason) {
-      return next(new ApiError(400, "hearingSessionId and reason are required"));
+      return next(
+        new ApiError(400, "hearingSessionId and reason are required")
+      );
     }
 
     // Get hearing session
@@ -39,7 +42,7 @@ export const submitAbsenceReason = async (req, res, next) => {
     // Find attendance record to determine user type
     const attendance = await Attendance.findOne({
       hearingSessionId,
-      userId
+      userId,
     });
 
     if (!attendance) {
@@ -55,7 +58,7 @@ export const submitAbsenceReason = async (req, res, next) => {
       reason,
       reasonCategory: reasonCategory || "other",
       supportingDocuments: supportingDocuments || [],
-      respondedAt: new Date()
+      respondedAt: new Date(),
     });
 
     // Update attendance status
@@ -74,7 +77,12 @@ export const submitAbsenceReason = async (req, res, next) => {
     }
 
     // Send notification to upper officers and inspector
-    await sendAbsenceNotification(caseDoc, absenceReason, userName, attendance.userType);
+    await sendAbsenceNotification(
+      caseDoc,
+      absenceReason,
+      userName,
+      attendance.userType
+    );
 
     absenceReason.notificationSent = true;
     await absenceReason.save();
@@ -155,7 +163,12 @@ export const updateAbsenceReasonStatus = async (req, res, next) => {
     const { status } = req.body;
 
     if (!status || !["acknowledged", "approved", "rejected"].includes(status)) {
-      return next(new ApiError(400, "Valid status is required (acknowledged/approved/rejected)"));
+      return next(
+        new ApiError(
+          400,
+          "Valid status is required (acknowledged/approved/rejected)"
+        )
+      );
     }
 
     const absenceReason = await AbsenceReason.findByIdAndUpdate(
@@ -172,5 +185,101 @@ export const updateAbsenceReasonStatus = async (req, res, next) => {
   } catch (error) {
     console.error(error);
     next(new ApiError(500, "Failed to update absence reason status"));
+  }
+};
+
+/**
+ * Manually trigger post-hearing notifications (admin only)
+ * POST /api/absence-reasons/trigger-notifications/:hearingSessionId
+ */
+export const triggerPostHearingNotifications = async (req, res, next) => {
+  try {
+    const { hearingSessionId } = req.params;
+
+    // Verify user has admin privileges
+    if (req.userRole !== "admin") {
+      return next(
+        new ApiError(403, "Access denied. Admin privileges required.")
+      );
+    }
+
+    const hearingSession = await HearingSession.findById(hearingSessionId);
+    if (!hearingSession) {
+      return next(new ApiError(404, "Hearing session not found"));
+    }
+
+    // Import and trigger post-hearing notifications
+    const { sendPostHearingNotifications } = await import(
+      "../services/hearingNotificationService.js"
+    );
+    await sendPostHearingNotifications(hearingSession);
+
+    // Mark as processed
+    hearingSession.postNotificationsSent = true;
+    await hearingSession.save();
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          null,
+          "Post-hearing notifications triggered successfully"
+        )
+      );
+  } catch (error) {
+    console.error("Error triggering notifications:", error);
+    return next(new ApiError(500, "Failed to trigger notifications"));
+  }
+};
+
+/**
+ * Get notification statistics for dashboard
+ * GET /api/absence-reasons/stats
+ */
+export const getNotificationStats = async (req, res, next) => {
+  try {
+    // Get stats for the last 30 days
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    const stats = {
+      totalAbsenceReasons: await AbsenceReason.countDocuments({
+        createdAt: { $gte: thirtyDaysAgo },
+      }),
+      pendingHearings: await HearingSession.countDocuments({
+        hearingDate: { $gte: new Date() },
+        status: "scheduled",
+      }),
+      completedHearings: await HearingSession.countDocuments({
+        hearingDate: { $gte: thirtyDaysAgo },
+        status: "completed",
+      }),
+      notificationsSent: await HearingSession.countDocuments({
+        postNotificationsSent: true,
+        updatedAt: { $gte: thirtyDaysAgo },
+      }),
+      weeklyRemindersScheduled: await HearingSession.countDocuments({
+        weeklyReminderSent: true,
+        updatedAt: { $gte: thirtyDaysAgo },
+      }),
+      dayOfRemindersScheduled: await HearingSession.countDocuments({
+        dayOfReminderSent: true,
+        updatedAt: { $gte: thirtyDaysAgo },
+      }),
+    };
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          stats,
+          "Notification statistics retrieved successfully"
+        )
+      );
+  } catch (error) {
+    console.error("Error retrieving notification stats:", error);
+    return next(new ApiError(500, "Failed to retrieve statistics"));
   }
 };
