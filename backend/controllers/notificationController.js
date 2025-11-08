@@ -18,9 +18,19 @@ export const getNotifications = async (req, res, next) => {
 // POST /api/notifications (create basic in-app notification)
 export const createNotification = async (req, res, next) => {
   try {
-    const { recipient, type, title, message, priority, relatedEntityType, relatedEntityId } = req.body || {};
+    const {
+      recipient,
+      type,
+      title,
+      message,
+      priority,
+      relatedEntityType,
+      relatedEntityId,
+    } = req.body || {};
     if (!recipient || !type || !title || !message) {
-      return next(new ApiError(400, "recipient, type, title and message are required"));
+      return next(
+        new ApiError(400, "recipient, type, title and message are required")
+      );
     }
 
     const created = await Notification.create({
@@ -65,10 +75,16 @@ export const markAllNotificationsRead = async (req, res, next) => {
       { recipient: req.userId, isRead: false },
       { isRead: true, readAt: new Date() }
     );
-    
-    return res.status(200).json(
-      new ApiResponse(200, { modifiedCount: result.modifiedCount }, "All notifications marked as read")
-    );
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          { modifiedCount: result.modifiedCount },
+          "All notifications marked as read"
+        )
+      );
   } catch (error) {
     console.error(error);
     next(new ApiError(500, "Failed to mark all notifications as read"));
@@ -80,9 +96,9 @@ export const getUnreadCount = async (req, res, next) => {
   try {
     const count = await Notification.countDocuments({
       recipient: req.userId,
-      isRead: false
+      isRead: false,
     });
-    
+
     return res.status(200).json(new ApiResponse(200, { count }));
   } catch (error) {
     console.error(error);
@@ -96,14 +112,16 @@ export const deleteNotification = async (req, res, next) => {
     const { id } = req.params;
     const deleted = await Notification.findOneAndDelete({
       _id: id,
-      recipient: req.userId
+      recipient: req.userId,
     });
-    
+
     if (!deleted) {
       return next(new ApiError(404, "Notification not found"));
     }
-    
-    return res.status(200).json(new ApiResponse(200, null, "Notification deleted"));
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, null, "Notification deleted"));
   } catch (error) {
     console.error(error);
     next(new ApiError(500, "Failed to delete notification"));

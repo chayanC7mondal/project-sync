@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { 
-  getNotifications, 
-  createNotification, 
+import {
+  getNotifications,
+  createNotification,
   markNotificationRead,
   markAllNotificationsRead,
   getUnreadCount,
-  deleteNotification
+  deleteNotification,
 } from "../controllers/notificationController.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
 
@@ -21,7 +21,11 @@ notificationRoutes.post("/", verifyToken, createNotification);
 notificationRoutes.patch("/:id/read", verifyToken, markNotificationRead);
 
 // Mark all notifications as read
-notificationRoutes.patch("/mark-all-read", verifyToken, markAllNotificationsRead);
+notificationRoutes.patch(
+  "/mark-all-read",
+  verifyToken,
+  markAllNotificationsRead
+);
 
 // Get unread notification count
 notificationRoutes.get("/unread-count", verifyToken, getUnreadCount);

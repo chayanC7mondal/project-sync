@@ -11,6 +11,7 @@ The Court Management System now includes a comprehensive notification system tha
 ## 🚀 Features
 
 ### 1. Multi-Stage Hearing Notifications
+
 - **1 Week Before**: Advance reminders to IO and witnesses
 - **Day of Hearing**: Urgent morning reminders
 - **Post-Hearing**: Attendance-based follow-ups
@@ -18,21 +19,25 @@ The Court Management System now includes a comprehensive notification system tha
 ### 2. Attendance-Based Alerts
 
 #### Case 1: Witness Absent
+
 - ⚠️ Warning SMS about legal consequences
 - 📅 Next hearing date notification
 - 📋 Escalation to supervising officers
 
-#### Case 2: IO Absent  
+#### Case 2: IO Absent
+
 - 📝 SMS requesting absence reason submission
 - 🔄 Multiple absence tracking (disciplinary alerts)
 - 👨‍💼 SP/Admin notifications for repeat offenses
 
 #### Case 3: Both Absent
+
 - 🚨 Combined critical alerts
 - 📊 Supervisor escalation
 - 📝 Mandatory reason submission
 
 #### Case 4: All Present
+
 - ✅ Success confirmations
 - 🙏 Thank you messages
 - 📈 Positive tracking
@@ -40,24 +45,28 @@ The Court Management System now includes a comprehensive notification system tha
 ### 3. Role-Based Dashboards
 
 #### Admin Dashboard
+
 - 📊 Complete notification statistics
-- 👥 User alert management  
+- 👥 User alert management
 - 🔧 Manual notification triggers
 - 📈 System-wide analytics
 
 #### IO (Investigating Officer) Dashboard
+
 - 📅 Hearing reminders
 - ⚠️ Attendance alerts
 - 📝 Absence reason submissions
 - 🚨 Escalation warnings
 
 #### Liaison Officer Dashboard
+
 - 📋 Today's hearing tracking
 - 👥 Real-time attendance updates
 - 📱 QR code generation
 - 🔔 Witness check-in notifications
 
-#### Witness Dashboard  
+#### Witness Dashboard
+
 - 📅 Hearing reminders
 - ✅ Attendance confirmations
 - 📝 Absence reason forms
@@ -68,11 +77,13 @@ The Court Management System now includes a comprehensive notification system tha
 ### SMS Services (Free Options)
 
 1. **TextBelt** (Primary)
+
    - Free: 1 SMS per day per IP
    - Paid plans available
    - Setup: `TEXTBELT_KEY=textbelt` (free) or API key
 
 2. **Fast2SMS** (Indian Service)
+
    - Free tier available
    - Setup: `SMS_GATEWAY_API_KEY=your-key`
 
@@ -82,6 +93,7 @@ The Court Management System now includes a comprehensive notification system tha
    - No additional API required
 
 ### Email Service
+
 - **Gmail SMTP** (Free)
 - **Setup**: `EMAIL_USER` and `EMAIL_APP_PASSWORD`
 - Professional HTML templates
@@ -93,7 +105,7 @@ The Court Management System now includes a comprehensive notification system tha
 // HearingSession updates
 {
   weeklyReminderSent: Boolean,
-  dayOfReminderSent: Boolean, 
+  dayOfReminderSent: Boolean,
   postNotificationsSent: Boolean
 }
 
@@ -119,7 +131,7 @@ ENABLE_SMS=true
 TEXTBELT_KEY=textbelt
 SMS_GATEWAY_API_KEY=your-fast2sms-key
 
-# Email Configuration  
+# Email Configuration
 EMAIL_USER=your-gmail@gmail.com
 EMAIL_APP_PASSWORD=your-app-password
 
@@ -129,6 +141,7 @@ TEST_PHONE_NUMBER=+919876543210
 ```
 
 ### Gmail App Password Setup
+
 1. Enable 2-Factor Authentication
 2. Generate App Password for "Mail"
 3. Use app password (not regular password)
@@ -136,17 +149,20 @@ TEST_PHONE_NUMBER=+919876543210
 ### SMS Service Setup
 
 #### TextBelt (Recommended)
+
 - Free: Use `TEXTBELT_KEY=textbelt`
 - Paid: Get API key from textbelt.com
 
 #### Fast2SMS (Indian Users)
-- Sign up at fast2sms.com  
+
+- Sign up at fast2sms.com
 - Get API key from dashboard
 - Free credits available
 
 ## 📡 API Endpoints
 
 ### Notifications
+
 ```
 GET    /api/notifications              # Get user notifications
 POST   /api/notifications              # Create notification
@@ -157,6 +173,7 @@ DELETE /api/notifications/:id          # Delete notification
 ```
 
 ### Absence Management
+
 ```
 POST   /api/absence-reasons/submit                     # Submit reason
 GET    /api/absence-reasons/my-reasons                 # Get my reasons
@@ -169,17 +186,20 @@ GET    /api/absence-reasons/stats                     # Get statistics
 The system runs automatic checks:
 
 ### Daily 9:00 AM
+
 - Check 1-week advance hearings
 - Send pre-hearing reminders
 - Update reminder flags
 
-### Daily 6:00 PM  
+### Daily 6:00 PM
+
 - Process today's hearings
 - Analyze attendance patterns
 - Send post-hearing notifications
 - Escalate to supervisors if needed
 
 ### Real-time
+
 - QR code attendance updates
 - Instant witness check-in alerts
 - Live dashboard updates
@@ -187,8 +207,9 @@ The system runs automatic checks:
 ## 📱 Frontend Integration
 
 ### Notification Center Component
+
 ```jsx
-import NotificationCenter from '@/pages/NotificationCenter';
+import NotificationCenter from "@/pages/NotificationCenter";
 
 // Role-based dashboard views
 // Real-time polling (30 second intervals)
@@ -197,8 +218,9 @@ import NotificationCenter from '@/pages/NotificationCenter';
 ```
 
 ### Key Features
+
 - **Real-time Updates**: 30-second polling
-- **Role-based Views**: Customized for each user type  
+- **Role-based Views**: Customized for each user type
 - **Quick Actions**: Absence forms, emergency contacts
 - **System Status**: Service health indicators
 - **Statistics Dashboard**: Comprehensive metrics
@@ -206,15 +228,17 @@ import NotificationCenter from '@/pages/NotificationCenter';
 ## 🧪 Testing
 
 ### Test Script
+
 ```bash
 # Check configuration
 node test-notifications.js
 
-# Run actual tests  
+# Run actual tests
 node test-notifications.js --run-tests
 ```
 
 ### Test Scenarios
+
 - ✅ SMS delivery (multiple services)
 - ✅ Email delivery (HTML + text)
 - ✅ Multi-channel coordination
@@ -224,20 +248,23 @@ node test-notifications.js --run-tests
 ## 🚦 Notification Flow Examples
 
 ### Scenario 1: Normal Hearing Flow
+
 ```
 Day -7: 📱 SMS + 📧 Email reminders sent
-Day 0 (9am): 🚨 Urgent day-of reminders  
+Day 0 (9am): 🚨 Urgent day-of reminders
 Day 0 (2pm): ✅ All present confirmations
 ```
 
 ### Scenario 2: IO Absent
-```  
+
+```
 Day 0 (2pm): 🚫 IO absence detected
 Day 0 (2:05pm): 📱 SMS absence reason request
 Day 0 (6pm): 👨‍💼 Supervisor notification if no reason
 ```
 
 ### Scenario 3: Multiple Absences
+
 ```
 Absence #3: 🚨 Escalation to SP
 Auto-tracking: 📊 30-day absence count
@@ -247,7 +274,7 @@ Notification: 👮‍♂️ Disciplinary review alert
 ## 🔐 Security & Privacy
 
 - **Authentication**: JWT-based API security
-- **Data Protection**: Encrypted sensitive information  
+- **Data Protection**: Encrypted sensitive information
 - **Rate Limiting**: Prevents SMS/email abuse
 - **Audit Logging**: Complete notification trail
 - **Role Permissions**: Access control by user type
@@ -255,20 +282,23 @@ Notification: 👮‍♂️ Disciplinary review alert
 ## 📈 Monitoring & Analytics
 
 ### Available Metrics
+
 - 📊 Notification delivery rates
-- 📱 SMS service success rates  
+- 📱 SMS service success rates
 - 📧 Email open/delivery rates
 - 👥 User engagement statistics
 - ⏱️ Response time tracking
 
 ### Dashboard Views
+
 - **Admin**: System-wide metrics
-- **Supervisor**: Team performance  
+- **Supervisor**: Team performance
 - **Individual**: Personal statistics
 
 ## 🔄 Maintenance
 
 ### Regular Tasks
+
 - Monitor SMS service quotas
 - Check email service health
 - Review notification statistics
@@ -276,8 +306,9 @@ Notification: 👮‍♂️ Disciplinary review alert
 - Clean old notifications
 
 ### Troubleshooting
+
 1. **SMS Not Working**: Check API keys and quotas
-2. **Email Issues**: Verify Gmail app password  
+2. **Email Issues**: Verify Gmail app password
 3. **No Notifications**: Check scheduler status
 4. **Database Errors**: Review connection settings
 
