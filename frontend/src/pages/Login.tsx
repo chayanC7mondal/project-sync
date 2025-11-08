@@ -25,7 +25,7 @@ import apiClient from "@/utils/apiClient";
 import { AUTH_LOGIN } from "@/utils/constants";
 
 interface LoginProps {
-  onLogin: () => void;
+  onLogin: (role: string) => void;
 }
 
 const Login = ({ onLogin }: LoginProps) => {
@@ -50,17 +50,20 @@ const Login = ({ onLogin }: LoginProps) => {
       console.log('Base URL:', import.meta.env.VITE_API_URL);
       const response = await apiClient.post(AUTH_LOGIN, {
         username,
-        password
+        password,
+        role
       });
       
       if (response.data.success && response.data.data) {
-        // Store user data
-        if (response.data.data.user) {
-          localStorage.setItem('user', JSON.stringify(response.data.data.user));
-        }
+        // Store user data with role
+        const userData = {
+          ...response.data.data.user,
+          role: role
+        };
+        localStorage.setItem('user', JSON.stringify(userData));
         
         toast.success(response.data.message || "Login successful! Welcome to the system.");
-        onLogin();
+        onLogin(role);
         navigate("/");
       } else {
         toast.error(response.data.message || "Login failed");

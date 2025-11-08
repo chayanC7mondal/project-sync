@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
   LayoutDashboard,
   FileText,
@@ -8,18 +9,83 @@ import {
   Settings,
   Shield,
   ChevronRight,
+  Calendar,
+  Clock,
+  Users,
+  AlertCircle,
+  User,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
-const menuItems = [
-  { icon: LayoutDashboard, label: "Dashboard", path: "/", badge: null },
-  { icon: FileText, label: "Case Management", path: "/cases", badge: null },
-  { icon: Bell, label: "Notifications", path: "/notifications", badge: "3" },
-  { icon: Settings, label: "Settings", path: "/settings", badge: null },
-];
+const getMenuItemsByRole = (role: string) => {
+  switch (role) {
+    case "liaison":
+      return [
+        { icon: LayoutDashboard, label: "Dashboard", path: "/", badge: null },
+        { icon: Calendar, label: "Today's Hearings", path: "/liaison/hearings/today", badge: null },
+        { icon: Clock, label: "Upcoming Hearings", path: "/liaison/hearings/upcoming", badge: null },
+        { icon: AlertCircle, label: "Absence Management", path: "/liaison/absences", badge: null },
+        { icon: Bell, label: "Notifications", path: "/notifications", badge: null },
+        { icon: Settings, label: "Settings", path: "/settings", badge: null },
+      ];
+    case "admin":
+      return [
+        { icon: LayoutDashboard, label: "Dashboard", path: "/", badge: null },
+        { icon: FileText, label: "Case Management", path: "/cases", badge: null },
+        { icon: ClipboardCheck, label: "Attendance", path: "/attendance", badge: null },
+        { icon: BarChart3, label: "Reports", path: "/reports", badge: null },
+        { icon: Bell, label: "Notifications", path: "/notifications", badge: null },
+        { icon: Settings, label: "Settings", path: "/settings", badge: null },
+      ];
+    case "inspector":
+      return [
+        { icon: LayoutDashboard, label: "Dashboard", path: "/", badge: null },
+        { icon: FileText, label: "My Cases", path: "/cases", badge: null },
+        { icon: ClipboardCheck, label: "Attendance", path: "/attendance", badge: null },
+        { icon: Bell, label: "Notifications", path: "/notifications", badge: null },
+        { icon: Settings, label: "Settings", path: "/settings", badge: null },
+      ];
+    default:
+      return [
+        { icon: LayoutDashboard, label: "Dashboard", path: "/", badge: null },
+        { icon: Bell, label: "Notifications", path: "/notifications", badge: null },
+        { icon: Settings, label: "Settings", path: "/settings", badge: null },
+      ];
+  }
+};
 
 const Sidebar = () => {
+  const [userRole, setUserRole] = useState<string>("admin");
+  const [userName, setUserName] = useState<string>("User");
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      try {
+        const userData = JSON.parse(user);
+        setUserRole(userData.role || "admin");
+        setUserName(userData.name || userData.username || "User");
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+      }
+    }
+  }, []);
+
+  const menuItems = getMenuItemsByRole(userRole);
+
+  const getRoleTitle = (role: string) => {
+    switch (role) {
+      case "liaison":
+        return "Liaison Officer";
+      case "admin":
+        return "Admin";
+      case "inspector":
+        return "Inspector";
+      default:
+        return "User";
+    }
+  };
   return (
     <aside className="w-72 h-screen bg-gradient-to-b from-primary via-primary/95 to-primary/90 text-sidebar-foreground flex flex-col shadow-xl border-r border-primary/20 fixed left-0 top-0 z-40 no-scrollbar">
       {/* Header */}
@@ -103,13 +169,18 @@ const Sidebar = () => {
       {/* Footer */}
       <div className="p-6 border-t border-white/10 space-y-3 flex-shrink-0">
         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-          <p className="text-xs text-white/90 font-medium mb-1">Quick Help</p>
-          <p className="text-xs text-white/70">
-            Need assistance? Contact support at ext. 2024
-          </p>
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+              <User className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm text-white font-medium truncate">{userName}</p>
+              <p className="text-xs text-white/70">{getRoleTitle(userRole)}</p>
+            </div>
+          </div>
         </div>
         <p className="text-xs text-white/60 text-center">
-          © 2024 Government of Odisha
+          © 2025 Government of Odisha
         </p>
       </div>
     </aside>

@@ -49,6 +49,29 @@ export const SETTINGS_ROUTES = `${API_PREFIX}/settings`;
 export const SETTINGS_GET = (key) => `${SETTINGS_ROUTES}/${key}`; // GET
 export const SETTINGS_UPDATE = (key) => `${SETTINGS_ROUTES}/${key}`; // PUT
 
+// Liaison Officer
+export const LIAISON_ROUTES = `${API_PREFIX}/liaison`;
+export const LIAISON_DASHBOARD = `${LIAISON_ROUTES}/dashboard`;
+export const LIAISON_HEARINGS_TODAY = `${LIAISON_ROUTES}/hearings/today`;
+export const LIAISON_HEARINGS_UPCOMING = `${LIAISON_ROUTES}/hearings/upcoming`;
+export const LIAISON_ATTENDANCE_STATS = `${LIAISON_ROUTES}/attendance/stats`;
+
+// Hearing Sessions
+export const HEARING_ROUTES = `${API_PREFIX}/hearings`;
+export const HEARING_LIST = HEARING_ROUTES; // GET
+export const HEARING_CREATE = HEARING_ROUTES; // POST
+export const HEARING_DETAIL = (id) => `${HEARING_ROUTES}/${id}`; // GET
+export const HEARING_UPDATE = (id) => `${HEARING_ROUTES}/${id}`; // PUT
+export const HEARING_QR_CODE = (id) => `${HEARING_ROUTES}/${id}/qr-code`; // GET
+export const HEARING_MARK_ATTENDANCE = (id) => `${HEARING_ROUTES}/${id}/mark-attendance`; // POST
+export const HEARING_ATTENDANCE_LIST = (id) => `${HEARING_ROUTES}/${id}/attendance`; // GET
+
+// Absence Reasons
+export const ABSENCE_ROUTES = `${API_PREFIX}/absence`;
+export const ABSENCE_SUBMIT = ABSENCE_ROUTES; // POST
+export const ABSENCE_LIST = ABSENCE_ROUTES; // GET
+export const ABSENCE_PENDING = `${ABSENCE_ROUTES}/pending`; // GET
+
 // Witnesses
 export const WITNESS_ROUTES = `${API_PREFIX}/witnesses`;
 export const WITNESS_LIST = WITNESS_ROUTES; // GET

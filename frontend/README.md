@@ -1,8 +1,17 @@
-# Welcome to your Lovable project
+# Odisha Police Court Attendance System - Frontend
 
-## Project info
+## Overview
 
-**URL**: https://lovable.dev/projects/56465481-9997-4753-b472-97ef7998e626
+This is the frontend application for the Odisha Police Court Attendance & Witness Tracking System. It provides role-based dashboards for Liaison Officers, Admins, Inspectors, and Witnesses.
+
+## Features
+
+- **Role-Based Authentication**: Separate interfaces for different user roles
+- **Liaison Officer Dashboard**: Complete attendance management system
+- **Real-time Updates**: Live attendance tracking and notifications
+- **QR Code Integration**: Generate and scan QR codes for attendance
+- **Responsive Design**: Works on desktop, tablet, and mobile devices
+- **Professional UI**: Built with Radix UI and shadcn/ui components
 
 ## How can I edit this code?
 
