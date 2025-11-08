@@ -23,6 +23,7 @@ import TodayHearings from "./pages/TodayHearings";
 import UpcomingHearings from "./pages/UpcomingHearings";
 import AttendanceMarking from "./pages/AttendanceMarking";
 import AbsenceManagement from "./pages/AbsenceManagement";
+import GenerateQRCode from "./pages/GenerateQRCode";
 
 // Role-specific Dashboards
 import AdminDashboard from "./pages/AdminDashboard";
@@ -39,6 +40,9 @@ import IONotifications from "./pages/IONotifications";
 import WitnessCases from "./pages/WitnessCases";
 import WitnessAttendance from "./pages/WitnessAttendance";
 import WitnessNotifications from "./pages/WitnessNotifications";
+
+// QR Verification Page (for IO and Witness)
+import VerifyAttendance from "./pages/VerifyAttendance";
 
 const queryClient = new QueryClient();
 
@@ -111,6 +115,7 @@ const App = () => {
                         <Route path="/liaison/hearings/upcoming" element={<UpcomingHearings />} />
                         <Route path="/liaison/attendance/:hearingId" element={<AttendanceMarking />} />
                         <Route path="/liaison/absences" element={<AbsenceManagement />} />
+                        <Route path="/liaison/generate-qr" element={<GenerateQRCode />} />
                         <Route path="/notifications" element={<Notifications />} />
                         <Route path="/settings" element={<Settings />} />
                       </>
@@ -134,6 +139,7 @@ const App = () => {
                         <Route path="/" element={<WitnessDashboard />} />
                         <Route path="/cases" element={<WitnessCases />} />
                         <Route path="/attendance" element={<WitnessAttendance />} />
+                        <Route path="/attendance/verify" element={<VerifyAttendance />} />
                         <Route path="/notifications" element={<WitnessNotifications />} />
                         <Route path="/settings" element={<Settings />} />
                       </>
@@ -146,6 +152,7 @@ const App = () => {
                         <Route path="/cases" element={<IOCases />} />
                         <Route path="/witnesses" element={<IOWitnesses />} />
                         <Route path="/hearings" element={<IOHearings />} />
+                        <Route path="/attendance/verify" element={<VerifyAttendance />} />
                         <Route path="/notifications" element={<IONotifications />} />
                         <Route path="/settings" element={<Settings />} />
                       </>

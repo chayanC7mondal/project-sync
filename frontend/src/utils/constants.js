@@ -11,10 +11,20 @@ export const AUTH_SIGNUP = `${AUTH_ROUTES}/signup`;
 export const AUTH_LOGOUT = `${AUTH_ROUTES}/logout`;
 export const AUTH_VALIDATE = `${AUTH_ROUTES}/validate`;
 
-// Admin (system theme etc.)
+// Admin (system theme, user management, settings, reports, audit logs)
 export const ADMIN_ROUTES = `${API_PREFIX}/admin`;
 export const ADMIN_SYSTEM_THEME_GET = `${ADMIN_ROUTES}/system-theme`;
 export const ADMIN_SYSTEM_THEME_SET = `${ADMIN_ROUTES}/system-theme`; // POST same endpoint
+export const ADMIN_USERS_LIST = `${ADMIN_ROUTES}/users`; // GET
+export const ADMIN_USER_CREATE = `${ADMIN_ROUTES}/users`; // POST
+export const ADMIN_USER_DETAIL = (id) => `${ADMIN_ROUTES}/users/${id}`; // GET
+export const ADMIN_USER_UPDATE = (id) => `${ADMIN_ROUTES}/users/${id}`; // PUT
+export const ADMIN_USER_DELETE = (id) => `${ADMIN_ROUTES}/users/${id}`; // DELETE
+export const ADMIN_REPORTS = `${ADMIN_ROUTES}/reports`; // GET with query params
+export const ADMIN_AUDIT_LOGS = `${ADMIN_ROUTES}/audit-logs`; // GET with query params
+export const ADMIN_SYSTEM_STATS = `${ADMIN_ROUTES}/system-stats`; // GET
+export const ADMIN_SETTINGS_LIST = `${ADMIN_ROUTES}/settings`; // GET
+export const ADMIN_SETTINGS_UPDATE = `${ADMIN_ROUTES}/settings`; // PUT
 
 // User (preferences)
 export const USER_ROUTES = `${API_PREFIX}/user`;
@@ -64,6 +74,7 @@ export const HEARING_CREATE = HEARING_ROUTES; // POST
 export const HEARING_DETAIL = (id) => `${HEARING_ROUTES}/${id}`; // GET
 export const HEARING_UPDATE = (id) => `${HEARING_ROUTES}/${id}`; // PUT
 export const HEARING_QR_CODE = (id) => `${HEARING_ROUTES}/${id}/qr-code`; // GET
+export const HEARING_SCAN_QR = `${HEARING_ROUTES}/scan-qr`; // POST - Verify QR code and mark attendance
 export const HEARING_MARK_ATTENDANCE = (id) => `${HEARING_ROUTES}/${id}/mark-attendance`; // POST
 export const HEARING_ATTENDANCE_LIST = (id) => `${HEARING_ROUTES}/${id}/attendance`; // GET
 
