@@ -23,6 +23,12 @@ import UpcomingHearings from "./pages/UpcomingHearings";
 import AttendanceMarking from "./pages/AttendanceMarking";
 import AbsenceManagement from "./pages/AbsenceManagement";
 
+// Role-specific Dashboards
+import AdminDashboard from "./pages/AdminDashboard";
+import InspectorDashboard from "./pages/InspectorDashboard";
+import WitnessDashboard from "./pages/WitnessDashboard";
+import IODashboard from "./pages/IODashboard";
+
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -89,7 +95,7 @@ const App = () => {
                     {/* Admin Routes */}
                     {userRole === "admin" && (
                       <>
-                        <Route path="/" element={<Dashboard />} />
+                        <Route path="/" element={<AdminDashboard />} />
                         <Route path="/cases" element={<CaseManagement />} />
                         <Route path="/attendance" element={<Attendance />} />
                         <Route path="/notifications" element={<Notifications />} />
@@ -101,7 +107,18 @@ const App = () => {
                     {/* Inspector Routes */}
                     {userRole === "inspector" && (
                       <>
-                        <Route path="/" element={<Dashboard />} />
+                        <Route path="/" element={<InspectorDashboard />} />
+                        <Route path="/cases" element={<CaseManagement />} />
+                        <Route path="/reports" element={<Reports />} />
+                        <Route path="/notifications" element={<Notifications />} />
+                        <Route path="/settings" element={<Settings />} />
+                      </>
+                    )}
+
+                    {/* Witness Routes */}
+                    {userRole === "witness" && (
+                      <>
+                        <Route path="/" element={<WitnessDashboard />} />
                         <Route path="/cases" element={<CaseManagement />} />
                         <Route path="/attendance" element={<Attendance />} />
                         <Route path="/notifications" element={<Notifications />} />
@@ -109,8 +126,20 @@ const App = () => {
                       </>
                     )}
 
+                    {/* Investigating Officer (IO) Routes */}
+                    {userRole === "io" && (
+                      <>
+                        <Route path="/" element={<IODashboard />} />
+                        <Route path="/cases" element={<CaseManagement />} />
+                        <Route path="/witnesses" element={<CaseManagement />} />
+                        <Route path="/hearings" element={<Attendance />} />
+                        <Route path="/notifications" element={<Notifications />} />
+                        <Route path="/settings" element={<Settings />} />
+                      </>
+                    )}
+
                     {/* Default fallback */}
-                    {!["liaison", "admin", "inspector"].includes(userRole || "") && (
+                    {!["liaison", "admin", "inspector", "witness", "io"].includes(userRole || "") && (
                       <Route path="/" element={<Dashboard />} />
                     )}
                   </Route>
