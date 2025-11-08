@@ -36,27 +36,30 @@ const App = () => {
             <SplashScreen onComplete={handleSplashComplete} />
           ) : (
             <BrowserRouter>
-            <Routes>
-              <Route path="/login" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
-            
-            {isAuthenticated ? (
-              <Route element={<DashboardLayout />}>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/cases" element={<CaseManagement />} />
-                <Route path="/attendance" element={<Attendance />} />
-                <Route path="/notifications" element={<Notifications />} />
-                <Route path="/reports" element={<Reports />} />
-                <Route path="/settings" element={<Settings />} />
-              </Route>
-            ) : (
-              <Route path="*" element={<Navigate to="/login" replace />} />
-            )}
-            
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+              <Routes>
+                <Route
+                  path="/login"
+                  element={<Login onLogin={() => setIsAuthenticated(true)} />}
+                />
+
+                {isAuthenticated ? (
+                  <Route element={<DashboardLayout />}>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/cases" element={<CaseManagement />} />
+                    <Route path="/attendance" element={<Attendance />} />
+                    <Route path="/notifications" element={<Notifications />} />
+                    <Route path="/reports" element={<Reports />} />
+                    <Route path="/settings" element={<Settings />} />
+                  </Route>
+                ) : (
+                  <Route path="*" element={<Navigate to="/login" replace />} />
+                )}
+
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
           )}
-      </TooltipProvider>
+        </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
