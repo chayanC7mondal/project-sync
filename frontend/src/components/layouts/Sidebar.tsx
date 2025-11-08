@@ -14,15 +14,8 @@ import { Badge } from "@/components/ui/badge";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/", badge: null },
-  { icon: FileText, label: "Case Management", path: "/cases", badge: "234" },
-  {
-    icon: ClipboardCheck,
-    label: "Attendance",
-    path: "/attendance",
-    badge: null,
-  },
-  { icon: Bell, label: "Notifications", path: "/notifications", badge: "8" },
-  { icon: BarChart3, label: "Reports", path: "/reports", badge: null },
+  { icon: FileText, label: "Case Management", path: "/cases", badge: null },
+  { icon: Bell, label: "Notifications", path: "/notifications", badge: "3" },
   { icon: Settings, label: "Settings", path: "/settings", badge: null },
 ];
 
