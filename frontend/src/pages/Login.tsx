@@ -55,15 +55,18 @@ const Login = ({ onLogin }: LoginProps) => {
       });
       
       if (response.data.success && response.data.data) {
-        // Store user data with role
+        // Store user data with role from backend response
         const userData = {
           ...response.data.data.user,
-          role: role
         };
         localStorage.setItem('user', JSON.stringify(userData));
         
+        // Use the role from the backend response
+        const userRole = response.data.data.user.role || role;
+        console.log('User role after login:', userRole);
+        
         toast.success(response.data.message || "Login successful! Welcome to the system.");
-        onLogin(role);
+        onLogin(userRole);
         navigate("/");
       } else {
         toast.error(response.data.message || "Login failed");
@@ -234,6 +237,16 @@ const Login = ({ onLogin }: LoginProps) => {
               </Button>
 
               <div className="text-center space-y-3">
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                  Don't have an account?{" "}
+                  <button
+                    type="button"
+                    onClick={() => navigate("/signup")}
+                    className="text-primary hover:underline font-semibold"
+                  >
+                    Sign up here
+                  </button>
+                </p>
                 <p className="text-xs sm:text-sm text-muted-foreground">
                   Forgot password? Contact your system administrator
                 </p>

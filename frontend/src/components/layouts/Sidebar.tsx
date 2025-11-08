@@ -38,14 +38,6 @@ const getMenuItemsByRole = (role: string) => {
         { icon: Bell, label: "Notifications", path: "/notifications", badge: null },
         { icon: Settings, label: "Settings", path: "/settings", badge: null },
       ];
-    case "inspector":
-      return [
-        { icon: LayoutDashboard, label: "Dashboard", path: "/", badge: null },
-        { icon: FileText, label: "My Cases", path: "/cases", badge: null },
-        { icon: ClipboardCheck, label: "Attendance", path: "/attendance", badge: null },
-        { icon: Bell, label: "Notifications", path: "/notifications", badge: null },
-        { icon: Settings, label: "Settings", path: "/settings", badge: null },
-      ];
     case "io":
       return [
         { icon: LayoutDashboard, label: "Dashboard", path: "/", badge: null },
@@ -97,8 +89,6 @@ const Sidebar = () => {
         return "Liaison Officer";
       case "admin":
         return "Admin";
-      case "inspector":
-        return "Inspector";
       case "io":
         return "Investigating Officer";
       case "witness":

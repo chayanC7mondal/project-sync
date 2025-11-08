@@ -7,6 +7,7 @@ export const API_PREFIX = "/api";
 // Auth
 export const AUTH_ROUTES = `${API_PREFIX}/auth`;
 export const AUTH_LOGIN = `${AUTH_ROUTES}/login`;
+export const AUTH_SIGNUP = `${AUTH_ROUTES}/signup`;
 export const AUTH_LOGOUT = `${AUTH_ROUTES}/logout`;
 export const AUTH_VALIDATE = `${AUTH_ROUTES}/validate`;
 

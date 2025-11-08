@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import SplashScreen from "./components/SplashScreen";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
 import CaseManagement from "./pages/CaseManagement";
@@ -25,9 +26,14 @@ import AbsenceManagement from "./pages/AbsenceManagement";
 
 // Role-specific Dashboards
 import AdminDashboard from "./pages/AdminDashboard";
-import InspectorDashboard from "./pages/InspectorDashboard";
 import WitnessDashboard from "./pages/WitnessDashboard";
 import IODashboard from "./pages/IODashboard";
+
+// IO-specific Pages
+import IOCases from "./pages/IOCases";
+import IOWitnesses from "./pages/IOWitnesses";
+import IOHearings from "./pages/IOHearings";
+import IONotifications from "./pages/IONotifications";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +49,8 @@ const App = () => {
     if (user) {
       try {
         const userData = JSON.parse(user);
+        console.log('App.tsx - User data from localStorage:', userData);
+        console.log('App.tsx - User role:', userData.role);
         setIsAuthenticated(true);
         setUserRole(userData.role);
       } catch (error) {
@@ -56,6 +64,13 @@ const App = () => {
   };
 
   const handleLogin = (role: string) => {
+    console.log('App.tsx - handleLogin called with role:', role);
+    setIsAuthenticated(true);
+    setUserRole(role);
+  };
+
+  const handleSignup = (role: string) => {
+    console.log('App.tsx - handleSignup called with role:', role);
     setIsAuthenticated(true);
     setUserRole(role);
   };
@@ -74,6 +89,10 @@ const App = () => {
                 <Route
                   path="/login"
                   element={<Login onLogin={handleLogin} />}
+                />
+                <Route
+                  path="/signup"
+                  element={<Signup onSignup={handleSignup} />}
                 />
 
                 {isAuthenticated ? (
@@ -104,17 +123,6 @@ const App = () => {
                       </>
                     )}
 
-                    {/* Inspector Routes */}
-                    {userRole === "inspector" && (
-                      <>
-                        <Route path="/" element={<InspectorDashboard />} />
-                        <Route path="/cases" element={<CaseManagement />} />
-                        <Route path="/reports" element={<Reports />} />
-                        <Route path="/notifications" element={<Notifications />} />
-                        <Route path="/settings" element={<Settings />} />
-                      </>
-                    )}
-
                     {/* Witness Routes */}
                     {userRole === "witness" && (
                       <>
@@ -130,16 +138,16 @@ const App = () => {
                     {userRole === "io" && (
                       <>
                         <Route path="/" element={<IODashboard />} />
-                        <Route path="/cases" element={<CaseManagement />} />
-                        <Route path="/witnesses" element={<CaseManagement />} />
-                        <Route path="/hearings" element={<Attendance />} />
-                        <Route path="/notifications" element={<Notifications />} />
+                        <Route path="/cases" element={<IOCases />} />
+                        <Route path="/witnesses" element={<IOWitnesses />} />
+                        <Route path="/hearings" element={<IOHearings />} />
+                        <Route path="/notifications" element={<IONotifications />} />
                         <Route path="/settings" element={<Settings />} />
                       </>
                     )}
 
                     {/* Default fallback */}
-                    {!["liaison", "admin", "inspector", "witness", "io"].includes(userRole || "") && (
+                    {!["liaison", "admin", "witness", "io"].includes(userRole || "") && (
                       <Route path="/" element={<Dashboard />} />
                     )}
                   </Route>
