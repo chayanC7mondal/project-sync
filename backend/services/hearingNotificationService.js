@@ -2,8 +2,8 @@ import Auth from "../models/authModel.js";
 import Attendance from "../models/attendanceModel.js";
 import HearingSession from "../models/hearingSessionModel.js";
 import Case from "../models/caseModel.js";
-import { sendNotification } from "./notificationUtils.js";
-import { sendMultiChannelNotification } from "./smsUtils.js";
+import { sendNotification } from "../utils/notificationUtils.js";
+import { sendMultiChannelNotification } from "../utils/smsUtils.js";
 
 /**
  * Court Hearing Notification System

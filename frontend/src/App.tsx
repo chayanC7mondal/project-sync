@@ -44,6 +44,9 @@ import WitnessNotifications from "./pages/WitnessNotifications";
 // QR Verification Page (for IO and Witness)
 import VerifyAttendance from "./pages/VerifyAttendance";
 
+// Notification Center
+import NotificationCenter from "./pages/NotificationCenter";
+
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -117,6 +120,7 @@ const App = () => {
                         <Route path="/liaison/absences" element={<AbsenceManagement />} />
                         <Route path="/liaison/generate-qr" element={<GenerateQRCode />} />
                         <Route path="/notifications" element={<Notifications />} />
+                        <Route path="/notification-center" element={<NotificationCenter />} />
                         <Route path="/settings" element={<Settings />} />
                       </>
                     )}
@@ -128,6 +132,7 @@ const App = () => {
                         <Route path="/cases" element={<CaseManagement />} />
                         <Route path="/attendance" element={<Attendance />} />
                         <Route path="/notifications" element={<Notifications />} />
+                        <Route path="/notification-center" element={<NotificationCenter />} />
                         <Route path="/reports" element={<Reports />} />
                         <Route path="/settings" element={<Settings />} />
                       </>
@@ -141,6 +146,7 @@ const App = () => {
                         <Route path="/attendance" element={<WitnessAttendance />} />
                         <Route path="/attendance/verify" element={<VerifyAttendance />} />
                         <Route path="/notifications" element={<WitnessNotifications />} />
+                        <Route path="/notification-center" element={<NotificationCenter />} />
                         <Route path="/settings" element={<Settings />} />
                       </>
                     )}
@@ -154,6 +160,7 @@ const App = () => {
                         <Route path="/hearings" element={<IOHearings />} />
                         <Route path="/attendance/verify" element={<VerifyAttendance />} />
                         <Route path="/notifications" element={<IONotifications />} />
+                        <Route path="/notification-center" element={<NotificationCenter />} />
                         <Route path="/settings" element={<Settings />} />
                       </>
                     )}
