@@ -17,8 +17,12 @@ import settingsRoutes from "./routes/settingsRoutes.js";
 import witnessRoutes from "./routes/witnessRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import hearingRoutes from "./routes/hearingRoutes.js";
+import absenceRoutes from "./routes/absenceRoutes.js";
+import liaisonRoutes from "./routes/liaisonRoutes.js";
 
 import { ApiError } from "./utils/apiError.js";
+import { initializeScheduler } from "./services/schedulerService.js";
 
 const app = express();
 
@@ -46,6 +50,9 @@ app.use("/api/settings", settingsRoutes);
 app.use("/api/witnesses", witnessRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/hearings", hearingRoutes);
+app.use("/api/absence-reasons", absenceRoutes);
+app.use("/api/liaison", liaisonRoutes);
 
 // 404 handler
 app.use((req, res, next) => {
@@ -78,7 +85,13 @@ mongoose
 			console.log("  POST /api/auth/login");
 			console.log("  POST /api/auth/logout");
 			console.log("  GET  /api/auth/validate");
+			console.log("  POST /api/hearings - Create hearing with QR");
+			console.log("  POST /api/hearings/scan-qr - Scan QR for attendance");
+			console.log("  POST /api/absence-reasons - Submit absence reason");
 		});
+		
+		// Initialize scheduler for notifications
+		initializeScheduler();
 	})
 	.catch((err) => {
 		console.error("Mongo connection error:", err);

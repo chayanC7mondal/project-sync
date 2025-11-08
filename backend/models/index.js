@@ -7,6 +7,8 @@ import Attendance from "./attendanceModel.js";
 import Notification from "./notificationModel.js";
 import Settings, { initializeDefaultSettings } from "./settingsModel.js";
 import ActivityLog from "./activityLogModel.js";
+import HearingSession from "./hearingSessionModel.js";
+import AbsenceReason from "./absenceReasonModel.js";
 
 // Export all models
 export {
@@ -17,6 +19,8 @@ export {
   Notification,
   Settings,
   ActivityLog,
+  HearingSession,
+  AbsenceReason,
   initializeDefaultSettings
 };
 
@@ -29,5 +33,7 @@ export default {
   Notification,
   Settings,
   ActivityLog,
+  HearingSession,
+  AbsenceReason,
   initializeDefaultSettings
 };
