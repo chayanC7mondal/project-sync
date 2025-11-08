@@ -37,9 +37,10 @@ interface HearingSession {
   attendance_marked?: boolean;
   total_expected?: number;
   total_present?: number;
+  manualCode?: string;
 }
 
-// Dummy data
+// Dummy data with unique manual codes
 const dummyHearings: HearingSession[] = [
   {
     id: 1,
@@ -52,6 +53,7 @@ const dummyHearings: HearingSession[] = [
     status: "scheduled",
     total_expected: 3,
     total_present: 2,
+    manualCode: "CR001-A8B2",
   },
   {
     id: 2,
@@ -64,6 +66,7 @@ const dummyHearings: HearingSession[] = [
     status: "scheduled",
     total_expected: 2,
     total_present: 1,
+    manualCode: "CR002-C4D6",
   },
   {
     id: 3,
@@ -76,6 +79,7 @@ const dummyHearings: HearingSession[] = [
     status: "in_progress",
     total_expected: 4,
     total_present: 4,
+    manualCode: "CR003-E7F9",
   },
   {
     id: 4,
@@ -88,6 +92,7 @@ const dummyHearings: HearingSession[] = [
     status: "scheduled",
     total_expected: 2,
     total_present: 0,
+    manualCode: "CR004-G1H3",
   },
   {
     id: 5,
@@ -100,17 +105,28 @@ const dummyHearings: HearingSession[] = [
     status: "scheduled",
     total_expected: 3,
     total_present: 1,
+    manualCode: "CR005-I2J4",
   },
 ];
 
 const TodayHearings = () => {
   const navigate = useNavigate();
-  const [hearings] = useState<HearingSession[]>(dummyHearings);
-  const [filteredHearings, setFilteredHearings] = useState<HearingSession[]>(dummyHearings);
+  const [hearings, setHearings] = useState<HearingSession[]>([]);
+  const [filteredHearings, setFilteredHearings] = useState<HearingSession[]>([]);
   const [loading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedHearing, setSelectedHearing] = useState<HearingSession | null>(null);
-  const [qrCodeUrl] = useState<string>("https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=HEARING_SESSION_123");
+  const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
+
+  // Initialize hearings with unique manual codes
+  useEffect(() => {
+    const hearingsWithCodes = dummyHearings.map(hearing => ({
+      ...hearing,
+      manualCode: generateUniqueCode(hearing.case_number, hearing.id)
+    }));
+    setHearings(hearingsWithCodes);
+    setFilteredHearings(hearingsWithCodes);
+  }, []);
 
   useEffect(() => {
     if (searchTerm) {
@@ -126,9 +142,67 @@ const TodayHearings = () => {
     }
   }, [searchTerm, hearings]);
 
+  const generateUniqueCode = (caseNumber: string, hearingId: number) => {
+    // Generate a unique code based on case number and hearing ID
+    const casePrefix = caseNumber.replace(/[/-]/g, '').substring(0, 5).toUpperCase();
+    const uniqueId = hearingId.toString().padStart(3, '0');
+    const randomHex = Math.random().toString(16).substring(2, 6).toUpperCase();
+    return `${casePrefix}-${uniqueId}${randomHex}`;
+  };
+
+  const generateQRData = (hearing: HearingSession) => {
+    // Generate QR code data that includes all necessary information for attendance
+    const qrData = {
+      type: 'hearing_attendance',
+      hearingId: hearing.id,
+      caseId: hearing.case_number,
+      hearingDate: hearing.hearing_date,
+      hearingTime: hearing.hearing_time,
+      location: hearing.location,
+      manualCode: hearing.manualCode,
+      timestamp: Date.now()
+    };
+    return JSON.stringify(qrData);
+  };
+
   const handleViewQRCode = (hearing: HearingSession) => {
     setSelectedHearing(hearing);
-    toast.success("QR Code loaded");
+    
+    // Generate unique QR code data for this specific hearing
+    const qrData = generateQRData(hearing);
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(qrData)}`;
+    
+    // Set the QR code URL for display
+    setQrCodeUrl(qrUrl);
+    
+    toast.success(`QR Code generated for ${hearing.case_number}`);
+  };
+
+  // Function to simulate attendance update from database
+  const updateAttendance = (hearingId: number) => {
+    setHearings(prevHearings => 
+      prevHearings.map(hearing => 
+        hearing.id === hearingId 
+          ? { ...hearing, total_present: (hearing.total_present || 0) + 1 }
+          : hearing
+      )
+    );
+    setFilteredHearings(prevFiltered => 
+      prevFiltered.map(hearing => 
+        hearing.id === hearingId 
+          ? { ...hearing, total_present: (hearing.total_present || 0) + 1 }
+          : hearing
+      )
+    );
+  };
+
+  // Simulate a witness marking attendance (for testing)
+  const simulateWitnessAttendance = (hearing: HearingSession) => {
+    toast.success(`Simulating witness attendance for ${hearing.case_number}`);
+    setTimeout(() => {
+      updateAttendance(hearing.id);
+      toast.success(`Witness marked present for ${hearing.case_number}`);
+    }, 2000);
   };
 
   const getStatusBadge = (status: string) => {
@@ -270,18 +344,35 @@ const TodayHearings = () => {
                                 </DialogDescription>
                               </DialogHeader>
                               <div className="flex flex-col items-center gap-4 py-4">
-                                {qrCodeUrl ? (
+                                {qrCodeUrl && selectedHearing ? (
                                   <img
                                     src={qrCodeUrl}
-                                    alt="QR Code"
+                                    alt={`QR Code for ${selectedHearing.case_number}`}
                                     className="w-64 h-64 border rounded-lg"
+                                    data-qr-code
                                   />
                                 ) : (
-                                  <Skeleton className="w-64 h-64" />
+                                  <div className="w-64 h-64 border rounded-lg bg-gray-100 flex items-center justify-center">
+                                    <QrCode className="w-16 h-16 text-gray-400" />
+                                  </div>
                                 )}
                                 <p className="text-sm text-muted-foreground text-center">
                                   Scan this QR code to mark attendance
                                 </p>
+                                <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                  <p className="text-sm text-blue-800 text-center mb-2 font-medium">
+                                    Manual Entry Code:
+                                  </p>
+                                  <p className="text-xl font-bold text-center font-mono tracking-wider text-blue-900 bg-white px-3 py-2 rounded border">
+                                    {selectedHearing?.manualCode || "N/A"}
+                                  </p>
+                                  <p className="text-xs text-blue-600 text-center mt-2">
+                                    Witnesses can enter this code in their attendance form
+                                  </p>
+                                  <p className="text-xs text-blue-500 text-center mt-1">
+                                    Case: {selectedHearing?.case_number} • {selectedHearing?.hearing_time}
+                                  </p>
+                                </div>
                               </div>
                             </DialogContent>
                           </Dialog>
@@ -293,6 +384,14 @@ const TodayHearings = () => {
                           >
                             <CheckCircle className="h-4 w-4 mr-1" />
                             Mark
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            onClick={() => simulateWitnessAttendance(hearing)}
+                            className="ml-2"
+                          >
+                            Test
                           </Button>
                         </div>
                       </TableCell>

@@ -23,6 +23,11 @@ const hearingSessionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  manualCode: {
+    type: String,
+    required: true,
+    unique: true
+  },
   courtName: {
     type: String,
     required: true

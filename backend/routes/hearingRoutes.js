@@ -6,6 +6,7 @@ import {
   getUpcomingHearings,
   scanQRCode,
   markAttendanceManually,
+  markSelfAttendance,
   getHearingAttendance,
   sendReminders
 } from "../controllers/hearingController.js";
@@ -30,6 +31,9 @@ hearingRoutes.post("/scan-qr", verifyToken, scanQRCode);
 
 // Manual attendance marking by liaison officer
 hearingRoutes.post("/mark-attendance", verifyToken, markAttendanceManually);
+
+// Witness self-attendance marking using QR code or manual code (public endpoint)
+hearingRoutes.post("/mark-self-attendance", markSelfAttendance);
 
 // Get attendance for a hearing session
 hearingRoutes.get("/:hearingSessionId/attendance", verifyToken, getHearingAttendance);
