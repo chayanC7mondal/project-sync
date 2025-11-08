@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import apiClient from "@/utils/apiClient";
-import { ADMIN_REPORTS } from "@/utils/constants";
+import { ADMIN_REPORTS, ADMIN_GENERATE_REPORT } from "@/utils/constants";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface AttendanceReport {
@@ -84,39 +84,144 @@ const dummyCaseReport: CaseReport = {
 
 const dummyOfficerPerformance: OfficerPerformance[] = [
   {
-    officerId: "1",
+    officerId: "IO001",
     officerName: "SI Rajesh Kumar",
     casesHandled: 12,
     hearingsAttended: 45,
     attendanceRate: 95,
   },
   {
-    officerId: "2",
+    officerId: "IO002",
     officerName: "SI Priya Singh",
     casesHandled: 10,
     hearingsAttended: 38,
     attendanceRate: 92,
   },
   {
-    officerId: "3",
+    officerId: "IO003",
     officerName: "ASI Suresh Nayak",
     casesHandled: 8,
     hearingsAttended: 30,
     attendanceRate: 88,
   },
   {
-    officerId: "4",
+    officerId: "IO004",
     officerName: "SI Anjali Das",
     casesHandled: 15,
     hearingsAttended: 52,
     attendanceRate: 96,
   },
   {
-    officerId: "5",
+    officerId: "IO005",
     officerName: "ASI Kavita Rath",
     casesHandled: 7,
     hearingsAttended: 25,
     attendanceRate: 85,
+  },
+  {
+    officerId: "IO006",
+    officerName: "SI Bikash Mohanty",
+    casesHandled: 9,
+    hearingsAttended: 35,
+    attendanceRate: 90,
+  },
+  {
+    officerId: "IO007",
+    officerName: "ASI Sujata Panda",
+    casesHandled: 6,
+    hearingsAttended: 28,
+    attendanceRate: 87,
+  },
+  {
+    officerId: "IO008",
+    officerName: "SI Ramesh Behera",
+    casesHandled: 11,
+    hearingsAttended: 42,
+    attendanceRate: 94,
+  },
+  {
+    officerId: "IO009",
+    officerName: "ASI Mina Swain",
+    casesHandled: 8,
+    hearingsAttended: 31,
+    attendanceRate: 89,
+  },
+  {
+    officerId: "IO010",
+    officerName: "SI Prakash Sahoo",
+    casesHandled: 13,
+    hearingsAttended: 48,
+    attendanceRate: 93,
+  },
+  {
+    officerId: "IO011",
+    officerName: "ASI Dipti Mallick",
+    casesHandled: 7,
+    hearingsAttended: 26,
+    attendanceRate: 84,
+  },
+  {
+    officerId: "IO012",
+    officerName: "SI Subash Jena",
+    casesHandled: 10,
+    hearingsAttended: 39,
+    attendanceRate: 91,
+  },
+  {
+    officerId: "IO013",
+    officerName: "ASI Laxmi Padhi",
+    casesHandled: 6,
+    hearingsAttended: 24,
+    attendanceRate: 86,
+  },
+  {
+    officerId: "IO014",
+    officerName: "SI Debasis Parida",
+    casesHandled: 12,
+    hearingsAttended: 44,
+    attendanceRate: 95,
+  },
+  {
+    officerId: "IO015",
+    officerName: "ASI Rinku Sahu",
+    casesHandled: 8,
+    hearingsAttended: 29,
+    attendanceRate: 88,
+  },
+  {
+    officerId: "IO016",
+    officerName: "SI Mamata Biswal",
+    casesHandled: 11,
+    hearingsAttended: 41,
+    attendanceRate: 92,
+  },
+  {
+    officerId: "IO017",
+    officerName: "ASI Jitendra Patra",
+    casesHandled: 7,
+    hearingsAttended: 27,
+    attendanceRate: 85,
+  },
+  {
+    officerId: "IO018",
+    officerName: "SI Srikant Dash",
+    casesHandled: 9,
+    hearingsAttended: 36,
+    attendanceRate: 90,
+  },
+  {
+    officerId: "IO019",
+    officerName: "ASI Puspa Sethy",
+    casesHandled: 6,
+    hearingsAttended: 25,
+    attendanceRate: 83,
+  },
+  {
+    officerId: "IO020",
+    officerName: "SI Prasanta Barik",
+    casesHandled: 10,
+    hearingsAttended: 38,
+    attendanceRate: 91,
   },
 ];
 
@@ -131,6 +236,11 @@ const AdminReports = () => {
   const [loading, setLoading] = useState(false);
   const [dateRange, setDateRange] = useState("30");
   const [reportType, setReportType] = useState("all");
+  const [pdfGenerating, setPdfGenerating] = useState(false);
+  const [selectedOfficer, setSelectedOfficer] = useState<string>("");
+  const [selectedMonth, setSelectedMonth] = useState<string>("1");
+  const [selectedYear, setSelectedYear] = useState<string>("2025");
+  const [pdfReportType, setPdfReportType] = useState<string>("individual");
 
   const [attendanceReport, setAttendanceReport] = useState<AttendanceReport>(dummyAttendanceReport);
   const [caseReport, setCaseReport] = useState<CaseReport>(dummyCaseReport);
@@ -245,6 +355,46 @@ const AdminReports = () => {
     toast.success("Report exported successfully");
   };
 
+  const handleGeneratePDF = async () => {
+    if (pdfReportType === "individual" && !selectedOfficer) {
+      toast.error("Please select an officer");
+      return;
+    }
+
+    try {
+      setPdfGenerating(true);
+
+      const response = await apiClient.post(
+        ADMIN_GENERATE_REPORT,
+        {
+          officerId: pdfReportType === "individual" ? selectedOfficer : null,
+          month: parseInt(selectedMonth),
+          year: parseInt(selectedYear),
+          reportType: pdfReportType,
+        },
+        {
+          responseType: "blob",
+        }
+      );
+
+      // Create download link
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `attendance_report_${selectedMonth}_${selectedYear}.pdf`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+
+      toast.success("PDF report generated successfully!");
+    } catch (error: any) {
+      console.error("PDF generation error:", error);
+      toast.error(error.response?.data?.message || "Failed to generate PDF report");
+    } finally {
+      setPdfGenerating(false);
+    }
+  };
+
   return (
     <div className="p-8 space-y-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
       {/* Header */}
@@ -334,6 +484,107 @@ const AdminReports = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* PDF Report Generation */}
+      <Card className="border-l-4 border-l-purple-500">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <FileText className="h-5 w-5 text-purple-600" />
+            Generate PDF Report
+          </CardTitle>
+          <CardDescription>
+            Generate detailed PDF reports for individual officers or consolidated reports for all officers
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <div>
+                <Label>Report Type</Label>
+                <Select value={pdfReportType} onValueChange={setPdfReportType}>
+                  <SelectTrigger className="mt-1">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="individual">Individual Officer</SelectItem>
+                    <SelectItem value="consolidated">Consolidated (All Officers)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {pdfReportType === "individual" && (
+                <div>
+                  <Label>Select Officer</Label>
+                  <Select value={selectedOfficer} onValueChange={setSelectedOfficer}>
+                    <SelectTrigger className="mt-1">
+                      <SelectValue placeholder="Choose officer..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {dummyOfficerPerformance.map((officer) => (
+                        <SelectItem key={officer.officerId} value={officer.officerId}>
+                          {officer.officerName}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+
+              <div>
+                <Label>Month</Label>
+                <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+                  <SelectTrigger className="mt-1">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">January</SelectItem>
+                    <SelectItem value="2">February</SelectItem>
+                    <SelectItem value="3">March</SelectItem>
+                    <SelectItem value="4">April</SelectItem>
+                    <SelectItem value="5">May</SelectItem>
+                    <SelectItem value="6">June</SelectItem>
+                    <SelectItem value="7">July</SelectItem>
+                    <SelectItem value="8">August</SelectItem>
+                    <SelectItem value="9">September</SelectItem>
+                    <SelectItem value="10">October</SelectItem>
+                    <SelectItem value="11">November</SelectItem>
+                    <SelectItem value="12">December</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label>Year</Label>
+                <Select value={selectedYear} onValueChange={setSelectedYear}>
+                  <SelectTrigger className="mt-1">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="2024">2024</SelectItem>
+                    <SelectItem value="2025">2025</SelectItem>
+                    <SelectItem value="2026">2026</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <Button
+              onClick={handleGeneratePDF}
+              disabled={pdfGenerating}
+              className="w-full md:w-auto"
+            >
+              {pdfGenerating ? (
+                <>Generating PDF...</>
+              ) : (
+                <>
+                  <Download className="h-4 w-4 mr-2" />
+                  Generate PDF Report
+                </>
+              )}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Detailed Reports */}
       <Tabs defaultValue="attendance" className="space-y-4">
