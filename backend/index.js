@@ -20,6 +20,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import hearingRoutes from "./routes/hearingRoutes.js";
 import absenceRoutes from "./routes/absenceRoutes.js";
 import liaisonRoutes from "./routes/liaisonRoutes.js";
+import chatbotRoutes from "./routes/chatbotRoutes.js";
 
 import { ApiError } from "./utils/apiError.js";
 import { initializeScheduler } from "./services/schedulerService.js";
@@ -58,6 +59,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/hearings", hearingRoutes);
 app.use("/api/absence-reasons", absenceRoutes);
 app.use("/api/liaison", liaisonRoutes);
+app.use("/api/chatbot", chatbotRoutes);
 
 // 404 handler
 app.use((req, res, next) => {
@@ -93,6 +95,7 @@ mongoose
       console.log("  POST /api/hearings - Create hearing with QR");
       console.log("  POST /api/hearings/scan-qr - Scan QR for attendance");
       console.log("  POST /api/absence-reasons - Submit absence reason");
+      console.log("  POST /api/chatbot/query - AI Assistant (Liaison Officer)");
     });
 
     // Initialize scheduler for notifications

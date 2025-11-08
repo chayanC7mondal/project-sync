@@ -11,13 +11,25 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { logout, user } = useAuth();
 
-  const handleLogout = () => {
-    navigate("/login");
-    window.location.reload();
+  const handleLogout = async () => {
+    await logout();
+  };
+
+  const getRoleDisplay = (role: string | undefined) => {
+    if (!role) return "User";
+    const roleMap: Record<string, string> = {
+      admin: "Admin",
+      liaison: "Liaison Officer",
+      io: "Investigating Officer",
+      witness: "Witness",
+    };
+    return roleMap[role] || "User";
   };
 
   return (
@@ -53,13 +65,26 @@ const Header = () => {
               <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center shadow-sm ring-2 ring-primary/10">
                 <User className="w-4 h-4 text-primary-foreground" />
               </div>
-              <span className="font-medium text-sm hidden md:inline">Admin User</span>
+              <div className="hidden md:flex flex-col items-start">
+                <span className="font-medium text-sm">{user?.username || "User"}</span>
+                <span className="text-xs text-muted-foreground">{getRoleDisplay(user?.role)}</span>
+              </div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium leading-none">{user?.username || "User"}</p>
+                <p className="text-xs leading-none text-muted-foreground">{user?.email || ""}</p>
+              </div>
+            </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">Profile Settings</DropdownMenuItem>
+            <DropdownMenuItem 
+              className="cursor-pointer"
+              onClick={() => navigate("/settings")}
+            >
+              Profile Settings
+            </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">Change Password</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout} className="text-destructive cursor-pointer focus:text-destructive">

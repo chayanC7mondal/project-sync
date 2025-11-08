@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Bell, Clock, AlertTriangle, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
-import apiClient from "@/utils/apiClient";
-import { NOTIFICATIONS_LIST, NOTIFICATION_CREATE, NOTIFICATION_MARK_READ } from "@/utils/constants";
 
 // Mock data - will be replaced with API data when backend is ready
 const mockNotifications = [
@@ -57,69 +55,19 @@ const mockNotifications = [
 ];
 
 const Notifications = () => {
-  const [notifications, setNotifications] = useState(mockNotifications); // Using mock data initially
-  const [loading, setLoading] = useState(false);
+  const [notifications, setNotifications] = useState(mockNotifications);
 
-  // Fetch all notifications - API function (uncomment when backend is ready)
-  const fetchNotifications = async () => {
-    try {
-      setLoading(true);
-      const response = await apiClient.get(NOTIFICATIONS_LIST);
-      setNotifications(response.data);
-      toast.success("Notifications loaded");
-    } catch (error) {
-      toast.error("Failed to fetch notifications");
-      console.error("Error fetching notifications:", error);
-      // Fallback to mock data on error
-      setNotifications(mockNotifications);
-    } finally {
-      setLoading(false);
-    }
+  // Mark a notification as read (static operation - removes from list)
+  const handleMarkAsRead = (notificationId: number) => {
+    setNotifications(prev => prev.filter(n => n.id !== notificationId));
+    toast.success("Notification removed");
   };
 
-  // Create a new notification
-  const handleCreateNotification = async (notificationData) => {
-    try {
-      await apiClient.post(NOTIFICATION_CREATE, notificationData);
-      toast.success("Notification created successfully");
-      fetchNotifications();
-    } catch (error) {
-      toast.error("Failed to create notification");
-      console.error("Error creating notification:", error);
-    }
+  // Mark all notifications as read (static operation - removes all unread)
+  const handleMarkAllAsRead = () => {
+    setNotifications(prev => prev.filter(n => n.read));
+    toast.success("All unread notifications removed");
   };
-
-  // Mark a notification as read
-  const handleMarkAsRead = async (notificationId) => {
-    try {
-      await apiClient.patch(NOTIFICATION_MARK_READ(notificationId));
-      toast.success("Notification marked as read");
-      fetchNotifications();
-    } catch (error) {
-      toast.error("Failed to mark notification as read");
-      console.error("Error marking notification:", error);
-    }
-  };
-
-  // Mark all notifications as read
-  const handleMarkAllAsRead = async () => {
-    try {
-      const unreadNotifications = notifications.filter(n => !n.read);
-      for (const notification of unreadNotifications) {
-        await apiClient.patch(NOTIFICATION_MARK_READ(notification.id));
-      }
-      toast.success("All notifications marked as read");
-      fetchNotifications();
-    } catch (error) {
-      toast.error("Failed to mark all as read");
-      console.error("Error marking all as read:", error);
-    }
-  };
-
-  // Uncomment this to enable API calls when backend is ready
-  // useEffect(() => {
-  //   fetchNotifications();
-  // }, []);
   const getIcon = (type: string) => {
     switch (type) {
       case "alert":
@@ -154,8 +102,13 @@ const Notifications = () => {
         </Button>
       </div>
 
-      {loading ? (
-        <div className="text-center py-8">Loading notifications...</div>
+      {notifications.length === 0 ? (
+        <Card className="glass-card">
+          <CardContent className="p-8 text-center">
+            <Bell className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+            <p className="text-muted-foreground">No notifications to display</p>
+          </CardContent>
+        </Card>
       ) : (
         <div className="space-y-3">
           {notifications.map((notification) => (

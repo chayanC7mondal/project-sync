@@ -23,13 +23,11 @@ import { toast } from "sonner";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import apiClient from "@/utils/apiClient";
 import { AUTH_LOGIN } from "@/utils/constants";
+import { useAuth } from "@/contexts/AuthContext";
 
-interface LoginProps {
-  onLogin: (role: string) => void;
-}
-
-const Login = ({ onLogin }: LoginProps) => {
+const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -46,8 +44,6 @@ const Login = ({ onLogin }: LoginProps) => {
     setIsLoading(true);
 
     try {
-      console.log('Attempting login to:', AUTH_LOGIN);
-      console.log('Base URL:', import.meta.env.VITE_API_URL);
       const response = await apiClient.post(AUTH_LOGIN, {
         username,
         password,
@@ -55,25 +51,23 @@ const Login = ({ onLogin }: LoginProps) => {
       });
       
       if (response.data.success && response.data.data) {
-        // Store user data with role from backend response
-        const userData = {
-          ...response.data.data.user,
-        };
-        localStorage.setItem('user', JSON.stringify(userData));
-        
-        // Use the role from the backend response
-        const userRole = response.data.data.user.role || role;
-        console.log('User role after login:', userRole);
+        // Store token
+        if (response.data.data.token) {
+          localStorage.setItem('token', response.data.data.token);
+        }
+
+        // Use AuthContext login
+        const userData = response.data.data.user;
+        login(userData);
         
         toast.success(response.data.message || "Login successful! Welcome to the system.");
-        onLogin(userRole);
         navigate("/");
       } else {
         toast.error(response.data.message || "Login failed");
       }
     } catch (error: any) {
       console.error('Login error:', error);
-      toast.error(error.message || "Login failed. Please try again.");
+      toast.error(error.response?.data?.message || error.message || "Login failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
