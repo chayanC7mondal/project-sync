@@ -5,7 +5,7 @@ import { verifyToken } from "../middlewares/authMiddleware.js";
 const authRoutes = Router();
 
 authRoutes.post("/login", login);
-authRoutes.post("/logout", verifyToken, logout);
+authRoutes.post("/logout", logout);
 authRoutes.get("/validate", validateToken);
 
 export default authRoutes;

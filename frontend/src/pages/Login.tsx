@@ -8,6 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Shield, Lock, User, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import apiClient from "@/utils/apiClient";
+import { AUTH_LOGIN } from "@/utils/constants";
 
 interface LoginProps {
   onLogin: () => void;
@@ -16,27 +18,46 @@ interface LoginProps {
 const Login = ({ onLogin }: LoginProps) => {
   const navigate = useNavigate();
   const [role, setRole] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!role || !username || !password) {
+    if (!role || !email || !password) {
       toast.error("Please fill in all fields");
       return;
     }
 
     setIsLoading(true);
 
-    // Mock authentication with delay
-    setTimeout(() => {
-      toast.success("Login successful! Welcome to the system.");
-      onLogin();
-      navigate("/");
+    try {
+      console.log('Attempting login to:', AUTH_LOGIN);
+      console.log('Base URL:', import.meta.env.VITE_API_URL);
+      const response = await apiClient.post(AUTH_LOGIN, {
+        email,
+        password
+      });
+      
+      if (response.data.success && response.data.data) {
+        // Store user data
+        if (response.data.data.user) {
+          localStorage.setItem('user', JSON.stringify(response.data.data.user));
+        }
+        
+        toast.success(response.data.message || "Login successful! Welcome to the system.");
+        onLogin();
+        navigate("/");
+      } else {
+        toast.error(response.data.message || "Login failed");
+      }
+    } catch (error: any) {
+      console.error('Login error:', error);
+      toast.error(error.message || "Login failed. Please try again.");
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -89,16 +110,16 @@ const Login = ({ onLogin }: LoginProps) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="username" className="text-sm font-semibold">Username / Employee ID</Label>
+              <Label htmlFor="email" className="text-sm font-semibold">Email / Employee ID</Label>
               <div className="relative">
                 <User className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
                 <Input
-                  id="username"
+                  id="email"
                   type="text"
-                  placeholder="Enter your ID"
+                  placeholder="Enter your email or ID"
                   className="pl-10 h-11"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
                 />
               </div>
