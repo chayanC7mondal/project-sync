@@ -29,6 +29,7 @@ import IOCases from "@/pages/IOCases";
 import IOWitnesses from "@/pages/IOWitnesses";
 import IOHearings from "@/pages/IOHearings";
 import IONotifications from "@/pages/IONotifications";
+import IOAttendanceMarking from "@/pages/IOAttendanceMarking";
 
 // Witness-specific Pages
 import WitnessCases from "@/pages/WitnessCases";
@@ -138,6 +139,7 @@ const AuthenticatedApp = () => {
               <Route path="/cases" element={<IOCases />} />
               <Route path="/witnesses" element={<IOWitnesses />} />
               <Route path="/hearings" element={<IOHearings />} />
+              <Route path="/attendance" element={<IOAttendanceMarking />} />
               <Route path="/attendance/verify" element={<VerifyAttendance />} />
               <Route path="/notifications" element={<IONotifications />} />
               <Route

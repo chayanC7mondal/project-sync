@@ -1,0 +1,159 @@
+{
+  "testCase1": {
+    "description": "Murder case with witness testimony",
+    "payload": {
+      "firNumber": "FIR/2024/12345",
+      "firDate": "2024-11-01",
+      "policeStation": "City Police Station",
+      "sections": ["IPC 302", "IPC 120B", "IPC 201"],
+      "courtName": "District Court, Bhubaneswar",
+      "courtNumber": "Court Room 205",
+      "judge": "Hon'ble Justice Sharma",
+      "nextHearingDate": "2025-11-15",
+      "hearingTime": "10:30 AM",
+      "status": "pending",
+      "remarks": "Important murder case - witness testimony required",
+      "witnessUsername": "rahul_mishra",
+      "ioUsername": "suresh_dash",
+      "liaisonUsername": "liaison_officer"
+    }
+  },
+  "testCase2": {
+    "description": "Theft case with multiple witnesses",
+    "payload": {
+      "firNumber": "FIR/2024/67890",
+      "firDate": "2024-10-15",
+      "policeStation": "Central Police Station",
+      "sections": ["IPC 379", "IPC 411"],
+      "courtName": "District Court, Bhubaneswar",
+      "courtNumber": "Court Room 103",
+      "judge": "Hon'ble Justice Patel",
+      "nextHearingDate": "2025-11-20",
+      "hearingTime": "2:00 PM",
+      "status": "pending",
+      "remarks": "Theft case - property worth 5 lakhs",
+      "witnessUsername": "rahul_mishra",
+      "ioUsername": "suresh_dash",
+      "liaisonUsername": "liaison_officer"
+    }
+  },
+  "testCase3": {
+    "description": "Assault case",
+    "payload": {
+      "firNumber": "FIR/2024/11111",
+      "firDate": "2024-11-05",
+      "policeStation": "North Police Station",
+      "sections": ["IPC 323", "IPC 324", "IPC 506"],
+      "courtName": "District Court, Bhubaneswar",
+      "courtNumber": "Court Room 301",
+      "judge": "Hon'ble Justice Singh",
+      "nextHearingDate": "2025-12-01",
+      "hearingTime": "11:00 AM",
+      "status": "pending",
+      "remarks": "Assault case with grievous injury",
+      "witnessUsername": "rahul_mishra",
+      "ioUsername": "suresh_dash",
+      "liaisonUsername": "liaison_officer"
+    }
+  },
+  "users": {
+    "io": {
+      "username": "suresh_dash",
+      "password": "password123",
+      "name": "Suresh Dash",
+      "email": "suresh.dash@police.gov.in",
+      "phone": "9876543210",
+      "role": "io"
+    },
+    "witness": {
+      "username": "rahul_mishra",
+      "password": "password123",
+      "name": "Rahul Mishra",
+      "email": "rahul.mishra@example.com",
+      "phone": "9876543211",
+      "role": "witness"
+    },
+    "liaison": {
+      "username": "liaison_officer",
+      "password": "password123",
+      "name": "Liaison Officer",
+      "email": "liaison@police.gov.in",
+      "phone": "9876543212",
+      "role": "liaison"
+    }
+  },
+  "mongoDBQueries": {
+    "findCaseByNumber": "db.cases.find({ firNumber: 'FIR/2024/12345' }).pretty()",
+    "findAllCases": "db.cases.find({}).pretty()",
+    "findHearingSessions": "db.hearingsessions.find({}).pretty()",
+    "findAttendance": "db.attendances.find({}).pretty()",
+    "findWitnesses": "db.witnesses.find({}).pretty()",
+    "findUsers": "db.auths.find({ role: { $in: ['io', 'witness', 'liaison'] } }).pretty()",
+    "findPresentAttendance": "db.attendances.find({ status: 'present' }).pretty()",
+    "countRecords": {
+      "cases": "db.cases.countDocuments({})",
+      "hearingSessions": "db.hearingsessions.countDocuments({})",
+      "attendance": "db.attendances.countDocuments({})",
+      "witnesses": "db.witnesses.countDocuments({})"
+    }
+  },
+  "apiEndpoints": {
+    "createUsers": {
+      "method": "POST",
+      "url": "http://localhost:3000/api/automation/create-users",
+      "auth": "none",
+      "description": "Create test users (IO, Witness, Liaison)"
+    },
+    "login": {
+      "method": "POST",
+      "url": "http://localhost:3000/api/auth/login",
+      "auth": "none",
+      "body": {
+        "username": "liaison_officer",
+        "password": "password123"
+      },
+      "description": "Login to get authentication token"
+    },
+    "createCompleteCase": {
+      "method": "POST",
+      "url": "http://localhost:3000/api/automation/create-complete-case",
+      "auth": "Bearer token",
+      "description": "Create complete case with witness, IO, hearing session, and QR codes"
+    },
+    "markAttendance": {
+      "method": "POST",
+      "url": "http://localhost:3000/api/automation/mark-attendance",
+      "auth": "Bearer token",
+      "body": {
+        "code": "CASE2-AB12",
+        "username": "rahul_mishra",
+        "codeType": "manual"
+      },
+      "description": "Mark attendance using QR code or manual code"
+    },
+    "getCaseDetails": {
+      "method": "GET",
+      "url": "http://localhost:3000/api/automation/case-details/{caseId}",
+      "auth": "Bearer token",
+      "description": "Get complete case details with all related records"
+    },
+    "getQRCodes": {
+      "method": "GET",
+      "url": "http://localhost:3000/api/automation/qr-codes/{caseId}",
+      "auth": "Bearer token",
+      "description": "Get QR codes for a specific case"
+    }
+  },
+  "workflow": [
+    "1. Create test users (IO: suresh_dash, Witness: rahul_mishra, Liaison: liaison_officer)",
+    "2. Login as liaison_officer to get authentication token",
+    "3. Create complete case with all details (generates unique case ID, QR codes)",
+    "4. System automatically creates witness profile and links to case",
+    "5. System generates hearing session with QR code and manual code",
+    "6. System creates attendance records for both witness and IO (status: not-marked)",
+    "7. Mark witness attendance using QR code or manual code",
+    "8. Mark IO attendance using same QR code or manual code",
+    "9. Fetch complete case details to verify all data",
+    "10. Check MongoDB collections to see all related records"
+  ]
+}
