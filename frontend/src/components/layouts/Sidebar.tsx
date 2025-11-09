@@ -43,6 +43,7 @@ const getMenuItemsByRole = (role: string) => {
         { icon: FileText, label: "My Cases", path: "/cases", badge: null },
         { icon: Users, label: "Witnesses", path: "/witnesses", badge: null },
         { icon: Calendar, label: "Hearings", path: "/hearings", badge: null },
+        { icon: ClipboardCheck, label: "Mark Attendance", path: "/attendance", badge: null },
         { icon: Bell, label: "Notifications", path: "/notifications", badge: null },
         { icon: Settings, label: "Settings", path: "/settings", badge: null },
       ];
